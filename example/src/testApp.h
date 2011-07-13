@@ -32,7 +32,8 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+	void mouseMovedEvent(ofMouseEventArgs &args);
 
 	std::map<ofxFenster*, ofVec2f> mousePos;
-	imageWindow imgWin;
+	imageWindow* imgWin;
 };

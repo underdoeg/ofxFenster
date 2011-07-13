@@ -4,7 +4,7 @@
 void testApp::setup() {
 	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
-	
+	imgWin=new imageWindow();
 	ofBackground(0,0,0);
 	mousePos[ofxFensterManager::get()->getPrimaryWindow()]=ofVec2f(0,0);
 	
@@ -15,10 +15,13 @@ void testApp::setup() {
 	}
 	
 	//setup of fensterListener does not get called yet automatically
-	imgWin.setup();
+	imgWin->setup();
 	for(int i=0;i<3;i++){
 		ofxFenster* win=ofxFensterManager::get()->createFenster(300, 300, OF_WINDOW);
-		win->addListener(&imgWin);
+		if(i==0){
+			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
+		}
+		win->addListener(imgWin);
 	}
 }
 
@@ -47,7 +50,7 @@ void testApp::draw() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key, ofxFenster* win) {
-
+	
 }
 
 //--------------------------------------------------------------
@@ -68,30 +71,35 @@ void testApp::mouseMoved(int x, int y ) {
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button) {
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button) {
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h) {
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::gotMessage(ofMessage msg) {
-
+	
 }
 
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo) {
-
+	
 }
+
+void testApp::mouseMovedEvent(ofMouseEventArgs &args){
+	cout << "MOUSE WAS MOVED" << endl;
+}
+
