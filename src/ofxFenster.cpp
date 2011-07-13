@@ -174,7 +174,7 @@ void ofxFenster::draw() {
 	ofGetWidth();
 	
 	ofNotifyEvent(ofEvents.draw, voidEventArgs);
-	ofNotifyEvent(events.draw, mouseEventArgs);
+	ofNotifyEvent(events.draw, voidEventArgs);
 	
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
@@ -191,7 +191,7 @@ void ofxFenster::keyPressed(int key) {
 	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
-	ofNotifyEvent(events.keyPressed, mouseEventArgs);
+	ofNotifyEvent(events.keyPressed, keyEventArgs);
 
 	
 	while(it!=listeners.end()) {
@@ -205,7 +205,7 @@ void ofxFenster::keyReleased(int key) {
 	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
-	ofNotifyEvent(events.keyReleased, mouseEventArgs);
+	ofNotifyEvent(events.keyReleased, keyEventArgs);
 
 	
 	while(it!=listeners.end()) {
