@@ -1152,6 +1152,7 @@ GHOST_TSuccess GHOST_SystemCocoa::handleDraggingEvent(GHOST_TEventType eventType
 				
 				case GHOST_kDragnDropTypeBitmap:
 				{
+					
 					NSImage *droppedImg = (NSImage*)data;
 					NSSize imgSize = [droppedImg size];
 					ImBuf *ibuf = NULL;

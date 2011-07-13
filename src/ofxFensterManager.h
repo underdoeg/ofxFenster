@@ -20,6 +20,7 @@ public:
 
 	void setupOpenGL(int w, int h, int screenMode);
 	void runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr);
+	void runAppViaInfiniteLoop(ofBaseApp* appPtr);
 
 	ofxFenster* createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
 

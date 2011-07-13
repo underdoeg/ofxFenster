@@ -144,7 +144,7 @@ void ofxFenster::toggleFullscreen() {
 }
 
 void ofxFenster::addListener(ofxFensterListener* listener) {
-	listeners.push_back(ofPtr<ofxFensterListener>(listener));
+	listeners.push_back(listener);
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
