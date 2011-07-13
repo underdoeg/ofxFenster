@@ -14,7 +14,7 @@
 #include "GHOST_SystemX11.h"
 #endif
 
-static ofPtr<ofBaseApp> baseApp;
+static ofBaseApp* baseApp;
 ofxFensterManager* ofxFensterManager::singleton;
 
 ofxFensterManager::ofxFensterManager():
@@ -51,6 +51,10 @@ void ofxFensterManager::setupOpenGL(int w, int h, int screenMode) {
 }
 
 void ofxFensterManager::runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr) {
+	runAppViaInfiniteLoop(appPtr.get());
+}
+
+void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr) {
 	running=true;
 	baseApp=appPtr;
 	baseApp->setup();
