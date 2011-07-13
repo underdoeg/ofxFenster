@@ -1,0 +1,5 @@
+*~
+bin/libs/
+include/
+obj/
+*.layout
