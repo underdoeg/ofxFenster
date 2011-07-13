@@ -47,7 +47,7 @@ ofxFensterManager::~ofxFensterManager() {
 void ofxFensterManager::setupOpenGL(int w, int h, int screenMode) {
 	primaryWindow=createFenster(w, h, screenMode);
 	setActiveWindow(primaryWindow);
-	ofSetDefaultRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
+	ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
 }
 
 void ofxFensterManager::runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr) {
@@ -80,7 +80,7 @@ void ofxFensterManager::onTimer() {
 			#endif
 		}
 	}
-	
+
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
 
 	timeNow = ofGetElapsedTimef();
@@ -130,7 +130,7 @@ int handleKeyData(GHOST_TEventKeyData* data) {
 bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 	GHOST_IWindow* window = event->getWindow();
 	bool handled = true;
-	
+
 	ofxFenster* win=getFensterByHandler(window);
 	setActiveWindow(win);
 	win->activateDrawingContext();
@@ -154,7 +154,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 			p.x-=winPos.m_l;
 			p.y-=winPos.m_t;
 		#endif
-		
+
 		if(win->isButtonDown) {
 			//win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
             win->mouseDragged(p.x, p.y, win->buttonDown);
