@@ -124,7 +124,14 @@ public:
 	    GHOST_TUns32 width,
 	    GHOST_TUns32 height
 	);
-
+    
+    	/**
+	 * Positions client
+	 * @param inX The new x of the window.
+	 * @param inY The new y of the window.
+	 */
+	virtual	GHOST_TSuccess setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY) ;
+    
 	void
 	screenToClient(
 	    GHOST_TInt32 inX,

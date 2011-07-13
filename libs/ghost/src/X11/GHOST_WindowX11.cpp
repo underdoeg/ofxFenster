@@ -820,6 +820,11 @@ setClientSize(
 
 }
 
+GHOST_TSuccess GHOST_WindowX11::setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY) {
+    return GHOST_kSuccess;
+}
+
+
 void
 GHOST_WindowX11::
 screenToClient(

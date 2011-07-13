@@ -133,6 +133,8 @@ int handleKeyData(GHOST_TEventKeyData* data) {
 
 bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 	GHOST_IWindow* window = event->getWindow();
+	if(window==NULL) //maybe not the best way to do this...
+		return false;
 	bool handled = true;
 
 	ofxFenster* win=getFensterByHandler(window);
@@ -149,7 +151,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 
 		//////////////////// MOUSE
 	case GHOST_kEventCursorMove: {
-		ofxFenster* win=getFensterByHandler(window);
 		GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
 		ofPoint p(bd->x, bd->y);
 		#ifdef TARGET_OSX
@@ -203,12 +204,14 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 	case GHOST_kEventWindowSize: {
 		GHOST_Rect rect;
 		window->getClientBounds(rect);
-		getFensterByHandler(window)->windowResized(rect.getWidth(), rect.getHeight());
+		win->windowResized(rect.getWidth(), rect.getHeight());
+		//win->draw();
 	}
 	case GHOST_kEventWindowUpdate:
-		//window->swapBuffers();
+			//win->draw();
 		break;
 	case GHOST_kEventWindowActivate:
+			//win->draw();
 		break;
 	case GHOST_kEventWindowDeactivate:
 		break;

@@ -129,6 +129,13 @@ public:
 	 * @param height The new height of the client area of the window.
 	 */
 	virtual	GHOST_TSuccess setClientHeight(GHOST_TUns32 height) = 0;
+	
+	/**
+	 * Positions client
+	 * @param inX The new x of the window.
+	 * @param inY The new y of the window.
+	 */
+	virtual	GHOST_TSuccess setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY) = 0;
 
 	/**
 	 * Resizes client rectangle.

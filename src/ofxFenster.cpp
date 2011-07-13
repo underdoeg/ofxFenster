@@ -30,6 +30,7 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
 	}
 	
 	win = GHOST_ISystem::getSystem()->createWindow(title, 0, 0, w, h, state, GHOST_kDrawingContextTypeOpenGL, false);
+	setWindowPosition(0, 0);
 	if (!win) {
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
 	}
@@ -126,7 +127,7 @@ void ofxFenster::setOrientation(ofOrientation orientation) {
 }
 
 void ofxFenster::setWindowPosition(int x, int y) {
-	
+	win->setClientPosition(x, y);
 }
 
 void ofxFenster::setWindowShape(int w, int h) {
@@ -193,7 +194,6 @@ void ofxFenster::keyPressed(int key) {
 	ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
 	ofNotifyEvent(events.keyPressed, keyEventArgs);
 
-	
 	while(it!=listeners.end()) {
 		(*it)->keyPressed(key, this);
 		++it;
@@ -207,7 +207,6 @@ void ofxFenster::keyReleased(int key) {
 	ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
 	ofNotifyEvent(events.keyReleased, keyEventArgs);
 
-	
 	while(it!=listeners.end()) {
 		(*it)->keyReleased(key, this);
 		++it;
@@ -224,7 +223,6 @@ void ofxFenster::mouseDragged(int x, int y, int button) {
 	ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
 	ofNotifyEvent(events.mouseDragged, mouseEventArgs);
 
-	
 	while(it!=listeners.end()) {
 		(*it)->mouseDragged(x, y, button, this);
 		++it;
@@ -271,7 +269,6 @@ void ofxFenster::mouseReleased(int x, int y, int button) {
 	mouseEventArgs.button = button;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
-	
 	ofNotifyEvent(events.mouseReleased, mouseEventArgs);
 	
 	while(it!=listeners.end()) {
@@ -292,6 +289,7 @@ void ofxFenster::setup() {
 	activateDrawingContext();
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.setup, voidEventArgs);
+	ofNotifyEvent(events.setup, voidEventArgs);
 
 	while(it!=listeners.end()) {
 		(*it)->setup(this);

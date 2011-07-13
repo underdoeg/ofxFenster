@@ -44,6 +44,7 @@
 #include "GHOST_SystemCocoa.h"
 #include "GHOST_Debug.h"
 
+#include <iostream>
 
 #pragma mark Cocoa window delegate object
 /* live resize ugly patch
@@ -662,6 +663,21 @@ GHOST_TSuccess GHOST_WindowCocoa::setClientSize(GHOST_TUns32 width, GHOST_TUns32
 		size.height=height;
 		[m_window setContentSize:size];
 	}
+	[pool drain];
+	return GHOST_kSuccess;
+}
+
+GHOST_TSuccess GHOST_WindowCocoa::setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY){
+	std::cout << inX << std::endl;
+	GHOST_ASSERT(getValid(), "GHOST_WindowCocoa::setClientPosition(): window invalid")
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSRect screenRect=[getScreen() visibleFrame];
+	
+	NSPoint p;
+	p.x=inX;
+	p.y=screenRect.size.height-inY;
+	[m_window setFrameOrigin:p];
 	[pool drain];
 	return GHOST_kSuccess;
 }

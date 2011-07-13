@@ -129,6 +129,13 @@ public:
 	 * @param bounds The bounding rectangle of the cleient area of the window.
 	 */
 	virtual	void getClientBounds(GHOST_Rect& bounds) const;
+	
+	/**
+	 * Positions client
+	 * @param inX The new x of the window.
+	 * @param inY The new y of the window.
+	 */
+	virtual	GHOST_TSuccess setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY);
 
 	/**
 	 * Resizes client rectangle width.
