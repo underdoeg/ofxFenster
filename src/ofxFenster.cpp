@@ -20,7 +20,7 @@ ofxFenster::~ofxFenster() {
 }
 
 void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
-
+	
 	app=ofPtr<ofBaseApp>(this);
 	STR_String title("window");
 	GHOST_TWindowState state=GHOST_kWindowStateNormal;
@@ -28,7 +28,7 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
 		isFullscreen=true;
 		state=GHOST_kWindowStateFullScreen;
 	}
-
+	
 	win = GHOST_ISystem::getSystem()->createWindow(title, 0, 0, w, h, state, GHOST_kDrawingContextTypeOpenGL, false);
 	if (!win) {
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
@@ -104,17 +104,17 @@ void onWinTimerFunc(GHOST_ITimerTask* task, GHOST_TUns64 time) {
 
 void ofxFenster::setFrameRate(float targetRate) {
 	/*if(timer)
-		GHOST_ISystem::getSystem()->removeTimer(timer);
-	int fps=floorf(1000/targetRate);*/
+	 GHOST_ISystem::getSystem()->removeTimer(timer);
+	 int fps=floorf(1000/targetRate);*/
 	//timer=GHOST_ISystem::getSystem()->installTimer(0, fps, onWinTimerFunc, this);
 }
 
 void ofxFenster::setFullscreen(bool fullscreen) {
 	if(fullscreen==isFullscreen)
 		return;
-
+	
 	isFullscreen=fullscreen;
-
+	
 	if(isFullscreen) {
 		win->setState(GHOST_kWindowStateFullScreen);
 	} else {
@@ -126,14 +126,14 @@ void ofxFenster::setOrientation(ofOrientation orientation) {
 }
 
 void ofxFenster::setWindowPosition(int x, int y) {
-
+	
 }
 
 void ofxFenster::setWindowShape(int w, int h) {
 }
 
 void ofxFenster::setWindowTitle(string title) {
-
+	
 }
 
 void ofxFenster::showCursor() {
@@ -149,7 +149,7 @@ void ofxFenster::addListener(ofxFensterListener* listener) {
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
-
+	
 }
 
 int curX=0;
@@ -157,90 +157,105 @@ int curX=0;
 void ofxFenster::draw() {
 	activateDrawingContext();
 	ofSetAppPtr(app);
-
+	
 	ofxFensterManager::get()->setActiveWindow(this);
-
+	
 	ofPoint size=getWindowSize();
-
+	
 	float * bgPtr = ofBgColorPtr();
 	bool bClearAuto = ofbClearBg();
-
+	
 	if ( bClearAuto == true) {
 		ofClear(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
 	}
 	ofViewport(0, 0, size.x, size.y);		// used to be glViewport( 0, 0, width, height );
 	ofSetupScreenPerspective(size.x, size.y, OF_ORIENTATION_DEFAULT);
-
+	
 	ofGetWidth();
-
+	
+	ofNotifyEvent(ofEvents.draw, voidEventArgs);
+	ofNotifyEvent(events.draw, mouseEventArgs);
+	
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.draw, voidEventArgs);
 		(*it)->draw(this);
 		++it;
 	}
-
+	
 	win->swapBuffers();
 	return;
 }
 
 void ofxFenster::keyPressed(int key) {
-  static ofKeyEventArgs keyEventArgs;
-  keyEventArgs.key = key;
+	static ofKeyEventArgs keyEventArgs;
+	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
+	ofNotifyEvent(events.keyPressed, mouseEventArgs);
+
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
 		(*it)->keyPressed(key, this);
 		++it;
 	}
 }
 
 void ofxFenster::keyReleased(int key) {
-  static ofKeyEventArgs keyEventArgs;
-  keyEventArgs.key = key;
+	static ofKeyEventArgs keyEventArgs;
+	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
+	ofNotifyEvent(events.keyReleased, mouseEventArgs);
+
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
 		(*it)->keyReleased(key, this);
 		++it;
 	}
 }
 
 void ofxFenster::mouseDragged(int x, int y, int button) {
-  static ofMouseEventArgs mouseEventArgs;
+	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
 	mousePos.set(x, y);
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
+	ofNotifyEvent(events.mouseDragged, mouseEventArgs);
+
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
 		(*it)->mouseDragged(x, y, button, this);
 		++it;
 	}
 }
 
 void ofxFenster::mouseMoved(int x, int y) {
-  static ofMouseEventArgs mouseEventArgs;
+	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mousePos.set(x, y);
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
+	ofNotifyEvent(events.mouseMoved, mouseEventArgs);
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
 		(*it)->mouseMoved(x, y, this);
 		++it;
 	}
 }
 
 void ofxFenster::mousePressed(int x, int y, int button) {
-  static ofMouseEventArgs mouseEventArgs;
+	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
+	ofNotifyEvent(events.mousePressed, mouseEventArgs);
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
 		(*it)->mousePressed(x, y, button, this);
 		++it;
 	}
@@ -250,13 +265,16 @@ void ofxFenster::mouseReleased() {
 }
 
 void ofxFenster::mouseReleased(int x, int y, int button) {
-  static ofMouseEventArgs mouseEventArgs;
+	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
+	
+	ofNotifyEvent(events.mouseReleased, mouseEventArgs);
+	
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
 		(*it)->mouseReleased(x, y, button, this);
 		++it;
 	}
@@ -273,8 +291,9 @@ void ofxFenster::mouseReleased(int btn) {
 void ofxFenster::setup() {
 	activateDrawingContext();
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.setup, voidEventArgs);
+
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.setup, voidEventArgs);
 		(*it)->setup(this);
 		++it;
 	}
@@ -288,8 +307,9 @@ void ofxFenster::onTimer(GHOST_ITimerTask* task, GHOST_TUns64 time) {
 void ofxFenster::update() {
 	activateDrawingContext();
 	ofxFensterListenerList::iterator it=listeners.begin();
+	ofNotifyEvent(ofEvents.update, voidEventArgs);
+
 	while(it!=listeners.end()) {
-    ofNotifyEvent(ofEvents.update, voidEventArgs);
 		(*it)->update(this);
 		++it;
 	}

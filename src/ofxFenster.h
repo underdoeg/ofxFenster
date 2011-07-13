@@ -11,6 +11,32 @@ class GHOST_IWindow;
 
 class ofxFenster;
 
+class eventGroup{
+public:
+	ofEvent<ofEventArgs> 		setup;
+	ofEvent<ofEventArgs> 		update;
+	ofEvent<ofEventArgs> 		draw;
+	ofEvent<ofEventArgs> 		exit;
+	ofEvent<ofResizeEventArgs> 	windowResized;
+	
+	ofEvent<ofKeyEventArgs> 	keyPressed;
+	ofEvent<ofKeyEventArgs> 	keyReleased;
+	
+	ofEvent<ofMouseEventArgs> 	mouseMoved;
+	ofEvent<ofMouseEventArgs> 	mouseDragged;
+	ofEvent<ofMouseEventArgs> 	mousePressed;
+	ofEvent<ofMouseEventArgs> 	mouseReleased;
+	
+	ofEvent<ofTouchEventArgs>	touchDown;
+	ofEvent<ofTouchEventArgs>	touchUp;
+	ofEvent<ofTouchEventArgs>	touchMoved;
+	ofEvent<ofTouchEventArgs>	touchDoubleTap;
+	ofEvent<ofTouchEventArgs>	touchCancelled;
+	
+	ofEvent<ofMessage>			messageEvent;
+	ofEvent<ofDragInfo>			fileDragEvent;	
+};
+
 class ofxFensterListener: public ofBaseApp {
 public:
 	virtual void setup(ofxFenster* f) {
@@ -115,6 +141,10 @@ public:
 	bool isButtonDown;
 	int buttonDown;
 	int id;
+	
+	/* available events, not all mapped yet */
+	eventGroup events;
+	
 private:
 	int framesElapsed;
 	ofxFensterListenerList listeners;
