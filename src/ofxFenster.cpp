@@ -7,6 +7,7 @@
 #include "ofxFensterManager.h"
 
 static int curID;
+static ofEventArgs voidEventArgs;
 
 ofxFenster::ofxFenster():framesElapsed(0), isFullscreen(false), timer(0) {
 	id=curID;
@@ -174,6 +175,7 @@ void ofxFenster::draw() {
 
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.draw, voidEventArgs);
 		(*it)->draw(this);
 		++it;
 	}
@@ -183,42 +185,62 @@ void ofxFenster::draw() {
 }
 
 void ofxFenster::keyPressed(int key) {
+  static ofKeyEventArgs keyEventArgs;
+  keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
 		(*it)->keyPressed(key, this);
 		++it;
 	}
 }
 
 void ofxFenster::keyReleased(int key) {
+  static ofKeyEventArgs keyEventArgs;
+  keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
 		(*it)->keyReleased(key, this);
 		++it;
 	}
 }
 
 void ofxFenster::mouseDragged(int x, int y, int button) {
+  static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = x;
+	mouseEventArgs.y = y;
+	mouseEventArgs.button = button;
 	mousePos.set(x, y);
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
 		(*it)->mouseDragged(x, y, button, this);
 		++it;
 	}
 }
 
 void ofxFenster::mouseMoved(int x, int y) {
+  static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = x;
+	mouseEventArgs.y = y;
 	mousePos.set(x, y);
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
 		(*it)->mouseMoved(x, y, this);
 		++it;
 	}
 }
 
 void ofxFenster::mousePressed(int x, int y, int button) {
+  static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = x;
+	mouseEventArgs.y = y;
+	mouseEventArgs.button = button;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
 		(*it)->mousePressed(x, y, button, this);
 		++it;
 	}
@@ -228,8 +250,13 @@ void ofxFenster::mouseReleased() {
 }
 
 void ofxFenster::mouseReleased(int x, int y, int button) {
+  static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = x;
+	mouseEventArgs.y = y;
+	mouseEventArgs.button = button;
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
 		(*it)->mouseReleased(x, y, button, this);
 		++it;
 	}
@@ -247,6 +274,7 @@ void ofxFenster::setup() {
 	activateDrawingContext();
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.setup, voidEventArgs);
 		(*it)->setup(this);
 		++it;
 	}
@@ -261,6 +289,7 @@ void ofxFenster::update() {
 	activateDrawingContext();
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
+    ofNotifyEvent(ofEvents.update, voidEventArgs);
 		(*it)->update(this);
 		++it;
 	}
