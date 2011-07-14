@@ -152,7 +152,7 @@ void ofxFenster::toggleFullscreen() {
 }
 
 void ofxFenster::addListener(ofxFensterListener* listener) {
-	listeners.push_back(listener);
+	listeners.push_back(ofxFensterListenerPtr(listener));
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
@@ -163,9 +163,9 @@ int curX=0;
 
 void ofxFenster::draw() {
 	activateDrawingContext();
-	ofSetAppPtr(app);
+	//ofSetAppPtr(app);
 	
-	ofxFensterManager::get()->setActiveWindow(this);
+	ofxFensterManager::get()->setActiveWindow(ofxFensterManager::get()->getWindowById(id));
 	
 	ofPoint size=getWindowSize();
 	
@@ -266,6 +266,7 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 }
 
 void ofxFenster::mouseReleased() {
+	
 }
 
 void ofxFenster::mouseReleased(int x, int y, int button) {

@@ -83,7 +83,10 @@ public:
 	virtual void mouseReleased(){};
 };
 
-typedef std::vector< ofxFensterListener* > ofxFensterListenerList;
+class ofxFenster;
+
+typedef ofPtr<ofxFensterListener> ofxFensterListenerPtr;
+typedef std::vector< ofxFensterListenerPtr > ofxFensterListenerList;
 
 class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
 
