@@ -9,7 +9,7 @@ void testApp::setup() {
 	mousePos[ofxFensterManager::get()->getPrimaryWindow()]=ofVec2f(0,0);
 	
 	for(int i=0;i<3;i++){
-		ofxFenster* win=ofxFensterManager::get()->createFenster(300, 300, OF_WINDOW);
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*300), 0, 300, 300, OF_WINDOW);
 		win->addListener(this);
 		mousePos[win]=ofVec2f(0,0);
 	}
@@ -17,7 +17,7 @@ void testApp::setup() {
 	//setup of fensterListener does not get called yet automatically
 	imgWin->setup();
 	for(int i=0;i<3;i++){
-		ofxFenster* win=ofxFensterManager::get()->createFenster(300, 300, OF_WINDOW);
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*300), 300, 300, 300, OF_WINDOW);
 		if(i==0){
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}

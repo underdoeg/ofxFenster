@@ -18,23 +18,23 @@ public:
 	ofEvent<ofEventArgs> 		draw;
 	ofEvent<ofEventArgs> 		exit;
 	ofEvent<ofResizeEventArgs> 	windowResized;
-	
+
 	ofEvent<ofKeyEventArgs> 	keyPressed;
 	ofEvent<ofKeyEventArgs> 	keyReleased;
-	
+
 	ofEvent<ofMouseEventArgs> 	mouseMoved;
 	ofEvent<ofMouseEventArgs> 	mouseDragged;
 	ofEvent<ofMouseEventArgs> 	mousePressed;
 	ofEvent<ofMouseEventArgs> 	mouseReleased;
-	
+
 	ofEvent<ofTouchEventArgs>	touchDown;
 	ofEvent<ofTouchEventArgs>	touchUp;
 	ofEvent<ofTouchEventArgs>	touchMoved;
 	ofEvent<ofTouchEventArgs>	touchDoubleTap;
 	ofEvent<ofTouchEventArgs>	touchCancelled;
-	
+
 	ofEvent<ofMessage>			messageEvent;
-	ofEvent<ofDragInfo>			fileDragEvent;	
+	ofEvent<ofDragInfo>			fileDragEvent;
 };
 
 class ofxFensterListener: public ofBaseApp {
@@ -54,14 +54,14 @@ public:
 	virtual void keyPressed(int key, ofxFenster* f) {
 		keyPressed(key);
 	}
-	
+
 	//KEY
 	virtual void keyPressed(int key) {};
 	virtual void keyReleased(int key, ofxFenster* f) {
 		keyReleased(key);
 	}
 	virtual void keyReleased(int key) {};
-	
+
 	//MOUSE
 	virtual void mouseMoved(int x, int y, ofxFenster* f){
 		mouseMoved(x, y);
@@ -128,24 +128,24 @@ public:
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
-	void setupOpenGL(int w, int h, int screenMode);
+	void setupOpenGL(int l, int t, int w, int h, int screenMode);
 	void showCursor();
 	void toggleFullscreen();
 	void activateDrawingContext();
 	void destroy();
-	
+
 	GHOST_IWindow* getWindow();
 
 	void addListener(ofxFensterListener* listener);
 	void onTimer(GHOST_ITimerTask* task, GHOST_TUns64 time);
-	
+
 	bool isButtonDown;
 	int buttonDown;
 	int id;
-	
+
 	/* available events, not all mapped yet */
 	eventGroup events;
-	
+
 private:
 	bool isDestroyed;
 	int framesElapsed;
