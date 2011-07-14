@@ -67,6 +67,7 @@ public:
 	void setPrimaryWindow(ofxFenster * primaryWindow);
 	ofxFenster * getActiveWindow();
 	ofxFenster * getPrimaryWindow();
+	ofxFenster * getWindowById(int _id);
 
 private:
 	ofxFenster* activeWindow;
