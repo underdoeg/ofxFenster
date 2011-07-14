@@ -121,7 +121,7 @@ ofxFensterPtr ofxFensterManager::createFenster(int w, int h, int screenMode) {
 	return f;
 }
 
-void ofxFensterManager::deleteFenster(ofxFenster* fenster){
+void ofxFensterManager::deleteFenster(ofxFensterPtr fenster){
 	fenster->destroy();
 	fensterList::iterator it=fensters.begin();
     fensterList::iterator del;

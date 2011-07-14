@@ -27,7 +27,7 @@ public:
 	void runAppViaInfiniteLoop(ofBaseApp* appPtr);
 
 	ofxFensterPtr createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
-	void deleteFenster(ofxFenster* fenster);
+	void deleteFenster(ofxFensterPtr fenster);
 	
 	/*
 	void setScreenNumber(int n);

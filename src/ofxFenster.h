@@ -85,7 +85,7 @@ public:
 
 class ofxFenster;
 
-typedef ofPtr<ofxFensterListener> ofxFensterListenerPtr;
+typedef ofxFensterListener* ofxFensterListenerPtr;
 typedef std::vector< ofxFensterListenerPtr > ofxFensterListenerList;
 
 class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
