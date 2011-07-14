@@ -228,6 +228,19 @@ void ofxFensterManager::setPrimaryWindow(ofxFenster * primaryWindow) {
 ofxFenster * ofxFensterManager::getActiveWindow() {
 	return activeWindow;
 }
+
+ofxFenster * ofxFensterManager::getWindowById(int _id) {
+    fensterList::iterator it=fensters.begin();
+	while(it!=fensters.end()) {
+	  if((*it)->id == _id) {
+        return *it;
+        break;
+	  }
+      ++it;
+	}
+	return primaryWindow;
+}
+
 ofxFenster * ofxFensterManager::getPrimaryWindow() {
 	return primaryWindow;
 }
