@@ -12,7 +12,8 @@ class ofxFensterManager;
 
 typedef ofPtr<ofxFenster> ofxFensterPtr;
 typedef std::vector<ofxFensterPtr> fensterList;
-typedef ofPtr<ofxFensterManager> ofxFensterManagerPtr;
+typedef ofxFensterManager* ofxFensterManagerPtr;
+
 
 class ofxFensterManager: public ofAppBaseWindow, public GHOST_IEventConsumer {
 

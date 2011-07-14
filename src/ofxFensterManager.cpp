@@ -1,7 +1,4 @@
 //
-
-
-
 #include "ofxFensterManager.h"
 #include "ofMain.h"
 
@@ -19,7 +16,6 @@ ofxFensterManagerPtr ofxFensterManager::singleton;
 
 ofxFensterManager::ofxFensterManager():
 exitOnEscape(true),running(false) {
-	
 	timeNow				= 0;
 	timeThen			= 0;
 	fps					= 60.0; //give a realistic starting value - win32 issues
@@ -35,6 +31,7 @@ exitOnEscape(true),running(false) {
 }
 
 ofxFensterManager::~ofxFensterManager() {
+	//ofAppBaseWindow::~ofAppBaseWindow();
 	cout << "FENSTER MANAGER DELETED" << endl;	
 }
 
@@ -258,7 +255,8 @@ void ofxFensterManager::disableSetupScreen() {
 }
 
 bool ofxFensterManager::doesHWOrientation() {
-	return activeWindow->doesHWOrientation();
+	return false;
+	//return activeWindow->doesHWOrientation();
 }
 
 void ofxFensterManager::enableSetupScreen() {
@@ -364,7 +362,7 @@ void ofxFensterManager::toggleFullscreen() {
 
 ofxFensterManagerPtr ofxFensterManager::get() {
 	if(singleton==FALSE) {
-		singleton=ofxFensterManagerPtr(new ofxFensterManager());
+		singleton=new ofxFensterManager();
 	}
 	return singleton;
 }

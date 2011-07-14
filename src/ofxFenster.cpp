@@ -27,7 +27,7 @@ void ofxFenster::destroy(){
 
 void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
 	
-	app=ofPtr<ofBaseApp>(this);
+	//app=ofPtr<ofBaseApp>(this);
 	STR_String title("window");
 	GHOST_TWindowState state=GHOST_kWindowStateNormal;
 	if(screenMode==OF_FULLSCREEN) {
@@ -152,7 +152,7 @@ void ofxFenster::toggleFullscreen() {
 }
 
 void ofxFenster::addListener(ofxFensterListener* listener) {
-	listeners.push_back(listener);
+	listeners.push_back(ofxFensterListenerPtr(listener));
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
