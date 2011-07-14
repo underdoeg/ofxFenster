@@ -15,7 +15,7 @@ ofxFenster::ofxFenster():framesElapsed(0), isFullscreen(false), timer(0), isDest
 }
 
 ofxFenster::~ofxFenster() {
-	
+	cout << "FENSTER " << id << " DELETED" << endl;
 }
 
 void ofxFenster::destroy(){

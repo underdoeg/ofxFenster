@@ -668,7 +668,6 @@ GHOST_TSuccess GHOST_WindowCocoa::setClientSize(GHOST_TUns32 width, GHOST_TUns32
 }
 
 GHOST_TSuccess GHOST_WindowCocoa::setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY){
-	std::cout << inX << std::endl;
 	GHOST_ASSERT(getValid(), "GHOST_WindowCocoa::setClientPosition(): window invalid")
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	

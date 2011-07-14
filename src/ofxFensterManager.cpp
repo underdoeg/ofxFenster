@@ -32,10 +32,10 @@ exitOnEscape(true),running(false) {
 	if(!ghostSystem)
 		ofLog(OF_LOG_ERROR, "COULD NOT CREATE GHOST SYSTEM! \n\nhelp... o_O");
 	ghostSystem->addEventConsumer(this);
-	
 }
 
 ofxFensterManager::~ofxFensterManager() {
+	cout << "FENSTER MANAGER DELETED" << endl;	
 }
 
 void ofxFensterManager::setupOpenGL(int w, int h, int screenMode) {
