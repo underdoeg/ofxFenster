@@ -25,8 +25,8 @@ void ofxFenster::destroy(){
 	GHOST_ISystem::getSystem()->disposeWindow(win);
 }
 
-void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
-	
+void ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode) {
+
 	app=ofPtr<ofBaseApp>(this);
 	STR_String title("window");
 	GHOST_TWindowState state=GHOST_kWindowStateNormal;
@@ -34,9 +34,9 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
 		isFullscreen=true;
 		state=GHOST_kWindowStateFullScreen;
 	}
-	
-	win = GHOST_ISystem::getSystem()->createWindow(title, 0, 0, w, h, state, GHOST_kDrawingContextTypeOpenGL, false);
-	setWindowPosition(0, 0);
+
+	win = GHOST_ISystem::getSystem()->createWindow(title, l, t, w, h, state, GHOST_kDrawingContextTypeOpenGL, false);
+
 	if (!win) {
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
 	}
@@ -46,7 +46,7 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
 }
 
 void ofxFenster::disableSetupScreen() {
-	
+
 }
 
 void ofxFenster::enableSetupScreen() {
@@ -119,9 +119,9 @@ void ofxFenster::setFrameRate(float targetRate) {
 void ofxFenster::setFullscreen(bool fullscreen) {
 	if(fullscreen==isFullscreen)
 		return;
-	
+
 	isFullscreen=fullscreen;
-	
+
 	if(isFullscreen) {
 		win->setState(GHOST_kWindowStateFullScreen);
 	} else {
@@ -140,7 +140,7 @@ void ofxFenster::setWindowShape(int w, int h) {
 }
 
 void ofxFenster::setWindowTitle(string title) {
-	
+
 }
 
 void ofxFenster::showCursor() {
@@ -156,7 +156,7 @@ void ofxFenster::addListener(ofxFensterListener* listener) {
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
-	
+
 }
 
 int curX=0;
@@ -164,31 +164,31 @@ int curX=0;
 void ofxFenster::draw() {
 	activateDrawingContext();
 	ofSetAppPtr(app);
-	
+
 	ofxFensterManager::get()->setActiveWindow(this);
-	
+
 	ofPoint size=getWindowSize();
-	
+
 	float * bgPtr = ofBgColorPtr();
 	bool bClearAuto = ofbClearBg();
-	
+
 	if ( bClearAuto == true) {
 		ofClear(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
 	}
 	ofViewport(0, 0, size.x, size.y);		// used to be glViewport( 0, 0, width, height );
 	ofSetupScreenPerspective(size.x, size.y, OF_ORIENTATION_DEFAULT);
-	
+
 	ofGetWidth();
-	
+
 	ofNotifyEvent(ofEvents.draw, voidEventArgs);
 	ofNotifyEvent(events.draw, voidEventArgs);
-	
+
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
 		(*it)->draw(this);
 		++it;
 	}
-	
+
 	win->swapBuffers();
 	return;
 }
@@ -243,7 +243,7 @@ void ofxFenster::mouseMoved(int x, int y) {
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
 	ofNotifyEvent(events.mouseMoved, mouseEventArgs);
-	
+
 	while(it!=listeners.end()) {
 		(*it)->mouseMoved(x, y, this);
 		++it;
@@ -258,7 +258,7 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
 	ofNotifyEvent(events.mousePressed, mouseEventArgs);
-	
+
 	while(it!=listeners.end()) {
 		(*it)->mousePressed(x, y, button, this);
 		++it;
@@ -276,7 +276,7 @@ void ofxFenster::mouseReleased(int x, int y, int button) {
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
 	ofNotifyEvent(events.mouseReleased, mouseEventArgs);
-	
+
 	while(it!=listeners.end()) {
 		(*it)->mouseReleased(x, y, button, this);
 		++it;

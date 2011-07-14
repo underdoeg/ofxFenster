@@ -22,9 +22,9 @@ public:
 	void runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr);
 	void runAppViaInfiniteLoop(ofBaseApp* appPtr);
 
-	ofxFenster* createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
+	ofxFenster* createFenster(int t=0, int l=0, int w=800, int h=600, int screenMode=OF_WINDOW);
 	void deleteFenster(ofxFenster* fenster);
-	
+
 	/*
 	void setScreenNumber(int n);
 	 * This is a linux only function to open a window in a different X11 display
