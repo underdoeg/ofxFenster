@@ -132,6 +132,7 @@ public:
 	void showCursor();
 	void toggleFullscreen();
 	void activateDrawingContext();
+	void destroy();
 	
 	GHOST_IWindow* getWindow();
 
@@ -146,6 +147,7 @@ public:
 	eventGroup events;
 	
 private:
+	bool isDestroyed;
 	int framesElapsed;
 	ofxFensterListenerList listeners;
 	bool isFullscreen;

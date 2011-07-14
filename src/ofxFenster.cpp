@@ -9,13 +9,19 @@
 static int curID;
 static ofEventArgs voidEventArgs;
 
-ofxFenster::ofxFenster():framesElapsed(0), isFullscreen(false), timer(0) {
+ofxFenster::ofxFenster():framesElapsed(0), isFullscreen(false), timer(0), isDestroyed(false) {
 	id=curID;
 	curID++;
 }
 
 ofxFenster::~ofxFenster() {
-	listeners.clear();
+	
+}
+
+void ofxFenster::destroy(){
+	if(isDestroyed)
+		return;
+	isDestroyed=true;
 	GHOST_ISystem::getSystem()->disposeWindow(win);
 }
 
