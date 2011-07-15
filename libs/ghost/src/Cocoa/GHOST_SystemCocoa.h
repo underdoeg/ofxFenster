@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemCocoa.h 36429 2011-05-02 08:39:17Z jesterking $
+ * $Id: GHOST_SystemCocoa.h 37861 2011-06-27 13:57:27Z blendix $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -118,14 +118,6 @@ public:
 		const GHOST_TUns16 numOfAASamples = 0,
 		const GHOST_TEmbedderWindowID parentWindow = 0 
 	);
-	
-	virtual GHOST_TSuccess beginFullScreen(
-		const GHOST_DisplaySetting& setting, 
-		GHOST_IWindow** window,
-		const bool stereoVisual
-	);
-	
-	virtual GHOST_TSuccess endFullScreen( void );
 	
 	/***************************************************************************************
 	 ** Event management functionality

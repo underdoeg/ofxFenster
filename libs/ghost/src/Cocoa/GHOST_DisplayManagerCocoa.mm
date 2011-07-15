@@ -1,5 +1,5 @@
 /**
- * $Id: GHOST_DisplayManagerCocoa.mm 26841 2010-02-12 13:34:04Z campbellbarton $
+ * $Id: GHOST_DisplayManagerCocoa.mm 37861 2011-06-27 13:57:27Z blendix $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -164,5 +164,5 @@ GHOST_TSuccess GHOST_DisplayManagerCocoa::setCurrentDisplaySetting(GHOST_TUns8 d
 
 	//CGDisplayErr err = ::CGDisplaySwitchToMode(m_displayIDs[display], displayModeValues);
         
-	return /*err == CGDisplayNoErr ? GHOST_kSuccess :*/ GHOST_kFailure;
+	return /*err == CGDisplayNoErr ?*/ GHOST_kSuccess /*: GHOST_kFailure*/;
 }
