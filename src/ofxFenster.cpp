@@ -9,7 +9,7 @@
 static int curID;
 static ofEventArgs voidEventArgs;
 
-ofxFenster::ofxFenster():framesElapsed(0), isFullscreen(false), timer(0), isDestroyed(false) {
+ofxFenster::ofxFenster():framesElapsed(0),isDestroyed(false), timer(0), isFullscreen(false) {
 	id=curID;
 	curID++;
 }
@@ -26,8 +26,6 @@ void ofxFenster::destroy(){
 }
 
 void ofxFenster::setupOpenGL(int w, int h, int screenMode) {
-	
-	//app=ofPtr<ofBaseApp>(this);
 	STR_String title("window");
 	GHOST_TWindowState state=GHOST_kWindowStateNormal;
 	if(screenMode==OF_FULLSCREEN) {
@@ -113,7 +111,6 @@ void ofxFenster::setFrameRate(float targetRate) {
 	/*if(timer)
 	 GHOST_ISystem::getSystem()->removeTimer(timer);
 	 int fps=floorf(1000/targetRate);*/
-	//timer=GHOST_ISystem::getSystem()->installTimer(0, fps, onWinTimerFunc, this);
 }
 
 void ofxFenster::setFullscreen(bool fullscreen) {
@@ -163,7 +160,6 @@ int curX=0;
 
 void ofxFenster::draw() {
 	activateDrawingContext();
-	//ofSetAppPtr(app);
 	
 	ofxFensterManager::get()->setActiveWindow(ofxFensterManager::get()->getWindowById(id));
 	
@@ -175,7 +171,7 @@ void ofxFenster::draw() {
 	if ( bClearAuto == true) {
 		ofClear(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
 	}
-	ofViewport(0, 0, size.x, size.y);		// used to be glViewport( 0, 0, width, height );
+	ofViewport(0, 0, size.x, size.y);
 	ofSetupScreenPerspective(size.x, size.y, OF_ORIENTATION_DEFAULT);
 	
 	ofGetWidth();
