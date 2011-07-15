@@ -3,8 +3,11 @@
 #include "ofMain.h"
 #include "ofxFensterManager.h"
 
-class imageWindow: public ofxFensterListener {
+class imageWindow: public ofxFensterListener{
 public:
+	~imageWindow(){
+		cout << "Listener destroyed" << endl;
+	}
 	void setup(){
 		cout << "LOADING IMAGE" << endl;
 		img.loadImage("someImage.JPG");
@@ -12,6 +15,11 @@ public:
 	void draw(){
 		img.draw(0,0);
 	}
+	
+	void keyReleased(int key, ofxFensterPtr window){
+		ofxFensterManager::get()->deleteFenster(window);
+	}
+	
 	ofImage img;
 };
 
@@ -34,6 +42,6 @@ public:
 	void gotMessage(ofMessage msg);
 	void mouseMovedEvent(ofMouseEventArgs &args);
 
-	std::map<ofxFenster*, ofVec2f> mousePos;
-	imageWindow* imgWin;
+	std::map<int, ofVec2f> mousePos;
+	imageWindow imgWin;
 };

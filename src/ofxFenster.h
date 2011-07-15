@@ -83,9 +83,13 @@ public:
 	virtual void mouseReleased(){};
 };
 
-typedef std::vector< ofxFensterListener* > ofxFensterListenerList;
+class ofxFenster;
 
-class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
+typedef ofxFensterListener* ofxFensterListenerPtr;
+typedef std::vector< ofxFensterListenerPtr > ofxFensterListenerList;
+
+//class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
+class ofxFenster{
 
 public:
 
@@ -155,7 +159,6 @@ private:
 	GHOST_IWindow* win;
 	GHOST_ITimerTask* timer;
 	ofPtr<ofBaseRenderer> renderer;
-	ofPtr<ofBaseApp> app;
 	ofPoint mousePos;
 	ofPoint mouseLastPos;
 	int width;

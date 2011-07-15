@@ -8,7 +8,12 @@
 
 #include "GHOST_ISystem.h"
 
-typedef std::vector<ofxFenster*> fensterList;
+class ofxFensterManager;
+
+typedef ofPtr<ofxFenster> ofxFensterPtr;
+typedef std::vector<ofxFensterPtr> fensterList;
+typedef ofxFensterManager* ofxFensterManagerPtr;
+
 
 class ofxFensterManager: public ofAppBaseWindow, public GHOST_IEventConsumer {
 
@@ -16,14 +21,15 @@ public:
 	ofxFensterManager();
 	~ofxFensterManager();
 
-	static ofxFensterManager* get();
+	static ofxFensterManagerPtr get();
 
 	void setupOpenGL(int w, int h, int screenMode);
 	void runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr);
 	void runAppViaInfiniteLoop(ofBaseApp* appPtr);
 
-	ofxFenster* createFenster(int t=0, int l=0, int w=800, int h=600, int screenMode=OF_WINDOW);
-	void deleteFenster(ofxFenster* fenster);
+	ofxFensterPtr createFenster(int t, int l, int w, int h, int screenMode=OF_WINDOW);
+	ofxFensterPtr createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
+	void deleteFenster(ofxFensterPtr fenster);
 
 	/*
 	void setScreenNumber(int n);
@@ -64,20 +70,20 @@ public:
 
 	void onTimer();
 
-	void setActiveWindow(ofxFenster * activeWindow);
-	void setPrimaryWindow(ofxFenster * primaryWindow);
-	ofxFenster * getActiveWindow();
-	ofxFenster * getPrimaryWindow();
-	ofxFenster * getWindowById(int _id);
+	void setActiveWindow(ofxFensterPtr activeWindow);
+	void setPrimaryWindow(ofxFensterPtr primaryWindow);
+	ofxFensterPtr getActiveWindow();
+	ofxFensterPtr getPrimaryWindow();
+	ofxFensterPtr getWindowById(int _id);
 
 private:
-	ofxFenster* activeWindow;
+	ofxFensterPtr activeWindow;
 
-	ofxFenster* primaryWindow;
-	ofxFenster* getFensterByHandler(GHOST_IWindow* win);
+	ofxFensterPtr primaryWindow;
+	ofxFensterPtr getFensterByHandler(GHOST_IWindow* win);
 
 	bool running;
-	static ofxFensterManager* singleton;
+	static ofxFensterManagerPtr singleton;
 	bool processEvent(GHOST_IEvent* event);
 	fensterList fensters;
 	GHOST_ISystem* ghostSystem;

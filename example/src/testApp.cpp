@@ -4,24 +4,27 @@
 void testApp::setup() {
 	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
-	imgWin=new imageWindow();
+
+	ofSetFrameRate(60);
+
 	ofBackground(0,0,0);
-	mousePos[ofxFensterManager::get()->getPrimaryWindow()]=ofVec2f(0,0);
+	mousePos[ofxFensterManager::get()->getPrimaryWindow()->id]=ofVec2f(0,0);
 	
+	int winW=300;
 	for(int i=0;i<3;i++){
-		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*300), 0, 300, 300, OF_WINDOW);
+		ofxFensterPtr win=ofxFensterManager::get()->createFenster(400+(i*winW), 0, winW, 300, OF_WINDOW);
 		win->addListener(this);
-		mousePos[win]=ofVec2f(0,0);
+		mousePos[win->id]=ofVec2f(0,0);
 	}
 	
 	//setup of fensterListener does not get called yet automatically
-	imgWin->setup();
+	imgWin.setup();
 	for(int i=0;i<3;i++){
-		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*300), 300, 300, 300, OF_WINDOW);
+		ofxFensterPtr win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
 		if(i==0){
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}
-		win->addListener(imgWin);
+		win->addListener(&imgWin);
 	}
 }
 
@@ -32,7 +35,7 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
-	ofVec2f mp=mousePos[ofxFensterManager::get()->getActiveWindow()];
+	ofVec2f mp=mousePos[ofxFensterManager::get()->getActiveWindow()->id];
 	ofVec2f p;
 	
 	float dSquared=100*100;
@@ -61,7 +64,7 @@ void testApp::keyReleased(int key, ofxFenster* win) {
 
 void testApp::mouseMoved(int x, int y, ofxFenster* win)
 {
-	mousePos[win].set(x, y);
+	mousePos[win->id].set(x, y);
 }
 
 //--------------------------------------------------------------
