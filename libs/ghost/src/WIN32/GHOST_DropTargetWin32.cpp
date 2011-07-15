@@ -1,3 +1,5 @@
+#ifdef WIN32
+
 /*
  * $Id: GHOST_DropTargetWin32.cpp 35152 2011-02-25 11:28:33Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -429,3 +431,4 @@ void printLastError(void)
 }
 #endif // GHOST_DEBUG
 
+#endif

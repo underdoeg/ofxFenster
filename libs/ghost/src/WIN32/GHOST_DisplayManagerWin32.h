@@ -30,7 +30,7 @@
  *  \ingroup GHOST
  * Declaration of GHOST_DisplayManagerWin32 class.
  */
-
+#ifdef WIN32
 #ifndef _GHOST_DISPLAY_MANAGER_WIN32_H_
 #define _GHOST_DISPLAY_MANAGER_WIN32_H_
 
@@ -100,3 +100,4 @@ protected:
 
 #endif // _GHOST_DISPLAY_MANAGER_WIN32_H_
 
+#endif

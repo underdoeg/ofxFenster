@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_WindowWin32.cpp 37765 2011-06-23 19:55:47Z blendix $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -1355,4 +1356,4 @@ static int EnumPixelFormats(HDC hdc) {
 	return iPixelFormat;
 }
 
-
+#endif

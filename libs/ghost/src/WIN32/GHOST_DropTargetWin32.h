@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_DropTargetWin32.h 35152 2011-02-25 11:28:33Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -158,3 +159,4 @@ private:
 };
 
 #endif  // _GHOST_DROP_TARGET_WIN32_H_
+#endif

@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemX11.h 36457 2011-05-03 07:05:01Z campbellbarton $
+ * $Id: GHOST_SystemX11.h 38329 2011-07-12 12:53:23Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -36,7 +36,6 @@
 
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include <string>
 
 #include "GHOST_System.h"
 #include "GHOST_Types.h"
@@ -60,20 +59,20 @@ public:
 
 	GHOST_SystemX11(
 	);
-
+	
 	/**
 	 * Destructor.
 	 */
 	virtual ~GHOST_SystemX11();
 
 
-	GHOST_TSuccess
+		GHOST_TSuccess 
 	init(
 	);
 
 
 	/**
-	 * @section Interface Inherited from GHOST_ISystem
+	 * @section Interface Inherited from GHOST_ISystem 
 	 */
 
 	/**
@@ -81,27 +80,16 @@ public:
 	 * Returns the number of milliseconds since the start of the system process.
 	 * @return The number of milliseconds.
 	 */
-	GHOST_TUns64
+		GHOST_TUns64 
 	getMilliSeconds(
 	) const;
-
-
-	/**
-	 * Returns the system time.
-	 * Returns the number of milliseconds since the start of the system process.
-	 * @return The number of milliseconds.
-	 */
-	GHOST_TSuccess
-	setDisplay(
-	    std::string name,
-		std::string shareWith=""
-	) const;
+	
 
 	/**
 	 * Returns the number of displays on this system.
 	 * @return The number of displays.
 	 */
-	GHOST_TUns8
+		GHOST_TUns8 
 	getNumDisplays(
 	) const;
 
@@ -109,15 +97,15 @@ public:
 	 * Returns the dimensions of the main display on this system.
 	 * @return The dimension of the main display.
 	 */
-	void
+		void 
 	getMainDisplayDimensions(
-	    GHOST_TUns32& width,
-	    GHOST_TUns32& height
+		GHOST_TUns32& width,
+		GHOST_TUns32& height
 	) const;
 
 	/**
 	 * Create a new window.
-	 * The new window is added to the list of windows managed.
+	 * The new window is added to the list of windows managed. 
 	 * Never explicitly delete the window, use disposeWindow() instead.
 	 * @param	title	The name of the window (displayed in the title bar of the window if the OS supports it).
 	 * @param	left		The coordinate of the left edge of the window.
@@ -130,22 +118,22 @@ public:
 	 * @param	parentWindow 	Parent (embedder) window
 	 * @return	The new window (or 0 if creation failed).
 	 */
-	GHOST_IWindow*
+		GHOST_IWindow* 
 	createWindow(
-	    const STR_String& title,
-	    GHOST_TInt32 left,
-	    GHOST_TInt32 top,
-	    GHOST_TUns32 width,
-	    GHOST_TUns32 height,
-	    GHOST_TWindowState state,
-	    GHOST_TDrawingContextType type,
-	    const bool stereoVisual,
-	    const GHOST_TUns16 numOfAASamples = 0,
-	    const GHOST_TEmbedderWindowID parentWindow = 0
+		const STR_String& title,
+		GHOST_TInt32 left,
+		GHOST_TInt32 top,
+		GHOST_TUns32 width,
+		GHOST_TUns32 height,
+		GHOST_TWindowState state,
+		GHOST_TDrawingContextType type,
+		const bool stereoVisual,
+		const GHOST_TUns16 numOfAASamples = 0,
+		const GHOST_TEmbedderWindowID parentWindow = 0 
 	);
 
 	/**
-	 * @section Interface Inherited from GHOST_ISystem
+	 * @section Interface Inherited from GHOST_ISystem 
 	 */
 
 	/**
@@ -153,24 +141,24 @@ public:
 	 * @param waitForEvent Flag to wait for an event (or return immediately).
 	 * @return Indication of the presence of events.
 	 */
-	bool
+		bool 
 	processEvents(
-	    bool waitForEvent
+		bool waitForEvent
 	);
 
 	/**
-	 * @section Interface Inherited from GHOST_System
+	 * @section Interface Inherited from GHOST_System 
 	 */
-	GHOST_TSuccess
+		GHOST_TSuccess 
 	getCursorPosition(
-	    GHOST_TInt32& x,
-	    GHOST_TInt32& y
+		GHOST_TInt32& x,
+		GHOST_TInt32& y
 	) const;
-
-	GHOST_TSuccess
+	
+		GHOST_TSuccess 
 	setCursorPosition(
-	    GHOST_TInt32 x,
-	    GHOST_TInt32 y
+		GHOST_TInt32 x,
+		GHOST_TInt32 y
 	);
 
 	/**
@@ -178,9 +166,9 @@ public:
 	 * @param keys	The state of all modifier keys (true == pressed).
 	 * @return		Indication of success.
 	 */
-	GHOST_TSuccess
+		GHOST_TSuccess 
 	getModifierKeys(
-	    GHOST_ModifierKeys& keys
+		GHOST_ModifierKeys& keys
 	) const ;
 
 	/**
@@ -188,42 +176,42 @@ public:
 	 * @param buttons	The state of the buttons.
 	 * @return			Indication of success.
 	 */
-	GHOST_TSuccess
+		GHOST_TSuccess 
 	getButtons(
-	    GHOST_Buttons& buttons
+		GHOST_Buttons& buttons
 	) const;
 
 	/**
 	 * @section Interface Dirty
 	 * Flag a window as dirty. This will
-	 * generate a GHOST window update event on a call to processEvents()
+	 * generate a GHOST window update event on a call to processEvents() 
 	 */
 
-	void
+		void
 	addDirtyWindow(
-	    GHOST_WindowX11 * bad_wind
+		GHOST_WindowX11 * bad_wind
 	);
-
-
+  
+ 
 	/**
 	 * return a pointer to the X11 display structure
 	 */
 
-	Display *
+		Display *
 	getXDisplay(
 	) {
 		return m_display;
-	}
+	}	
 
-	void *
+		void *
 	prepareNdofInfo(
-	    volatile GHOST_TEventNDOFData *current_values
+		volatile GHOST_TEventNDOFData *current_values
 	);
 
 	/* Helped function for get data from the clipboard. */
 	void getClipboard_xcout(XEvent evt, Atom sel, Atom target,
-	                        unsigned char **txt, unsigned long *len,
-	                        unsigned int *context) const;
+			 unsigned char **txt, unsigned long *len,
+			 unsigned int *context) const;
 
 	/**
 	 * Returns unsinged char from CUT_BUFFER0
@@ -231,10 +219,10 @@ public:
 	 * @return				Returns the Clipboard indicated by Flag
 	 */
 	GHOST_TUns8 *getClipboard(bool selection) const;
-
+	
 	/**
 	 * Puts buffer to system clipboard
-	 * @param buffer	The buffer to copy to the clipboard
+	 * @param buffer	The buffer to copy to the clipboard	
 	 * @param selection	Set the selection into the clipboard, X11 only feature
 	 */
 	void putClipboard(GHOST_TInt8 *buffer, bool selection) const;
@@ -242,13 +230,24 @@ public:
 	/**
 	 * @see GHOST_ISystem
 	 */
-	int toggleConsole(int action) {
-		return 0;
-	}
+	int toggleConsole(int action) { return 0; }
 
-	Atom m_delete_window_atom;
+	/**
+	 * Atom used for ICCCM, WM-spec and Motif.
+	 * We only need get this atom at the start, it's relative
+	 * to the display not the window and are public for every
+	 * window that need it.
+	 */
+	Atom m_wm_state;
+	Atom m_wm_change_state;
+	Atom m_net_state;
+	Atom m_net_max_horz;
+	Atom m_net_max_vert;
+	Atom m_net_fullscreen;
+	Atom m_motif;
 	Atom m_wm_take_focus;
-
+	Atom m_wm_protocols;
+	Atom m_delete_window_atom;
 
 	/* Atoms for Selection, copy & paste. */
 	Atom m_targets;
@@ -260,13 +259,10 @@ public:
 	Atom m_xclip_out;
 	Atom m_incr;
 	Atom m_utf8_string;
-	
-	static std::string currentDisplayName;
 
 private :
 
 	Display * m_display;
-	static Display *curDisplay;
 
 	/// The vector of windows that need to be updated.
 	std::vector<GHOST_WindowX11 *> m_dirty_windows;
@@ -286,30 +282,25 @@ private :
 	 * X11 window xwind
 	 */
 
-	GHOST_WindowX11 *
+		GHOST_WindowX11 * 
 	findGhostWindow(
-	    Window xwind
+		Window xwind
 	) const ;
 
-	void
+		void
 	processEvent(
-	    XEvent *xe
-	);
+		XEvent *xe
+ 	);
 
-	Time
+		Time
 	lastEventTime(
-	    Time default_time
+		Time default_time
 	);
 
-	bool
+		bool
 	generateWindowExposeEvents(
-	);
-
-	GHOST_TKey
-	convertXKey(
-	    KeySym key
-	);
-
+ 	);
 };
 
 #endif
+

@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_SystemWin32.cpp 38351 2011-07-13 06:04:54Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -1263,3 +1264,5 @@ int GHOST_SystemWin32::toggleConsole(int action)
 
 	return m_consoleStatus;
 }
+
+#endif

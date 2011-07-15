@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_SystemWin32.h 36605 2011-05-10 23:54:15Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -498,3 +499,4 @@ inline void GHOST_SystemWin32::handleKeyboardChange(void)
 }
 #endif // _GHOST_SYSTEM_WIN32_H_
 
+#endif

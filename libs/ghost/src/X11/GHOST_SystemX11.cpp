@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemX11.cpp 36985 2011-05-28 15:34:02Z campbellbarton $
+ * $Id: GHOST_SystemX11.cpp 38350 2011-07-13 05:22:21Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -76,6 +76,9 @@
 #include <stdio.h> // for fprintf only
 #include <cstdlib> // for exit
 
+static GHOST_TKey
+convertXKey(KeySym key);
+
 typedef struct NDOFPlatformInfo {
 	Display *display;
 	Window window;
@@ -89,10 +92,6 @@ typedef struct NDOFPlatformInfo {
 static NDOFPlatformInfo sNdofInfo = {NULL, 0, NULL, 0, 0, 0, 0};
 
 
-//TODO: for god's sake! Don't make this a gobal static variable. I mean wtf...?!
-Display* GHOST_SystemX11::curDisplay;
-std::string GHOST_SystemX11::currentDisplayName;
-
 //these are for copy and select copy
 static char *txt_cut_buffer= NULL;
 static char *txt_select_buffer= NULL;
@@ -101,32 +100,39 @@ using namespace std;
 
 GHOST_SystemX11::
 GHOST_SystemX11(
-) :
+) : 
 	GHOST_System(),
-	m_start_time(0) {
+	m_start_time(0)
+{
 	m_display = XOpenDisplay(NULL);
-	curDisplay=m_display;
-	
-	currentDisplayName="default";
 	
 	if (!m_display) {
 		std::cerr << "Unable to open a display" << std::endl;
 		abort(); //was return before, but this would just mean it will crash later
 	}
-
+	
 #ifdef __sgi
-	m_delete_window_atom
-	= XSGIFastInternAtom(m_display,
-	                     "WM_DELETE_WINDOW",
-	                     SGI_XA_WM_DELETE_WINDOW, False);
+	m_delete_window_atom 
+	  = XSGIFastInternAtom(m_display,
+			       "WM_DELETE_WINDOW", 
+			       SGI_XA_WM_DELETE_WINDOW, False);
 #else
-	m_delete_window_atom
-	= XInternAtom(m_display, "WM_DELETE_WINDOW", True);
+	m_delete_window_atom 
+	  = XInternAtom(m_display, "WM_DELETE_WINDOW", True);
 #endif
 
+	m_wm_protocols= XInternAtom(m_display, "WM_PROTOCOLS", False);
 	m_wm_take_focus= XInternAtom(m_display, "WM_TAKE_FOCUS", False);
-
-	//
+	m_wm_state= XInternAtom(m_display, "WM_STATE", False);
+	m_wm_change_state= XInternAtom(m_display, "WM_CHANGE_STATE", False);
+	m_net_state= XInternAtom(m_display, "_NET_WM_STATE", False);
+	m_net_max_horz= XInternAtom(m_display,
+					"_NET_WM_STATE_MAXIMIZED_HORZ", False);
+	m_net_max_vert= XInternAtom(m_display,
+					"_NET_WM_STATE_MAXIMIZED_VERT", False);
+	m_net_fullscreen= XInternAtom(m_display,
+					"_NET_WM_STATE_FULLSCREEN", False);
+	m_motif= XInternAtom(m_display, "_MOTIF_WM_HINTS", False);
 	m_targets= XInternAtom(m_display, "TARGETS", False);
 	m_string= XInternAtom(m_display, "STRING", False);
 	m_compound_text= XInternAtom(m_display, "COMPOUND_TEXT", False);
@@ -146,30 +152,31 @@ GHOST_SystemX11(
 	}
 
 	m_start_time = GHOST_TUns64(tv.tv_sec*1000 + tv.tv_usec/1000);
-
-
+	
+	
 	/* use detectable autorepeate, mac and windows also do this */
 	int use_xkb;
 	int xkb_opcode, xkb_event, xkb_error;
 	int xkb_major = XkbMajorVersion, xkb_minor = XkbMinorVersion;
-
+	
 	use_xkb = XkbQueryExtension(m_display, &xkb_opcode, &xkb_event, &xkb_error, &xkb_major, &xkb_minor);
 	if (use_xkb) {
 		XkbSetDetectableAutoRepeat(m_display, true, NULL);
 	}
-
+	
 }
 
 GHOST_SystemX11::
-~GHOST_SystemX11() {
+~GHOST_SystemX11()
+{
 	XCloseDisplay(m_display);
 }
 
 
-GHOST_TSuccess
+	GHOST_TSuccess 
 GHOST_SystemX11::
 init(
-) {
+){
 	GHOST_TSuccess success = GHOST_System::init();
 
 	if (success) {
@@ -183,7 +190,7 @@ init(
 	return GHOST_kFailure;
 }
 
-GHOST_TUns64
+	GHOST_TUns64
 GHOST_SystemX11::
 getMilliSeconds(
 ) const {
@@ -194,89 +201,69 @@ getMilliSeconds(
 
 	return  GHOST_TUns64(tv.tv_sec*1000 + tv.tv_usec/1000) - m_start_time;
 }
-
-GHOST_TUns8
+	
+	GHOST_TUns8 
 GHOST_SystemX11::
 getNumDisplays(
 ) const {
 	return GHOST_TUns8(1);
 }
 
-/**
- * Returns the dimensions of the main display on this system.
- * @return The dimension of the main display.
- */
-void
+	/**
+	 * Returns the dimensions of the main display on this system.
+	 * @return The dimension of the main display.
+	 */
+	void 
 GHOST_SystemX11::
 getMainDisplayDimensions(
-    GHOST_TUns32& width,
-    GHOST_TUns32& height
-) const {
-	if (curDisplay) {
-		width  = DisplayWidth(curDisplay, DefaultScreen(curDisplay));
-		height = DisplayHeight(curDisplay, DefaultScreen(curDisplay));
+	GHOST_TUns32& width,
+	GHOST_TUns32& height
+) const {	
+	if (m_display) {
+		width  = DisplayWidth(m_display, DefaultScreen(m_display));
+		height = DisplayHeight(m_display, DefaultScreen(m_display));
 	}
 }
 
-
-//set the active display
-GHOST_TSuccess GHOST_SystemX11::
-setDisplay(std::string name, std::string shareWith)const {
-	Display* d=curDisplay;
-	if(name=="default")
-		curDisplay = XOpenDisplay(NULL);
-	else
-		curDisplay = XOpenDisplay(name.c_str());
-	cout << "OPENING DISPLAY "<<name<<endl;
-	if(curDisplay) {
-		currentDisplayName=name;
-		if(shareWith!="")
-			currentDisplayName=shareWith;
-		cout << "CURRENT DISPLAY NAME IS "<<currentDisplayName<<endl;
-		return GHOST_kSuccess;
-	}
-	cout << "ERROR DISPLAY NAME DOES NOT EXIST?" << endl;
-	curDisplay=d;
-	return GHOST_kFailure;
-}
-
-/**
- * Create a new window.
- * The new window is added to the list of windows managed.
- * Never explicitly delete the window, use disposeWindow() instead.
- * @param	title	The name of the window (displayed in the title bar of the window if the OS supports it).
- * @param	left	The coordinate of the left edge of the window.
- * @param	top		The coordinate of the top edge of the window.
- * @param	width	The width the window.
- * @param	height	The height the window.
- * @param	state	The state of the window when opened.
- * @param	type	The type of drawing context installed in this window.
- * @param	stereoVisual	Stereo visual for quad buffered stereo.
- * @param	numOfAASamples	Number of samples used for AA (zero if no AA)
- * @param	parentWindow 	Parent (embedder) window
- * @return	The new window (or 0 if creation failed).
- */
-GHOST_IWindow*
+	/**
+	 * Create a new window.
+	 * The new window is added to the list of windows managed.
+	 * Never explicitly delete the window, use disposeWindow() instead.
+	 * @param	title	The name of the window (displayed in the title bar of the window if the OS supports it).
+	 * @param	left	The coordinate of the left edge of the window.
+	 * @param	top		The coordinate of the top edge of the window.
+	 * @param	width	The width the window.
+	 * @param	height	The height the window.
+	 * @param	state	The state of the window when opened.
+	 * @param	type	The type of drawing context installed in this window.
+	 * @param	stereoVisual	Stereo visual for quad buffered stereo.
+	 * @param	numOfAASamples	Number of samples used for AA (zero if no AA)
+	 * @param	parentWindow 	Parent (embedder) window
+	 * @return	The new window (or 0 if creation failed).
+	 */
+	GHOST_IWindow* 
 GHOST_SystemX11::
 createWindow(
-    const STR_String& title,
-    GHOST_TInt32 left,
-    GHOST_TInt32 top,
-    GHOST_TUns32 width,
-    GHOST_TUns32 height,
-    GHOST_TWindowState state,
-    GHOST_TDrawingContextType type,
-    bool stereoVisual,
-    const GHOST_TUns16 numOfAASamples,
-    const GHOST_TEmbedderWindowID parentWindow
-) {
+	const STR_String& title,
+	GHOST_TInt32 left,
+	GHOST_TInt32 top,
+	GHOST_TUns32 width,
+	GHOST_TUns32 height,
+	GHOST_TWindowState state,
+	GHOST_TDrawingContextType type,
+	bool stereoVisual,
+	const GHOST_TUns16 numOfAASamples,
+	const GHOST_TEmbedderWindowID parentWindow
+){
 	GHOST_WindowX11 * window = 0;
+	
+	if (!m_display) return 0;
+	
 
-	if (!curDisplay) return 0;
-
+	
 
 	window = new GHOST_WindowX11 (
-	    this,curDisplay,title, left, top, width, height, state, parentWindow, type, stereoVisual
+		this,m_display,title, left, top, width, height, state, parentWindow, type, stereoVisual
 	);
 
 	if (window) {
@@ -284,11 +271,12 @@ createWindow(
 		// Focus and Delete atoms.
 
 		if (window->getValid()) {
-			// Store the pointer to the window
+			// Store the pointer to the window 
 			m_windowManager->addWindow(window);
-
+			
 			pushEvent( new GHOST_Event(getMilliSeconds(), GHOST_kEventWindowSize, window) );
-		} else {
+		}
+		else {
 			delete window;
 			window = 0;
 		}
@@ -296,24 +284,24 @@ createWindow(
 	return window;
 }
 
-GHOST_WindowX11 *
+	GHOST_WindowX11 * 
 GHOST_SystemX11::
 findGhostWindow(
-    Window xwind
+	Window xwind
 ) const {
-
+	
 	if (xwind == 0) return NULL;
 
 	// It is not entirely safe to do this as the backptr may point
-	// to a window that has recently been removed.
-	// We should always check the window manager's list of windows
+	// to a window that has recently been removed. 
+	// We should always check the window manager's list of windows 
 	// and only process events on these windows.
 
 	vector<GHOST_IWindow *> & win_vec = m_windowManager->getWindows();
 
 	vector<GHOST_IWindow *>::iterator win_it = win_vec.begin();
 	vector<GHOST_IWindow *>::const_iterator win_end = win_vec.end();
-
+	
 	for (; win_it != win_end; ++win_it) {
 		GHOST_WindowX11 * window = static_cast<GHOST_WindowX11 *>(*win_it);
 		if (window->getXWindow() == xwind) {
@@ -321,345 +309,340 @@ findGhostWindow(
 		}
 	}
 	return NULL;
-
+	
 }
 
 static void SleepTillEvent(Display *display, GHOST_TInt64 maxSleep) {
 	int fd = ConnectionNumber(display);
 	fd_set fds;
-
+	
 	FD_ZERO(&fds);
 	FD_SET(fd, &fds);
 
 	if (maxSleep == -1) {
-		select(fd + 1, &fds, NULL, NULL, NULL);
+	    select(fd + 1, &fds, NULL, NULL, NULL);
 	} else {
 		timeval tv;
 
 		tv.tv_sec = maxSleep/1000;
 		tv.tv_usec = (maxSleep - tv.tv_sec*1000)*1000;
-
-		select(fd + 1, &fds, NULL, NULL, &tv);
+	
+	    select(fd + 1, &fds, NULL, NULL, &tv);
 	}
 }
 
 /* This function borrowed from Qt's X11 support
  * qclipboard_x11.cpp
  *  */
-struct init_timestamp_data {
-	Time timestamp;
+struct init_timestamp_data
+{
+    Time timestamp;
 };
 
-static Bool init_timestamp_scanner(Display*, XEvent *event, XPointer arg) {
+static Bool init_timestamp_scanner(Display*, XEvent *event, XPointer arg)
+{
 	init_timestamp_data *data =
-	    reinterpret_cast<init_timestamp_data*>(arg);
-	switch(event->type) {
-	case ButtonPress:
-	case ButtonRelease:
-		data->timestamp = event->xbutton.time;
-		break;
-	case MotionNotify:
-		data->timestamp = event->xmotion.time;
-		break;
-	case KeyPress:
-	case KeyRelease:
-		data->timestamp = event->xkey.time;
-		break;
-	case PropertyNotify:
-		data->timestamp = event->xproperty.time;
-		break;
-	case EnterNotify:
-	case LeaveNotify:
-		data->timestamp = event->xcrossing.time;
-		break;
-	case SelectionClear:
-		data->timestamp = event->xselectionclear.time;
-		break;
-	default:
-		break;
-	}
+        reinterpret_cast<init_timestamp_data*>(arg);
+    switch(event->type)
+    {
+    case ButtonPress:
+    case ButtonRelease:
+        data->timestamp = event->xbutton.time;
+        break;
+    case MotionNotify:
+        data->timestamp = event->xmotion.time;
+        break;
+    case KeyPress:
+    case KeyRelease:
+        data->timestamp = event->xkey.time;
+        break;
+    case PropertyNotify:
+        data->timestamp = event->xproperty.time;
+        break;
+    case EnterNotify:
+    case LeaveNotify:
+        data->timestamp = event->xcrossing.time;
+        break;
+    case SelectionClear:
+        data->timestamp = event->xselectionclear.time;
+        break;
+    default:
+        break;
+    }
 
-	return false;
+    return false;
 }
 
 Time
 GHOST_SystemX11::
 lastEventTime(Time default_time) {
-	init_timestamp_data data;
-	data.timestamp = default_time;
-	XEvent ev;
-	XCheckIfEvent(curDisplay, &ev, &init_timestamp_scanner, (XPointer)&data);
+    init_timestamp_data data;
+    data.timestamp = default_time;
+    XEvent ev;
+    XCheckIfEvent(m_display, &ev, &init_timestamp_scanner, (XPointer)&data);
 
-	return data.timestamp;
+    return data.timestamp;
 }
 
-template<class InputIterator, class T>
-InputIterator find(InputIterator first, InputIterator last, const T& value)
-{
-    for (; first != last; ++first) {
-        if (*first == value) {
-            return first;
-        }
-    }
-    return last;
-}
 
-bool GHOST_SystemX11::
+
+	bool 
+GHOST_SystemX11::
 processEvents(
-    bool waitForEvent
-) {
-	// Get all the current events -- translate them into
+	bool waitForEvent
+){
+	// Get all the current events -- translate them into 
 	// ghost events and call base class pushEvent() method.
-
+	
 	bool anyProcessed = false;
-
-	std::vector<Display*> dispDone;
-	std::vector<GHOST_IWindow*>windows=m_windowManager->getWindows();
-
+	
 	do {
-		
 		GHOST_TimerManager* timerMgr = getTimerManager();
+		
+		if (waitForEvent && m_dirty_windows.empty() && !XPending(m_display)) {
+			GHOST_TUns64 next = timerMgr->nextFireTime();
+			
+			if (next==GHOST_kFireTimeNever) {
+				SleepTillEvent(m_display, -1);
+			} else {
+				GHOST_TInt64 maxSleep = next - getMilliSeconds();
 
-		for(unsigned int i=0; i<windows.size(); i++) {
-			std::vector<Display*>::iterator result;
-			GHOST_WindowX11* win=(GHOST_WindowX11*)windows[i];
-			result=find(dispDone.begin(), dispDone.end(), win->m_display);
-			if (result==dispDone.end()) {
-				curDisplay=win->m_display;
-				if (waitForEvent && m_dirty_windows.empty() && !XPending(curDisplay)) {
-					GHOST_TUns64 next = timerMgr->nextFireTime();
-
-					if (next==GHOST_kFireTimeNever) {
-						SleepTillEvent(curDisplay, -1);
-					} else {
-						GHOST_TInt64 maxSleep = next - getMilliSeconds();
-
-						if(maxSleep >= 0)
-							SleepTillEvent(curDisplay, next - getMilliSeconds());
-					}
-				}
-
-				if (timerMgr->fireTimers(getMilliSeconds())) {
-					anyProcessed = true;
-				}
-
-				while (XPending(curDisplay)) {
-					XEvent xevent;
-					XNextEvent(curDisplay, &xevent);
-					processEvent(&xevent);
-					anyProcessed = true;
-				}
-
-				if (generateWindowExposeEvents()) {
-					anyProcessed = true;
-				}
-				dispDone.push_back(curDisplay);
+				if(maxSleep >= 0)
+					SleepTillEvent(m_display, next - getMilliSeconds());
 			}
 		}
+		
+		if (timerMgr->fireTimers(getMilliSeconds())) {
+			anyProcessed = true;
+		}
+		
+		while (XPending(m_display)) {
+			XEvent xevent;
+			XNextEvent(m_display, &xevent);
+			processEvent(&xevent);
+			anyProcessed = true;
+		}
+		
+		if (generateWindowExposeEvents()) {
+			anyProcessed = true;
+		}
 	} while (waitForEvent && !anyProcessed);
-
+	
 	return anyProcessed;
 }
 
-void
-GHOST_SystemX11::processEvent(XEvent *xe) {
-	GHOST_WindowX11 * window = findGhostWindow(xe->xany.window);
+	void
+GHOST_SystemX11::processEvent(XEvent *xe)
+{
+	GHOST_WindowX11 * window = findGhostWindow(xe->xany.window);	
 	GHOST_Event * g_event = NULL;
 
 	if (!window) {
 		return;
 	}
-
+	
 	switch (xe->type) {
-	case Expose: {
-		XExposeEvent & xee = xe->xexpose;
+		case Expose:
+		{
+			XExposeEvent & xee = xe->xexpose;
 
-		if (xee.count == 0) {
-			// Only generate a single expose event
-			// per read of the event queue.
+			if (xee.count == 0) {
+				// Only generate a single expose event
+				// per read of the event queue.
 
-			g_event = new
-			GHOST_Event(
-			    getMilliSeconds(),
-			    GHOST_kEventWindowUpdate,
-			    window
-			);
-		}
-		break;
-	}
-
-	case MotionNotify: {
-		XMotionEvent &xme = xe->xmotion;
-
-		if(window->getCursorGrabMode() != GHOST_kGrabDisable && window->getCursorGrabMode() != GHOST_kGrabNormal) {
-			GHOST_TInt32 x_new= xme.x_root;
-			GHOST_TInt32 y_new= xme.y_root;
-			GHOST_TInt32 x_accum, y_accum;
-			GHOST_Rect bounds;
-
-			/* fallback to window bounds */
-			if(window->getCursorGrabBounds(bounds)==GHOST_kFailure)
-				window->getClientBounds(bounds);
-
-			/* could also clamp to screen bounds
-			 * wrap with a window outside the view will fail atm  */
-			bounds.wrapPoint(x_new, y_new, 8); /* offset of one incase blender is at screen bounds */
-			window->getCursorGrabAccum(x_accum, y_accum);
-
-			if(x_new != xme.x_root || y_new != xme.y_root) {
-				if (xme.time > m_last_warp) {
-					/* when wrapping we don't need to add an event because the
-					 * setCursorPosition call will cause a new event after */
-					setCursorPosition(x_new, y_new); /* wrap */
-					window->setCursorGrabAccum(x_accum + (xme.x_root - x_new), y_accum + (xme.y_root - y_new));
-					m_last_warp = lastEventTime(xme.time);
-				} else {
-					setCursorPosition(x_new, y_new); /* wrap but don't accumulate */
-				}
-			} else {
 				g_event = new
-				GHOST_EventCursor(
-				    getMilliSeconds(),
-				    GHOST_kEventCursorMove,
-				    window,
-				    xme.x_root + x_accum,
-				    xme.y_root + y_accum
+				GHOST_Event(
+					getMilliSeconds(),
+					GHOST_kEventWindowUpdate,
+					window
 				);
 			}
-		} else {
+			break;
+		}
+
+		case MotionNotify:
+		{
+			XMotionEvent &xme = xe->xmotion;
+			
+			if(window->getCursorGrabMode() != GHOST_kGrabDisable && window->getCursorGrabMode() != GHOST_kGrabNormal)
+			{
+				GHOST_TInt32 x_new= xme.x_root;
+				GHOST_TInt32 y_new= xme.y_root;
+				GHOST_TInt32 x_accum, y_accum;
+				GHOST_Rect bounds;
+
+				/* fallback to window bounds */
+				if(window->getCursorGrabBounds(bounds)==GHOST_kFailure)
+					window->getClientBounds(bounds);
+
+				/* could also clamp to screen bounds
+				 * wrap with a window outside the view will fail atm  */
+				bounds.wrapPoint(x_new, y_new, 8); /* offset of one incase blender is at screen bounds */
+				window->getCursorGrabAccum(x_accum, y_accum);
+
+				if(x_new != xme.x_root || y_new != xme.y_root) {
+					if (xme.time > m_last_warp) {
+						/* when wrapping we don't need to add an event because the
+						 * setCursorPosition call will cause a new event after */
+						setCursorPosition(x_new, y_new); /* wrap */
+						window->setCursorGrabAccum(x_accum + (xme.x_root - x_new), y_accum + (xme.y_root - y_new));
+						m_last_warp = lastEventTime(xme.time);
+					} else {
+						setCursorPosition(x_new, y_new); /* wrap but don't accumulate */
+					}
+				}
+				else {
+					g_event = new
+					GHOST_EventCursor(
+						getMilliSeconds(),
+						GHOST_kEventCursorMove,
+						window,
+						xme.x_root + x_accum,
+						xme.y_root + y_accum
+					);
+				}
+			}
+			else {
+				g_event = new
+				GHOST_EventCursor(
+					getMilliSeconds(),
+					GHOST_kEventCursorMove,
+					window,
+					xme.x_root,
+					xme.y_root
+				);
+			}
+			break;
+		}
+
+		case KeyPress:
+		case KeyRelease:
+		{
+			XKeyEvent *xke = &(xe->xkey);
+		
+			KeySym key_sym = XLookupKeysym(xke,0);
+			char ascii;
+			
+			GHOST_TKey gkey = convertXKey(key_sym);
+			GHOST_TEventType type = (xke->type == KeyPress) ? 
+				GHOST_kEventKeyDown : GHOST_kEventKeyUp;
+			
+			if (!XLookupString(xke, &ascii, 1, NULL, NULL)) {
+				ascii = '\0';
+			}
+			
 			g_event = new
-			GHOST_EventCursor(
-			    getMilliSeconds(),
-			    GHOST_kEventCursorMove,
-			    window,
-			    xme.x_root,
-			    xme.y_root
+			GHOST_EventKey(
+				getMilliSeconds(),
+				type,
+				window,
+				gkey,
+				ascii
 			);
-		}
+			
 		break;
-	}
-
-	case KeyPress:
-	case KeyRelease: {
-		XKeyEvent *xke = &(xe->xkey);
-
-		KeySym key_sym = XLookupKeysym(xke,0);
-		char ascii;
-
-		GHOST_TKey gkey = convertXKey(key_sym);
-		GHOST_TEventType type = (xke->type == KeyPress) ?
-		                        GHOST_kEventKeyDown : GHOST_kEventKeyUp;
-
-		if (!XLookupString(xke, &ascii, 1, NULL, NULL)) {
-			ascii = '\0';
 		}
 
-		g_event = new
-		GHOST_EventKey(
-		    getMilliSeconds(),
-		    type,
-		    window,
-		    gkey,
-		    ascii
-		);
+		case ButtonPress:
+		case ButtonRelease:
+		{
+			XButtonEvent & xbe = xe->xbutton;
+			GHOST_TButtonMask gbmask = GHOST_kButtonMaskLeft;
+			GHOST_TEventType type = (xbe.type == ButtonPress) ? 
+				GHOST_kEventButtonDown : GHOST_kEventButtonUp;
 
-		break;
-	}
+			/* process wheel mouse events and break, only pass on press events */
+			if(xbe.button == Button4) {
+				if(xbe.type == ButtonPress)
+					g_event = new GHOST_EventWheel(getMilliSeconds(), window, 1);
+				break;
+			}
+			else if(xbe.button == Button5) {
+				if(xbe.type == ButtonPress)
+					g_event = new GHOST_EventWheel(getMilliSeconds(), window, -1);
+				break;
+			}
+			
+			/* process rest of normal mouse buttons */
+			if(xbe.button == Button1)
+				gbmask = GHOST_kButtonMaskLeft;
+			else if(xbe.button == Button2)
+				gbmask = GHOST_kButtonMaskMiddle;
+			else if(xbe.button == Button3)
+				gbmask = GHOST_kButtonMaskRight;
+			/* It seems events 6 and 7 are for horizontal scrolling.
+			* you can re-order button mapping like this... (swaps 6,7 with 8,9)
+			*   xmodmap -e "pointer = 1 2 3 4 5 8 9 6 7" 
+			*/
+			else if(xbe.button == 8)
+				gbmask = GHOST_kButtonMaskButton4;
+			else if(xbe.button == 9)
+				gbmask = GHOST_kButtonMaskButton5;
+			else
+				break;
 
-	case ButtonPress:
-	case ButtonRelease: {
-		XButtonEvent & xbe = xe->xbutton;
-		GHOST_TButtonMask gbmask = GHOST_kButtonMaskLeft;
-		GHOST_TEventType type = (xbe.type == ButtonPress) ?
-		                        GHOST_kEventButtonDown : GHOST_kEventButtonUp;
-
-		/* process wheel mouse events and break, only pass on press events */
-		if(xbe.button == Button4) {
-			if(xbe.type == ButtonPress)
-				g_event = new GHOST_EventWheel(getMilliSeconds(), window, 1);
-			break;
-		} else if(xbe.button == Button5) {
-			if(xbe.type == ButtonPress)
-				g_event = new GHOST_EventWheel(getMilliSeconds(), window, -1);
-			break;
-		}
-
-		/* process rest of normal mouse buttons */
-		if(xbe.button == Button1)
-			gbmask = GHOST_kButtonMaskLeft;
-		else if(xbe.button == Button2)
-			gbmask = GHOST_kButtonMaskMiddle;
-		else if(xbe.button == Button3)
-			gbmask = GHOST_kButtonMaskRight;
-		/* It seems events 6 and 7 are for horizontal scrolling.
-		* you can re-order button mapping like this... (swaps 6,7 with 8,9)
-		*   xmodmap -e "pointer = 1 2 3 4 5 8 9 6 7"
-		*/
-		else if(xbe.button == 8)
-			gbmask = GHOST_kButtonMaskButton4;
-		else if(xbe.button == 9)
-			gbmask = GHOST_kButtonMaskButton5;
-		else
-			break;
-
-		g_event = new
-		GHOST_EventButton(
-		    getMilliSeconds(),
-		    type,
-		    window,
-		    gbmask
-		);
-		break;
-	}
-
-	// change of size, border, layer etc.
-	case ConfigureNotify: {
-		/* XConfigureEvent & xce = xe->xconfigure; */
-
-		g_event = new
-		GHOST_Event(
-		    getMilliSeconds(),
-		    GHOST_kEventWindowSize,
-		    window
-		);
-		break;
-	}
-
-	case FocusIn:
-	case FocusOut: {
-		XFocusChangeEvent &xfe = xe->xfocus;
-
-		// May have to look at the type of event and filter some
-		// out.
-
-		GHOST_TEventType gtype = (xfe.type == FocusIn) ?
-		                         GHOST_kEventWindowActivate : GHOST_kEventWindowDeactivate;
-
-		g_event = new
-		GHOST_Event(
-		    getMilliSeconds(),
-		    gtype,
-		    window
-		);
-		break;
-
-	}
-	case ClientMessage: {
-		XClientMessageEvent & xcme = xe->xclient;
-
-#ifndef __sgi
-		if (((Atom)xcme.data.l[0]) == m_delete_window_atom) {
 			g_event = new
+			GHOST_EventButton(
+				getMilliSeconds(),
+				type,
+				window,
+				gbmask
+			);
+			break;
+		}
+			
+			// change of size, border, layer etc.
+		case ConfigureNotify:
+		{
+			/* XConfigureEvent & xce = xe->xconfigure; */
+
+			g_event = new 
 			GHOST_Event(
-			    getMilliSeconds(),
-			    GHOST_kEventWindowClose,
-			    window
+				getMilliSeconds(),
+				GHOST_kEventWindowSize,
+				window
+			);			
+			break;
+		}
+
+		case FocusIn:
+		case FocusOut:
+		{
+			XFocusChangeEvent &xfe = xe->xfocus;
+		
+			// May have to look at the type of event and filter some
+			// out.
+									
+			GHOST_TEventType gtype = (xfe.type == FocusIn) ? 
+				GHOST_kEventWindowActivate : GHOST_kEventWindowDeactivate;
+
+			g_event = new 
+			GHOST_Event(	
+				getMilliSeconds(),
+				gtype,
+				window
 			);
-		} else
+			break;
+
+		}
+		case ClientMessage:
+		{
+			XClientMessageEvent & xcme = xe->xclient;
+
+#ifndef __sgi			
+			if (((Atom)xcme.data.l[0]) == m_delete_window_atom) {
+				g_event = new 
+				GHOST_Event(	
+					getMilliSeconds(),
+					GHOST_kEventWindowClose,
+					window
+				);
+			} else 
 #endif
 			if (sNdofInfo.currValues) {
 				static GHOST_TEventNDOFData data = {0,0,0,0,0,0,0,0,0,0,0};
-				if (xcme.message_type == sNdofInfo.motionAtom) {
+				if (xcme.message_type == sNdofInfo.motionAtom)
+				{
 					data.changed = 1;
 					data.delta = xcme.data.s[8] - data.time;
 					data.time = xcme.data.s[8];
@@ -696,146 +679,152 @@ GHOST_SystemX11::processEvent(XEvent *xe) {
 				 * to be sure that our windows is mapped
 				 * or this call fail and close blender.
 				 */
-				if (XGetWindowAttributes(curDisplay, xcme.window, &attr) == True) {
-					if (XGetInputFocus(curDisplay, &fwin, &revert_to) == True) {
+				if (XGetWindowAttributes(m_display, xcme.window, &attr) == True) {
+					if (XGetInputFocus(m_display, &fwin, &revert_to) == True) {
 						if (attr.map_state == IsViewable) {
 							if (fwin != xcme.window)
-								XSetInputFocus(curDisplay, xcme.window, RevertToParent, xcme.data.l[1]);
+								XSetInputFocus(m_display, xcme.window, RevertToParent, xcme.data.l[1]);
 						}
 					}
 				}
 			} else {
 				/* Unknown client message, ignore */
 			}
-		break;
-	}
-
-	case DestroyNotify:
-		::exit(-1);
+			break;
+		}
+		
+		case DestroyNotify:
+			::exit(-1);	
 		// We're not interested in the following things.(yet...)
-	case NoExpose :
-	case GraphicsExpose :
-		break;
-
-	case EnterNotify:
-	case LeaveNotify: {
-		/* XCrossingEvents pointer leave enter window.
-		   also do cursor move here, MotionNotify only
-		   happens when motion starts & ends inside window.
-		   we only do moves when the crossing mode is 'normal'
-		   (really crossing between windows) since some windowmanagers
-		   also send grab/ungrab crossings for mousewheel events.
-		*/
-		XCrossingEvent &xce = xe->xcrossing;
-		if( xce.mode == NotifyNormal ) {
-			g_event = new
-			GHOST_EventCursor(
-			    getMilliSeconds(),
-			    GHOST_kEventCursorMove,
-			    window,
-			    xce.x_root,
-			    xce.y_root
-			);
-		}
-		break;
-	}
-	case MapNotify:
-		/*
-		 * From ICCCM:
-		 * [ Clients can select for StructureNotify on their
-		 *   top-level windows to track transition between
-		 *   Normal and Iconic states. Receipt of a MapNotify
-		 *   event will indicate a transition to the Normal
-		 *   state, and receipt of an UnmapNotify event will
-		 *   indicate a transition to the Iconic state. ]
-		 */
-		if (window->m_post_init == True) {
-			/*
-			 * Now we are sure that the window is
-			 * mapped, so only need change the state.
-			 */
-			window->setState (window->m_post_state);
-			window->m_post_init = False;
-		}
-		break;
-	case UnmapNotify:
-		break;
-	case MappingNotify:
-	case ReparentNotify:
-		break;
-	case SelectionRequest: {
-		XEvent nxe;
-		Atom target, string, compound_text, c_string;
-		XSelectionRequestEvent *xse = &xe->xselectionrequest;
-
-		target = XInternAtom(curDisplay, "TARGETS", False);
-		string = XInternAtom(curDisplay, "STRING", False);
-		compound_text = XInternAtom(curDisplay, "COMPOUND_TEXT", False);
-		c_string = XInternAtom(curDisplay, "C_STRING", False);
-
-		/* support obsolete clients */
-		if (xse->property == None) {
-			xse->property = xse->target;
-		}
-
-		nxe.xselection.type = SelectionNotify;
-		nxe.xselection.requestor = xse->requestor;
-		nxe.xselection.property = xse->property;
-		nxe.xselection.display = xse->display;
-		nxe.xselection.selection = xse->selection;
-		nxe.xselection.target = xse->target;
-		nxe.xselection.time = xse->time;
-
-		/*Check to see if the requestor is asking for String*/
-		if(xse->target == string || xse->target == compound_text || xse->target == c_string) {
-			if (xse->selection == XInternAtom(curDisplay, "PRIMARY", False)) {
-				XChangeProperty(curDisplay, xse->requestor, xse->property, xse->target, 8, PropModeReplace, (unsigned char*)txt_select_buffer, strlen(txt_select_buffer));
-			} else if (xse->selection == XInternAtom(curDisplay, "CLIPBOARD", False)) {
-				XChangeProperty(curDisplay, xse->requestor, xse->property, xse->target, 8, PropModeReplace, (unsigned char*)txt_cut_buffer, strlen(txt_cut_buffer));
+		case NoExpose : 
+		case GraphicsExpose :
+			break;
+		
+		case EnterNotify:
+		case LeaveNotify:
+		{
+			/* XCrossingEvents pointer leave enter window.
+			   also do cursor move here, MotionNotify only
+			   happens when motion starts & ends inside window.
+			   we only do moves when the crossing mode is 'normal'
+			   (really crossing between windows) since some windowmanagers
+			   also send grab/ungrab crossings for mousewheel events.
+			*/
+			XCrossingEvent &xce = xe->xcrossing;
+			if( xce.mode == NotifyNormal ) {
+				g_event = new 
+				GHOST_EventCursor(
+					getMilliSeconds(),
+					GHOST_kEventCursorMove,
+					window,
+					xce.x_root,
+					xce.y_root
+				);
 			}
-		} else if (xse->target == target) {
-			Atom alist[4];
-			alist[0] = target;
-			alist[1] = string;
-			alist[2] = compound_text;
-			alist[3] = c_string;
-			XChangeProperty(curDisplay, xse->requestor, xse->property, xse->target, 32, PropModeReplace, (unsigned char*)alist, 4);
-			XFlush(curDisplay);
-		} else  {
-			//Change property to None because we do not support anything but STRING
-			nxe.xselection.property = None;
+			break;
 		}
-
-		//Send the event to the client 0 0 == False, SelectionNotify
-		XSendEvent(curDisplay, xse->requestor, 0, 0, &nxe);
-		XFlush(curDisplay);
-		break;
-	}
-
-	default: {
+		case MapNotify:
+			/*
+			 * From ICCCM:
+			 * [ Clients can select for StructureNotify on their
+			 *   top-level windows to track transition between
+			 *   Normal and Iconic states. Receipt of a MapNotify
+			 *   event will indicate a transition to the Normal
+			 *   state, and receipt of an UnmapNotify event will
+			 *   indicate a transition to the Iconic state. ]
+			 */
+			if (window->m_post_init == True) {
+				/*
+				 * Now we are sure that the window is
+				 * mapped, so only need change the state.
+				 */
+				window->setState (window->m_post_state);
+				window->m_post_init = False;
+			}
+			break;
+		case UnmapNotify:
+			break;
+		case MappingNotify:
+		case ReparentNotify:
+			break;
+		case SelectionRequest:
+		{
+			XEvent nxe;
+			Atom target, string, compound_text, c_string;
+			XSelectionRequestEvent *xse = &xe->xselectionrequest;
+			
+			target = XInternAtom(m_display, "TARGETS", False);
+			string = XInternAtom(m_display, "STRING", False);
+			compound_text = XInternAtom(m_display, "COMPOUND_TEXT", False);
+			c_string = XInternAtom(m_display, "C_STRING", False);
+			
+			/* support obsolete clients */
+			if (xse->property == None) {
+				xse->property = xse->target;
+			}
+			
+			nxe.xselection.type = SelectionNotify;
+			nxe.xselection.requestor = xse->requestor;
+			nxe.xselection.property = xse->property;
+			nxe.xselection.display = xse->display;
+			nxe.xselection.selection = xse->selection;
+			nxe.xselection.target = xse->target;
+			nxe.xselection.time = xse->time;
+			
+			/*Check to see if the requestor is asking for String*/
+			if(xse->target == string || xse->target == compound_text || xse->target == c_string) {
+				if (xse->selection == XInternAtom(m_display, "PRIMARY", False)) {
+					XChangeProperty(m_display, xse->requestor, xse->property, xse->target, 8, PropModeReplace, (unsigned char*)txt_select_buffer, strlen(txt_select_buffer));
+				} else if (xse->selection == XInternAtom(m_display, "CLIPBOARD", False)) {
+					XChangeProperty(m_display, xse->requestor, xse->property, xse->target, 8, PropModeReplace, (unsigned char*)txt_cut_buffer, strlen(txt_cut_buffer));
+				}
+			} else if (xse->target == target) {
+				Atom alist[4];
+				alist[0] = target;
+				alist[1] = string;
+				alist[2] = compound_text;
+				alist[3] = c_string;
+				XChangeProperty(m_display, xse->requestor, xse->property, xse->target, 32, PropModeReplace, (unsigned char*)alist, 4);
+				XFlush(m_display);
+			} else  {
+				//Change property to None because we do not support anything but STRING
+				nxe.xselection.property = None;
+			}
+			
+			//Send the event to the client 0 0 == False, SelectionNotify
+			XSendEvent(m_display, xse->requestor, 0, 0, &nxe);
+			XFlush(m_display);
+			break;
+		}
+		
+		default: {
 #ifdef WITH_X11_XINPUT
-		if(xe->type == window->GetXTablet().MotionEvent) {
-			XDeviceMotionEvent* data = (XDeviceMotionEvent*)xe;
-			window->GetXTablet().CommonData.Pressure=
-			    data->axis_data[2]/((float)window->GetXTablet().PressureLevels);
-
+			if(xe->type == window->GetXTablet().MotionEvent) 
+			{
+				XDeviceMotionEvent* data = (XDeviceMotionEvent*)xe;
+				window->GetXTablet().CommonData.Pressure= 
+					data->axis_data[2]/((float)window->GetXTablet().PressureLevels);
+			
 			/* the (short) cast and the &0xffff is bizarre and unexplained anywhere,
 			 * but I got garbage data without it. Found it in the xidump.c source --matt */
-			window->GetXTablet().CommonData.Xtilt=
-			    (short)(data->axis_data[3]&0xffff)/((float)window->GetXTablet().XtiltLevels);
-			window->GetXTablet().CommonData.Ytilt=
-			    (short)(data->axis_data[4]&0xffff)/((float)window->GetXTablet().YtiltLevels);
-		} else if(xe->type == window->GetXTablet().ProxInEvent) {
-			XProximityNotifyEvent* data = (XProximityNotifyEvent*)xe;
-			if(data->deviceid == window->GetXTablet().StylusID)
-				window->GetXTablet().CommonData.Active= GHOST_kTabletModeStylus;
-			else if(data->deviceid == window->GetXTablet().EraserID)
-				window->GetXTablet().CommonData.Active= GHOST_kTabletModeEraser;
-		} else if(xe->type == window->GetXTablet().ProxOutEvent)
-			window->GetXTablet().CommonData.Active= GHOST_kTabletModeNone;
+				window->GetXTablet().CommonData.Xtilt= 
+					(short)(data->axis_data[3]&0xffff)/((float)window->GetXTablet().XtiltLevels);
+				window->GetXTablet().CommonData.Ytilt= 
+					(short)(data->axis_data[4]&0xffff)/((float)window->GetXTablet().YtiltLevels);
+			}
+			else if(xe->type == window->GetXTablet().ProxInEvent) 
+			{
+				XProximityNotifyEvent* data = (XProximityNotifyEvent*)xe;
+				if(data->deviceid == window->GetXTablet().StylusID)
+					window->GetXTablet().CommonData.Active= GHOST_kTabletModeStylus;
+				else if(data->deviceid == window->GetXTablet().EraserID)
+					window->GetXTablet().CommonData.Active= GHOST_kTabletModeEraser;
+			}
+			else if(xe->type == window->GetXTablet().ProxOutEvent)
+				window->GetXTablet().CommonData.Active= GHOST_kTabletModeNone;
 #endif // WITH_X11_XINPUT
-		break;
-	}
+			break;
+		}
 	}
 
 	if (g_event) {
@@ -843,139 +832,93 @@ GHOST_SystemX11::processEvent(XEvent *xe) {
 	}
 }
 
-void *
+	void *
 GHOST_SystemX11::
-prepareNdofInfo(volatile GHOST_TEventNDOFData *currentNdofValues) {
+prepareNdofInfo(volatile GHOST_TEventNDOFData *currentNdofValues)
+{
 	const vector<GHOST_IWindow*>& v(m_windowManager->getWindows());
 	if (v.size() > 0)
 		sNdofInfo.window = static_cast<GHOST_WindowX11*>(v[0])->getXWindow();
-	sNdofInfo.display = curDisplay;
+	sNdofInfo.display = m_display;
 	sNdofInfo.currValues = currentNdofValues;
 	return (void*)&sNdofInfo;
 }
 
-GHOST_TSuccess
+	GHOST_TSuccess 
 GHOST_SystemX11::
 getModifierKeys(
-    GHOST_ModifierKeys& keys
+	GHOST_ModifierKeys& keys
 ) const {
 
 	// analyse the masks retuned from XQueryPointer.
 
 	memset((void *)m_keyboard_vector,0,sizeof(m_keyboard_vector));
 
-	XQueryKeymap(curDisplay,(char *)m_keyboard_vector);
+	XQueryKeymap(m_display,(char *)m_keyboard_vector);
 
 	// now translate key symobols into keycodes and
 	// test with vector.
 
-	const KeyCode shift_l = XKeysymToKeycode(curDisplay,XK_Shift_L);
-	const KeyCode shift_r = XKeysymToKeycode(curDisplay,XK_Shift_R);
-	const KeyCode control_l = XKeysymToKeycode(curDisplay,XK_Control_L);
-	const KeyCode control_r = XKeysymToKeycode(curDisplay,XK_Control_R);
-	const KeyCode alt_l = XKeysymToKeycode(curDisplay,XK_Alt_L);
-	const KeyCode alt_r = XKeysymToKeycode(curDisplay,XK_Alt_R);
-	const KeyCode super_l = XKeysymToKeycode(curDisplay,XK_Super_L);
-	const KeyCode super_r = XKeysymToKeycode(curDisplay,XK_Super_R);
+	const static KeyCode shift_l = XKeysymToKeycode(m_display,XK_Shift_L);
+	const static KeyCode shift_r = XKeysymToKeycode(m_display,XK_Shift_R);
+	const static KeyCode control_l = XKeysymToKeycode(m_display,XK_Control_L);
+	const static KeyCode control_r = XKeysymToKeycode(m_display,XK_Control_R);
+	const static KeyCode alt_l = XKeysymToKeycode(m_display,XK_Alt_L);
+	const static KeyCode alt_r = XKeysymToKeycode(m_display,XK_Alt_R);
+	const static KeyCode super_l = XKeysymToKeycode(m_display,XK_Super_L);
+	const static KeyCode super_r = XKeysymToKeycode(m_display,XK_Super_R);
 
-	// Shift
-	if ((m_keyboard_vector[shift_l >> 3] >> (shift_l & 7)) & 1) {
-		keys.set(GHOST_kModifierKeyLeftShift,true);
-	} else {
-		keys.set(GHOST_kModifierKeyLeftShift,false);
-	}
-	if ((m_keyboard_vector[shift_r >> 3] >> (shift_r & 7)) & 1) {
+	// shift
+	keys.set(GHOST_kModifierKeyLeftShift, ((m_keyboard_vector[shift_l >> 3] >> (shift_l & 7)) & 1) != 0);
+	keys.set(GHOST_kModifierKeyRightShift, ((m_keyboard_vector[shift_r >> 3] >> (shift_r & 7)) & 1) != 0);
+	// control
+	keys.set(GHOST_kModifierKeyLeftControl, ((m_keyboard_vector[control_l >> 3] >> (control_l & 7)) & 1) != 0);
+	keys.set(GHOST_kModifierKeyRightControl, ((m_keyboard_vector[control_r >> 3] >> (control_r & 7)) & 1) != 0);
+	// alt
+	keys.set(GHOST_kModifierKeyLeftAlt, ((m_keyboard_vector[alt_l >> 3] >> (alt_l & 7)) & 1) != 0);
+	keys.set(GHOST_kModifierKeyRightAlt, ((m_keyboard_vector[alt_r >> 3] >> (alt_r & 7)) & 1) != 0);
+	// super (windows) - only one GHOST-kModifierKeyOS, so mapping to either
+	keys.set(GHOST_kModifierKeyOS, ( ((m_keyboard_vector[super_l >> 3] >> (super_l & 7)) & 1) ||
+	                                 ((m_keyboard_vector[super_r >> 3] >> (super_r & 7)) & 1) ) != 0);
 
-		keys.set(GHOST_kModifierKeyRightShift,true);
-	} else {
-		keys.set(GHOST_kModifierKeyRightShift,false);
-	}
-
-	// control (weep)
-	if ((m_keyboard_vector[control_l >> 3] >> (control_l & 7)) & 1) {
-		keys.set(GHOST_kModifierKeyLeftControl,true);
-	} else {
-		keys.set(GHOST_kModifierKeyLeftControl,false);
-	}
-	if ((m_keyboard_vector[control_r >> 3] >> (control_r & 7)) & 1) {
-		keys.set(GHOST_kModifierKeyRightControl,true);
-	} else {
-		keys.set(GHOST_kModifierKeyRightControl,false);
-	}
-
-	// Alt (yawn)
-	if ((m_keyboard_vector[alt_l >> 3] >> (alt_l & 7)) & 1) {
-		keys.set(GHOST_kModifierKeyLeftAlt,true);
-	} else {
-		keys.set(GHOST_kModifierKeyLeftAlt,false);
-	}
-	if ((m_keyboard_vector[alt_r >> 3] >> (alt_r & 7)) & 1) {
-		keys.set(GHOST_kModifierKeyRightAlt,true);
-	} else {
-		keys.set(GHOST_kModifierKeyRightAlt,false);
-	}
-
-	// Super (Windows) - only one GHOST-kModifierKeyOS, so mapping
-	// to either
-	if ( ((m_keyboard_vector[super_l >> 3] >> (super_l & 7)) & 1) ||
-	        ((m_keyboard_vector[super_r >> 3] >> (super_r & 7)) & 1) ) {
-		keys.set(GHOST_kModifierKeyOS,true);
-	} else {
-		keys.set(GHOST_kModifierKeyOS,false);
-	}
 	return GHOST_kSuccess;
 }
 
-GHOST_TSuccess
+	GHOST_TSuccess 
 GHOST_SystemX11::
 getButtons(
-    GHOST_Buttons& buttons
+	GHOST_Buttons& buttons
 ) const {
 
 	Window root_return, child_return;
 	int rx,ry,wx,wy;
 	unsigned int mask_return;
 
-	if (XQueryPointer(
-	            curDisplay,
-	            RootWindow(curDisplay,DefaultScreen(curDisplay)),
-	            &root_return,
-	            &child_return,
-	            &rx,&ry,
-	            &wx,&wy,
-	            &mask_return
-	        ) == False) {
-		return GHOST_kFailure;
-	} else {
-
-		if (mask_return & Button1Mask) {
-			buttons.set(GHOST_kButtonMaskLeft,true);
-		} else {
-			buttons.set(GHOST_kButtonMaskLeft,false);
-		}
-
-		if (mask_return & Button2Mask) {
-			buttons.set(GHOST_kButtonMaskMiddle,true);
-		} else {
-			buttons.set(GHOST_kButtonMaskMiddle,false);
-		}
-
-		if (mask_return & Button3Mask) {
-			buttons.set(GHOST_kButtonMaskRight,true);
-		} else {
-			buttons.set(GHOST_kButtonMaskRight,false);
-		}
+	if (XQueryPointer(m_display,
+	                  RootWindow(m_display,DefaultScreen(m_display)),
+	                  &root_return,
+	                  &child_return,
+	                  &rx,&ry,
+	                  &wx,&wy,
+	                  &mask_return) == True)
+	{
+		buttons.set(GHOST_kButtonMaskLeft,   (mask_return & Button1Mask) != 0);
+		buttons.set(GHOST_kButtonMaskMiddle, (mask_return & Button2Mask) != 0);
+		buttons.set(GHOST_kButtonMaskRight,  (mask_return & Button3Mask) != 0);
 	}
+	else {
+		return GHOST_kFailure;
+	}	
 
 	return GHOST_kSuccess;
 }
 
 
-GHOST_TSuccess
+	GHOST_TSuccess 
 GHOST_SystemX11::
 getCursorPosition(
-    GHOST_TInt32& x,
-    GHOST_TInt32& y
+	GHOST_TInt32& x,
+	GHOST_TInt32& y
 ) const {
 
 	Window root_return, child_return;
@@ -983,28 +926,28 @@ getCursorPosition(
 	unsigned int mask_return;
 
 	if (XQueryPointer(
-	            curDisplay,
-	            RootWindow(curDisplay,DefaultScreen(curDisplay)),
-	            &root_return,
-	            &child_return,
-	            &rx,&ry,
-	            &wx,&wy,
-	            &mask_return
-	        ) == False) {
+		m_display,
+		RootWindow(m_display,DefaultScreen(m_display)),
+		&root_return,
+		&child_return,
+		&rx,&ry,
+		&wx,&wy,
+		&mask_return
+	) == False) {
 		return GHOST_kFailure;
 	} else {
 		x = rx;
 		y = ry;
-	}
+	}	
 	return GHOST_kSuccess;
 }
 
 
-GHOST_TSuccess
+	GHOST_TSuccess 
 GHOST_SystemX11::
 setCursorPosition(
-    GHOST_TInt32 x,
-    GHOST_TInt32 y
+	GHOST_TInt32 x,
+	GHOST_TInt32 y
 ) {
 
 	// This is a brute force move in screen coordinates
@@ -1019,44 +962,44 @@ setCursorPosition(
 	int relx = x-cx;
 	int rely = y-cy;
 
-	XWarpPointer(curDisplay,None,None,0,0,0,0,relx,rely);
-	XSync(curDisplay, 0); /* Sync to process all requests */
-
+	XWarpPointer(m_display,None,None,0,0,0,0,relx,rely);
+	XSync(m_display, 0); /* Sync to process all requests */
+	
 	return GHOST_kSuccess;
 }
 
 
-void
+	void
 GHOST_SystemX11::
 addDirtyWindow(
-    GHOST_WindowX11 * bad_wind
-) {
+	GHOST_WindowX11 * bad_wind
+){
 
 	GHOST_ASSERT((bad_wind != NULL), "addDirtyWindow() NULL ptr trapped (window)");
-
+	
 	m_dirty_windows.push_back(bad_wind);
 }
 
 
-bool
+	bool
 GHOST_SystemX11::
 generateWindowExposeEvents(
-) {
+){
 
 	vector<GHOST_WindowX11 *>::iterator w_start = m_dirty_windows.begin();
 	vector<GHOST_WindowX11 *>::const_iterator w_end = m_dirty_windows.end();
 	bool anyProcessed = false;
+	
+	for (;w_start != w_end; ++w_start) {
+		GHOST_Event * g_event = new 
+			GHOST_Event(
+				getMilliSeconds(),
+				GHOST_kEventWindowUpdate,
+				*w_start
+			);			
 
-	for (; w_start != w_end; ++w_start) {
-		GHOST_Event * g_event = new
-		GHOST_Event(
-		    getMilliSeconds(),
-		    GHOST_kEventWindowUpdate,
-		    *w_start
-		);
-
-		(*w_start)->validate();
-
+		(*w_start)->validate();	
+		
 		if (g_event) {
 			pushEvent(g_event);
 			anyProcessed = true;
@@ -1067,13 +1010,11 @@ generateWindowExposeEvents(
 	return anyProcessed;
 }
 
-#define GXMAP(k,x,y) case x: k = y; break;
+#define GXMAP(k,x,y) case x: k = y; break; 
 
-GHOST_TKey
-GHOST_SystemX11::
-convertXKey(
-    KeySym key
-) {
+static GHOST_TKey
+convertXKey(KeySym key)
+{
 	GHOST_TKey type;
 
 	if ((key >= XK_A) && (key <= XK_Z)) {
@@ -1084,19 +1025,19 @@ convertXKey(
 		type = GHOST_TKey(key - XK_0 + int(GHOST_kKey0));
 	} else if ((key >= XK_F1) && (key <= XK_F24)) {
 		type = GHOST_TKey(key - XK_F1 + int(GHOST_kKeyF1));
-#if defined(__sun) || defined(__sun__)
+#if defined(__sun) || defined(__sun__) 
 		/* This is a bit of a hack, but it looks like sun
 		   Used F11 and friends for its special keys Stop,again etc..
 		   So this little patch enables F11 and F12 to work as expected
-		   following link has documentation on it:
+		   following link has documentation on it: 
 		   http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4734408
-		   also from /usr/include/X11/Sunkeysym.h
-		#define SunXK_F36               0x1005FF10      // Labeled F11
-		#define SunXK_F37               0x1005FF11      // Labeled F12
+		   also from /usr/include/X11/Sunkeysym.h 
+#define SunXK_F36               0x1005FF10      // Labeled F11
+#define SunXK_F37               0x1005FF11      // Labeled F12 
 
 				mein@cs.umn.edu
 		 */
-
+		
 	} else if (key == 268828432) {
 		type = GHOST_kKeyF11;
 	} else if (key == 268828433) {
@@ -1109,7 +1050,7 @@ convertXKey(
 			GXMAP(type,XK_Return,   	GHOST_kKeyEnter);
 			GXMAP(type,XK_Escape,   	GHOST_kKeyEsc);
 			GXMAP(type,XK_space,    	GHOST_kKeySpace);
-
+			
 			GXMAP(type,XK_Linefeed,		GHOST_kKeyLinefeed);
 			GXMAP(type,XK_semicolon,	GHOST_kKeySemicolon);
 			GXMAP(type,XK_period,		GHOST_kKeyPeriod);
@@ -1123,7 +1064,7 @@ convertXKey(
 			GXMAP(type,XK_bracketleft,	GHOST_kKeyLeftBracket);
 			GXMAP(type,XK_bracketright,	GHOST_kKeyRightBracket);
 			GXMAP(type,XK_Pause,		GHOST_kKeyPause);
-
+			
 			GXMAP(type,XK_Shift_L,  	GHOST_kKeyLeftShift);
 			GXMAP(type,XK_Shift_R,  	GHOST_kKeyRightShift);
 			GXMAP(type,XK_Control_L,	GHOST_kKeyLeftControl);
@@ -1148,9 +1089,9 @@ convertXKey(
 			GXMAP(type,XK_Caps_Lock,	GHOST_kKeyCapsLock);
 			GXMAP(type,XK_Scroll_Lock,	GHOST_kKeyScrollLock);
 			GXMAP(type,XK_Num_Lock,		GHOST_kKeyNumLock);
-
-			/* keypad events */
-
+			
+				/* keypad events */
+				
 			GXMAP(type,XK_KP_0,	 		GHOST_kKeyNumpad0);
 			GXMAP(type,XK_KP_1,	 		GHOST_kKeyNumpad1);
 			GXMAP(type,XK_KP_2,	 		GHOST_kKeyNumpad2);
@@ -1188,10 +1129,12 @@ convertXKey(
 			GXMAP(type,XF86XK_AudioPrev,    GHOST_kKeyMediaFirst);
 			GXMAP(type,XF86XK_AudioRewind,  GHOST_kKeyMediaFirst);
 			GXMAP(type,XF86XK_AudioNext,    GHOST_kKeyMediaLast);
+#ifdef XF86XK_AudioForward /* Debian lenny's XF86keysym.h has no XF86XK_AudioForward define */
 			GXMAP(type,XF86XK_AudioForward, GHOST_kKeyMediaLast);
 #endif
+#endif
 
-			/* some extra sun cruft (NICE KEYBOARD!) */
+				/* some extra sun cruft (NICE KEYBOARD!) */
 #ifdef __sun__
 			GXMAP(type,0xffde,			GHOST_kKeyNumpad1);
 			GXMAP(type,0xffe0,			GHOST_kKeyNumpad3);
@@ -1203,9 +1146,9 @@ convertXKey(
 			GXMAP(type,0xffd7,			GHOST_kKeyNumpadAsterisk);
 #endif
 
-		default :
-			type = GHOST_kKeyUnknown;
-			break;
+			default :
+				type = GHOST_kKeyUnknown;
+				break;
 		}
 	}
 
@@ -1226,8 +1169,9 @@ convertXKey(
 
 // Retrieves the contents of a selections.
 void GHOST_SystemX11::getClipboard_xcout(XEvent evt,
-        Atom sel, Atom target, unsigned char **txt,
-        unsigned long *len, unsigned int *context) const {
+	Atom sel, Atom target, unsigned char **txt,
+	unsigned long *len, unsigned int *context) const
+{
 	Atom pty_type;
 	int pty_format;
 	unsigned char *buffer;
@@ -1241,150 +1185,154 @@ void GHOST_SystemX11::getClipboard_xcout(XEvent evt,
 
 	switch (*context) {
 		// There is no context, do an XConvertSelection()
-	case XCLIB_XCOUT_NONE:
-		// Initialise return length to 0
-		if (*len > 0) {
-			free(*txt);
-			*len = 0;
-		}
+		case XCLIB_XCOUT_NONE:
+			// Initialise return length to 0
+			if (*len > 0) {
+				free(*txt);
+				*len = 0;
+			}
 
-		// Send a selection request
-		XConvertSelection(curDisplay, sel, target, m_xclip_out, win, CurrentTime);
-		*context = XCLIB_XCOUT_SENTCONVSEL;
-		return;
-
-	case XCLIB_XCOUT_SENTCONVSEL:
-		if (evt.type != SelectionNotify)
+			// Send a selection request
+			XConvertSelection(m_display, sel, target, m_xclip_out, win, CurrentTime);
+			*context = XCLIB_XCOUT_SENTCONVSEL;
 			return;
 
-		if (target == m_utf8_string && evt.xselection.property == None) {
-			*context= XCLIB_XCOUT_FALLBACK_UTF8;
-			return;
-		} else if (target == m_compound_text && evt.xselection.property == None) {
-			*context= XCLIB_XCOUT_FALLBACK_COMP;
-			return;
-		} else if (target == m_text && evt.xselection.property == None) {
-			*context= XCLIB_XCOUT_FALLBACK_TEXT;
-			return;
-		}
+		case XCLIB_XCOUT_SENTCONVSEL:
+			if (evt.type != SelectionNotify)
+				return;
 
-		// find the size and format of the data in property
-		XGetWindowProperty(curDisplay, win, m_xclip_out, 0, 0, False,
-		                   AnyPropertyType, &pty_type, &pty_format,
-		                   &pty_items, &pty_size, &buffer);
-		XFree(buffer);
+			if (target == m_utf8_string && evt.xselection.property == None) {
+				*context= XCLIB_XCOUT_FALLBACK_UTF8;
+				return;
+			}
+			else if (target == m_compound_text && evt.xselection.property == None) {
+				*context= XCLIB_XCOUT_FALLBACK_COMP;
+				return;
+			}
+			else if (target == m_text && evt.xselection.property == None) {
+				*context= XCLIB_XCOUT_FALLBACK_TEXT;
+				return;
+			}
 
-		if (pty_type == m_incr) {
-			// start INCR mechanism by deleting property
-			XDeleteProperty(curDisplay, win, m_xclip_out);
-			XFlush(curDisplay);
-			*context = XCLIB_XCOUT_INCR;
-			return;
-		}
-
-		// if it's not incr, and not format == 8, then there's
-		// nothing in the selection (that xclip understands, anyway)
-
-		if (pty_format != 8) {
-			*context = XCLIB_XCOUT_NONE;
-			return;
-		}
-
-		// not using INCR mechanism, just read the property
-		XGetWindowProperty(curDisplay, win, m_xclip_out, 0, (long) pty_size,
-		                   False, AnyPropertyType, &pty_type,
-		                   &pty_format, &pty_items, &pty_size, &buffer);
-
-		// finished with property, delete it
-		XDeleteProperty(curDisplay, win, m_xclip_out);
-
-		// copy the buffer to the pointer for returned data
-		ltxt = (unsigned char *) malloc(pty_items);
-		memcpy(ltxt, buffer, pty_items);
-
-		// set the length of the returned data
-		*len = pty_items;
-		*txt = ltxt;
-
-		// free the buffer
-		XFree(buffer);
-
-		*context = XCLIB_XCOUT_NONE;
-
-		// complete contents of selection fetched, return 1
-		return;
-
-	case XCLIB_XCOUT_INCR:
-		// To use the INCR method, we basically delete the
-		// property with the selection in it, wait for an
-		// event indicating that the property has been created,
-		// then read it, delete it, etc.
-
-		// make sure that the event is relevant
-		if (evt.type != PropertyNotify)
-			return;
-
-		// skip unless the property has a new value
-		if (evt.xproperty.state != PropertyNewValue)
-			return;
-
-		// check size and format of the property
-		XGetWindowProperty(curDisplay, win, m_xclip_out, 0, 0, False,
-		                   AnyPropertyType, &pty_type, &pty_format,
-		                   &pty_items, &pty_size, (unsigned char **) &buffer);
-
-		if (pty_format != 8) {
-			// property does not contain text, delete it
-			// to tell the other X client that we have read
-			// it and to send the next property
+			// find the size and format of the data in property
+			XGetWindowProperty(m_display, win, m_xclip_out, 0, 0, False,
+				AnyPropertyType, &pty_type, &pty_format,
+				&pty_items, &pty_size, &buffer);
 			XFree(buffer);
-			XDeleteProperty(curDisplay, win, m_xclip_out);
-			return;
-		}
 
-		if (pty_size == 0) {
-			// no more data, exit from loop
-			XFree(buffer);
-			XDeleteProperty(curDisplay, win, m_xclip_out);
-			*context = XCLIB_XCOUT_NONE;
+			if (pty_type == m_incr) {
+				// start INCR mechanism by deleting property
+				XDeleteProperty(m_display, win, m_xclip_out);
+				XFlush(m_display);
+				*context = XCLIB_XCOUT_INCR;
+				return;
+			}
 
-			// this means that an INCR transfer is now
-			// complete, return 1
-			return;
-		}
+			// if it's not incr, and not format == 8, then there's
+			// nothing in the selection (that xclip understands, anyway)
 
-		XFree(buffer);
+			if (pty_format != 8) {
+				*context = XCLIB_XCOUT_NONE;
+				return;
+			}
 
-		// if we have come this far, the propery contains
-		// text, we know the size.
-		XGetWindowProperty(curDisplay, win, m_xclip_out, 0, (long) pty_size,
-		                   False, AnyPropertyType, &pty_type, &pty_format,
-		                   &pty_items, &pty_size, (unsigned char **) &buffer);
+			// not using INCR mechanism, just read the property
+			XGetWindowProperty(m_display, win, m_xclip_out, 0, (long) pty_size,
+					False, AnyPropertyType, &pty_type,
+					&pty_format, &pty_items, &pty_size, &buffer);
 
-		// allocate memory to accommodate data in *txt
-		if (*len == 0) {
+			// finished with property, delete it
+			XDeleteProperty(m_display, win, m_xclip_out);
+
+			// copy the buffer to the pointer for returned data
+			ltxt = (unsigned char *) malloc(pty_items);
+			memcpy(ltxt, buffer, pty_items);
+
+			// set the length of the returned data
 			*len = pty_items;
-			ltxt = (unsigned char *) malloc(*len);
-		} else {
-			*len += pty_items;
-			ltxt = (unsigned char *) realloc(ltxt, *len);
-		}
+			*txt = ltxt;
 
-		// add data to ltxt
-		memcpy(&ltxt[*len - pty_items], buffer, pty_items);
+			// free the buffer
+			XFree(buffer);
 
-		*txt = ltxt;
-		XFree(buffer);
+			*context = XCLIB_XCOUT_NONE;
 
-		// delete property to get the next item
-		XDeleteProperty(curDisplay, win, m_xclip_out);
-		XFlush(curDisplay);
-		return;
+			// complete contents of selection fetched, return 1
+			return;
+
+		case XCLIB_XCOUT_INCR:
+			// To use the INCR method, we basically delete the
+			// property with the selection in it, wait for an
+			// event indicating that the property has been created,
+			// then read it, delete it, etc.
+
+			// make sure that the event is relevant
+			if (evt.type != PropertyNotify)
+				return;
+
+			// skip unless the property has a new value
+			if (evt.xproperty.state != PropertyNewValue)
+				return;
+
+			// check size and format of the property
+			XGetWindowProperty(m_display, win, m_xclip_out, 0, 0, False,
+				AnyPropertyType, &pty_type, &pty_format,
+				&pty_items, &pty_size, (unsigned char **) &buffer);
+
+			if (pty_format != 8) {
+				// property does not contain text, delete it
+				// to tell the other X client that we have read	
+				// it and to send the next property
+				XFree(buffer);
+				XDeleteProperty(m_display, win, m_xclip_out);
+				return;
+			}
+
+			if (pty_size == 0) {
+				// no more data, exit from loop
+				XFree(buffer);
+				XDeleteProperty(m_display, win, m_xclip_out);
+				*context = XCLIB_XCOUT_NONE;
+
+				// this means that an INCR transfer is now
+				// complete, return 1
+				return;
+			}
+
+			XFree(buffer);
+
+			// if we have come this far, the propery contains
+			// text, we know the size.
+			XGetWindowProperty(m_display, win, m_xclip_out, 0, (long) pty_size,
+				False, AnyPropertyType, &pty_type, &pty_format,
+				&pty_items, &pty_size, (unsigned char **) &buffer);
+
+			// allocate memory to accommodate data in *txt
+			if (*len == 0) {
+				*len = pty_items;
+				ltxt = (unsigned char *) malloc(*len);
+			}
+			else {
+				*len += pty_items;
+				ltxt = (unsigned char *) realloc(ltxt, *len);
+			}
+
+			// add data to ltxt
+			memcpy(&ltxt[*len - pty_items], buffer, pty_items);
+
+			*txt = ltxt;
+			XFree(buffer);
+
+			// delete property to get the next item
+			XDeleteProperty(m_display, win, m_xclip_out);
+			XFlush(m_display);
+			return;
 	}
 	return;
 }
 
-GHOST_TUns8 *GHOST_SystemX11::getClipboard(bool selection) const {
+GHOST_TUns8 *GHOST_SystemX11::getClipboard(bool selection) const
+{
 	Atom sseln;
 	Atom target= m_string;
 	Window owner;
@@ -1406,24 +1354,26 @@ GHOST_TUns8 *GHOST_SystemX11::getClipboard(bool selection) const {
 	Window win = window->getXWindow();
 
 	/* check if we are the owner. */
-	owner= XGetSelectionOwner(curDisplay, sseln);
+	owner= XGetSelectionOwner(m_display, sseln);
 	if (owner == win) {
 		if (sseln == m_clipboard) {
 			sel_buf= (unsigned char *)malloc(strlen(txt_cut_buffer)+1);
 			strcpy((char *)sel_buf, txt_cut_buffer);
 			return((GHOST_TUns8*)sel_buf);
-		} else {
+		}
+		else {
 			sel_buf= (unsigned char *)malloc(strlen(txt_select_buffer)+1);
 			strcpy((char *)sel_buf, txt_select_buffer);
 			return((GHOST_TUns8*)sel_buf);
 		}
-	} else if (owner == None)
+	}
+	else if (owner == None)
 		return(NULL);
 
 	while (1) {
 		/* only get an event if xcout() is doing something */
 		if (context != XCLIB_XCOUT_NONE)
-			XNextEvent(curDisplay, &evt);
+			XNextEvent(m_display, &evt);
 
 		/* fetch the selection, or part of it */
 		getClipboard_xcout(evt, sseln, target, &sel_buf, &sel_len, &context);
@@ -1433,12 +1383,14 @@ GHOST_TUns8 *GHOST_SystemX11::getClipboard(bool selection) const {
 			context= XCLIB_XCOUT_NONE;
 			target= m_string;
 			continue;
-		} else if (context == XCLIB_XCOUT_FALLBACK_UTF8) {
+		}
+		else if (context == XCLIB_XCOUT_FALLBACK_UTF8) {
 			/* utf8 fail, move to compouned text. */
 			context= XCLIB_XCOUT_NONE;
 			target= m_compound_text;
 			continue;
-		} else if (context == XCLIB_XCOUT_FALLBACK_COMP) {
+		}
+		else if (context == XCLIB_XCOUT_FALLBACK_COMP) {
 			/* compouned text faile, move to text. */
 			context= XCLIB_XCOUT_NONE;
 			target= m_text;
@@ -1457,37 +1409,38 @@ GHOST_TUns8 *GHOST_SystemX11::getClipboard(bool selection) const {
 		unsigned char *tmp_data = (unsigned char*) malloc(sel_len+1);
 		memcpy((char*)tmp_data, (char*)sel_buf, sel_len);
 		tmp_data[sel_len] = '\0';
-
+		
 		if (sseln == m_string)
 			XFree(sel_buf);
 		else
 			free(sel_buf);
-
+		
 		return (GHOST_TUns8*)tmp_data;
 	}
 	return(NULL);
 }
 
-void GHOST_SystemX11::putClipboard(GHOST_TInt8 *buffer, bool selection) const {
+void GHOST_SystemX11::putClipboard(GHOST_TInt8 *buffer, bool selection) const
+{
 	Window m_window, owner;
 
-	vector<GHOST_IWindow *> & win_vec = m_windowManager->getWindows();
+	vector<GHOST_IWindow *> & win_vec = m_windowManager->getWindows();	
 	vector<GHOST_IWindow *>::iterator win_it = win_vec.begin();
 	GHOST_WindowX11 * window = static_cast<GHOST_WindowX11 *>(*win_it);
 	m_window = window->getXWindow();
 
 	if (buffer) {
 		if (selection == False) {
-			XSetSelectionOwner(curDisplay, m_clipboard, m_window, CurrentTime);
-			owner= XGetSelectionOwner(curDisplay, m_clipboard);
+			XSetSelectionOwner(m_display, m_clipboard, m_window, CurrentTime);
+			owner= XGetSelectionOwner(m_display, m_clipboard);
 			if (txt_cut_buffer)
 				free((void*)txt_cut_buffer);
 
 			txt_cut_buffer = (char*) malloc(strlen(buffer)+1);
 			strcpy(txt_cut_buffer, buffer);
 		} else {
-			XSetSelectionOwner(curDisplay, m_primary, m_window, CurrentTime);
-			owner= XGetSelectionOwner(curDisplay, m_primary);
+			XSetSelectionOwner(m_display, m_primary, m_window, CurrentTime);
+			owner= XGetSelectionOwner(m_display, m_primary);
 			if (txt_select_buffer)
 				free((void*)txt_select_buffer);
 

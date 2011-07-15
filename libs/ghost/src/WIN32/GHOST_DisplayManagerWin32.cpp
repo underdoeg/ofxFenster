@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_DisplayManagerWin32.cpp 36072 2011-04-09 19:46:17Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -180,3 +181,5 @@ GHOST_TSuccess GHOST_DisplayManagerWin32::setCurrentDisplaySetting(GHOST_TUns8 d
 #endif // GHOST_DEBUG
 	return status == DISP_CHANGE_SUCCESSFUL? GHOST_kSuccess : GHOST_kFailure;
 }
+
+#endif

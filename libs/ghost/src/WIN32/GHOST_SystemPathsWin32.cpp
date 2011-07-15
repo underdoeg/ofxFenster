@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_SystemPathsWin32.cpp 35152 2011-02-25 11:28:33Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -113,3 +114,5 @@ void GHOST_SystemPathsWin32::addToSystemRecentFiles(const char* filename) const
 	/* SHARD_PATH resolves to SHARD_PATHA for non-UNICODE build */
 	SHAddToRecentDocs(SHARD_PATH,filename);
 }
+
+#endif

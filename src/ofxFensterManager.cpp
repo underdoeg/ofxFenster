@@ -397,8 +397,8 @@ void ofxFensterManager::onClose(ofEventArgs &e) {
 
 bool ofxFensterManager::setDisplay(string name, string shareWith) {
 #if defined( TARGET_LINUX )
-	GHOST_SystemX11* sys=(GHOST_SystemX11*)ghostSystem->getSystem();
-	return sys->setDisplay(name, shareWith);
+	//GHOST_SystemX11* sys=(GHOST_SystemX11*)ghostSystem->getSystem();
+	//return sys->setDisplay(name, shareWith);
 #else
 	return false;
 #endif

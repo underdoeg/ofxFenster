@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_SystemPathsWin32.h 35152 2011-02-25 11:28:33Z jesterking $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -89,3 +90,4 @@ public:
 
 #endif // _GHOST_SYSTEM_PATHS_WIN32_H_
 
+#endif

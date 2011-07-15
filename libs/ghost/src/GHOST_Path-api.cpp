@@ -1,3 +1,5 @@
+#ifdef WIN32
+
 /*
  * $Id: GHOST_Path-api.cpp 35152 2011-02-25 11:28:33Z jesterking $
  *
@@ -72,3 +74,5 @@ void GHOST_addToSystemRecentFiles(const char* filename)
 		systemPaths->addToSystemRecentFiles(filename);
 	}
 }
+
+#endif

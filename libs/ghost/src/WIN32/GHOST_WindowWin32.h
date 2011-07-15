@@ -1,3 +1,4 @@
+#ifdef WIN32
 /*
  * $Id: GHOST_WindowWin32.h 36470 2011-05-04 01:50:17Z dfelinto $
  * ***** BEGIN GPL LICENSE BLOCK *****
@@ -399,3 +400,5 @@ protected:
 };
 
 #endif // _GHOST_WINDOW_WIN32_H_
+
+#endif

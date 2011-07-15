@@ -35,7 +35,7 @@
 #define _GHOST_SYSTEM_PATHS_X11_H_
 
 #include "GHOST_SystemPaths.h"
-#include "GHOST_Types.h"
+#include "../GHOST_Types.h"
 
 
 class GHOST_SystemPathsX11 : public GHOST_SystemPaths {
