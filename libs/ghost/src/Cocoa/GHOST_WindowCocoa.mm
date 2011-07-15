@@ -327,7 +327,6 @@ GHOST_WindowCocoa::GHOST_WindowCocoa(
 	m_fullScreen = false;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 
 	//Creates the window
 	NSRect rect;

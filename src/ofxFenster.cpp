@@ -35,8 +35,15 @@ void ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode) {
 		state=GHOST_kWindowStateFullScreen;
 	}
 
+#ifdef TARGET_OSX
+	GHOST_TUns32 screenW;
+	GHOST_TUns32 screenH;
+	GHOST_ISystem::getSystem()->getMainDisplayDimensions(screenW, screenH);
+	t=screenH-t;
+#endif
+	
 	win = GHOST_ISystem::getSystem()->createWindow(title, l, t, w, h, state, GHOST_kDrawingContextTypeOpenGL, false);
-
+	
 	if (!win) {
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
 	}
