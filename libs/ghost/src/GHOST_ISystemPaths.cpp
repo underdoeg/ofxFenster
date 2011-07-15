@@ -45,7 +45,6 @@
 #	include "GHOST_SystemPathsWin32.h"
 #else
 #	ifdef __APPLE__
-#		define GHOST_COCOA		
 #		ifdef GHOST_COCOA
 #			include "GHOST_SystemPathsCocoa.h"
 #		else

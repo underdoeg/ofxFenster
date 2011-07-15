@@ -32,7 +32,7 @@
  */
 
 
-#include "GHOST_Debug.h"
+#include "intern/GHOST_Debug.h"
 #include "GHOST_Types.h"
 #include "GHOST_Path-api.h"
 #include "GHOST_ISystemPaths.h"

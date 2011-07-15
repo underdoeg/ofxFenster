@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_WindowNULL.h 37194 2011-06-05 00:10:20Z gsrb3d $
+ * $Id: GHOST_WindowNULL.h 38022 2011-07-01 15:15:22Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -54,7 +54,7 @@ public:
 		const bool stereoVisual,
 		const GHOST_TUns16 numOfAASamples
 		) :
-		GHOST_Window(title,left,top,width,height,state,type,stereoVisual,numOfAASamples),
+		GHOST_Window(width,height,state,type,stereoVisual,numOfAASamples),
 		m_system (system)
 	{
 		setTitle(title);

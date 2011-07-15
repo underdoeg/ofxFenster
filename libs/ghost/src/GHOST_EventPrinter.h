@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_EventPrinter.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id: GHOST_EventPrinter.h 38351 2011-07-13 06:04:54Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -58,7 +58,7 @@ protected:
 	 * @param key The GHOST key code to convert.
 	 * @param str The GHOST key code converted to a readable string.
 	 */
-	void	getKeyString(GHOST_TKey key, STR_String& str) const;
+	void	getKeyString(GHOST_TKey key, char str[32]) const;
 };
 
 #endif // _GHOST_EVENT_PRINTER_H_

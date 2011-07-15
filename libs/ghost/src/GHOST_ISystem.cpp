@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_ISystem.cpp 37175 2011-06-04 14:12:55Z campbellbarton $
+ * $Id: GHOST_ISystem.cpp 38351 2011-07-13 06:04:54Z campbellbarton $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 
 /**
 
- * $Id: GHOST_ISystem.cpp 37175 2011-06-04 14:12:55Z campbellbarton $
+ * $Id: GHOST_ISystem.cpp 38351 2011-07-13 06:04:54Z campbellbarton $
  * Copyright (C) 2001 NaN Technologies B.V.
  * @author	Maarten Gribnau
  * @date	May 7, 2001
@@ -43,6 +43,8 @@
 
 #ifdef WITH_HEADLESS
 #	include "GHOST_SystemNULL.h"
+#elif defined(WITH_GHOST_SDL)
+#	include "GHOST_SystemSDL.h"
 #elif defined(WIN32)
 #	include "GHOST_SystemWin32.h"
 #else
@@ -67,6 +69,8 @@ GHOST_TSuccess GHOST_ISystem::createSystem()
 	if (!m_system) {
 #ifdef WITH_HEADLESS
 		m_system = new GHOST_SystemNULL();
+#elif defined(WITH_GHOST_SDL)
+		m_system = new GHOST_SystemSDL();
 #elif defined(WIN32)
 		m_system = new GHOST_SystemWin32 ();
 #else

@@ -39,20 +39,21 @@
 #include "GHOST_Types.h"
 
 
+
 /**
  * Interface for GHOST windows.
  *
- * You can create a window with the system's GHOST_ISystem::createWindow 
+ * You can create a window with the system's GHOST_ISystem::createWindow
  * method.
  * @see GHOST_ISystem#createWindow
  *
  * There are two coordinate systems:
  * <ul>
  * <li>The screen coordinate system. The origin of the screen is located in the
- * upper left corner of the screen.</li> 
+ * upper left corner of the screen.</li>
  * <li>The client rectangle coordinate system. The client rectangle of a window
  * is the area that is drawable by the application (excluding title bars etc.).
- * </li> 
+ * </li>
  * </ul>
  * @author	Maarten Gribnau
  * @date	May 31, 2001
@@ -110,7 +111,7 @@ public:
 	 * @param bounds The bounding rectangle of the window.
 	 */
 	virtual	void getWindowBounds(GHOST_Rect& bounds) const = 0;
-	
+
 	/**
 	 * Returns the client rectangle dimensions.
 	 * The left and top members of the rectangle are always zero.
@@ -129,13 +130,13 @@ public:
 	 * @param height The new height of the client area of the window.
 	 */
 	virtual	GHOST_TSuccess setClientHeight(GHOST_TUns32 height) = 0;
-	
+
 	/**
 	 * Positions client
 	 * @param inX The new x of the window.
 	 * @param inY The new y of the window.
 	 */
-	virtual	GHOST_TSuccess setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY) = 0;
+	virtual	GHOST_TSuccess setClientPosition(GHOST_TUns32 inX, GHOST_TUns32 inY){};
 
 	/**
 	 * Resizes client rectangle.
@@ -166,13 +167,13 @@ public:
 	 * Tells if the ongoing drag'n'drop object can be accepted upon mouse drop
 	 */
 	virtual void setAcceptDragOperation(bool canAccept) = 0;
-	
+
 	/**
 	 * Returns acceptance of the dropped object
 	 * Usually called by the "object dropped" event handling function
 	 */
 	virtual bool canAcceptDragOperation() const = 0;
-	
+
 	/**
 	 * Returns the state of the window (normal, minimized, maximized).
 	 * @return The state of the window.
@@ -192,13 +193,13 @@ public:
 	 * @return Indication of success.
 	 */
 	virtual GHOST_TSuccess setModifiedState(bool isUnsavedChanges) = 0;
-	
+
 	/**
 	 * Gets the window "modified" status, indicating unsaved changes
 	 * @return True if there are unsaved changes
 	 */
 	virtual bool getModifiedState() = 0;
-	
+
 	/**
 	 * Sets the order of the window (bottom, top).
 	 * @param order The order of the window.
@@ -223,40 +224,40 @@ public:
 	 * @return Indication of success.
 	 */
 	virtual GHOST_TSuccess invalidate() = 0;
-	
+
 	/**
 	 * Returns the window user data.
 	 * @return The window user data.
 	 */
 	virtual GHOST_TUserDataPtr getUserData() const = 0;
-	
+
 	/**
 	 * Changes the window user data.
 	 * @param data The window user data.
 	 */
 	virtual void setUserData(const GHOST_TUserDataPtr userData) = 0;
-	
+
 	/**
 	 * Returns the tablet data (pressure etc).
 	 * @return The tablet data (pressure etc).
 	 */
 	virtual const GHOST_TabletData* GetTabletData() = 0;
-	
+
 	/***************************************************************************************
 	 ** Progress bar functionality
 	 ***************************************************************************************/
-	
+
 	/**
      * Sets the progress bar value displayed in the window/application icon
 	 * @param progress The progress %
 	 */
 	virtual GHOST_TSuccess setProgressBar(float progress) = 0;
-	
+
 	/**
 	 * Hides the progress bar in the icon
 	 */
 	virtual GHOST_TSuccess endProgressBar() = 0;
-	
+
 	/***************************************************************************************
 	 ** Cursor management functionality
 	 ***************************************************************************************/
@@ -282,15 +283,15 @@ public:
 	 * @param	hotY	The Y coordinate of the cursor hotspot.
 	 * @return	Indication of success.
 	 */
-	virtual GHOST_TSuccess setCustomCursorShape(GHOST_TUns8 bitmap[16][2], 
-												GHOST_TUns8 mask[16][2], 
-												int hotX, 
+	virtual GHOST_TSuccess setCustomCursorShape(GHOST_TUns8 bitmap[16][2],
+												GHOST_TUns8 mask[16][2],
+												int hotX,
 												int hotY) = 0;
-												
-	virtual GHOST_TSuccess setCustomCursorShape(GHOST_TUns8 *bitmap, 
-												GHOST_TUns8 *mask, 
-												int sizex, int sizey, 
-												int hotX, int hotY, 
+
+	virtual GHOST_TSuccess setCustomCursorShape(GHOST_TUns8 *bitmap,
+												GHOST_TUns8 *mask,
+												int sizex, int sizey,
+												int hotX, int hotY,
 												int fg_color, int bg_color) = 0;
 
 	/**

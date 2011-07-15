@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_Window.cpp 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id: GHOST_Window.cpp 37765 2011-06-23 19:55:47Z blendix $
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -41,8 +41,7 @@
 
 
 GHOST_Window::GHOST_Window(
-	const STR_String& /*title*/,
-	GHOST_TInt32 /*left*/, GHOST_TInt32 /*top*/, GHOST_TUns32 width, GHOST_TUns32 height,
+	GHOST_TUns32 width, GHOST_TUns32 height,
 	GHOST_TWindowState state,
 	GHOST_TDrawingContextType type,
 	const bool stereoVisual,
