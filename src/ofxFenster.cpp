@@ -139,7 +139,13 @@ void ofxFenster::setWindowShape(int w, int h) {
 }
 
 void ofxFenster::setWindowTitle(string title) {
+	windowTitle=title;
+	win->setTitle(title.c_str());
+}
 
+string ofxFenster::getWindowTitle()
+{
+	return windowTitle;
 }
 
 void ofxFenster::showCursor() {
@@ -329,3 +335,4 @@ void ofxFenster::activateDrawingContext()
 {
 	win->activateDrawingContext();
 }
+

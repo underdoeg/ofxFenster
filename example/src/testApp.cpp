@@ -25,6 +25,7 @@ void testApp::setup() {
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}
 		win->addListener(&imgWin);
+		win->setWindowTitle("image render "+ofToString(i+1));
 	}
 }
 

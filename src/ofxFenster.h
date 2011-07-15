@@ -130,6 +130,7 @@ public:
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
+	string getWindowTitle();
 	void setupOpenGL(int l, int t, int w, int h, int screenMode);
 	void showCursor();
 	void toggleFullscreen();
@@ -149,6 +150,7 @@ public:
 	eventGroup events;
 
 private:
+	string windowTitle;
 	bool isDestroyed;
 	int framesElapsed;
 	ofxFensterListenerList listeners;
