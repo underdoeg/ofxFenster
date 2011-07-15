@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="exampleWindows" />
+		<Option makefile="makefile" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="addons\;src\;" />
+		<Build>
+			<Target title="release">
+				<Option output="bin\$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj\release" />
+				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworks.lib;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworks.lib" />
+				</Linker>
+			</Target>
+			<Target title="debug">
+				<Option output="bin\$(PROJECT_NAME)_DEBUG" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj\debug\" />
+				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworksDebug.lib;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworksDebug.lib" />
+				</Linker>
+			</Target>
+			<Environment>
+				<Variable name="FREE_WINDOWS" value="true" />
+			</Environment>
+		</Build>
+		<Compiler>
+			<Add option="-Wno-multichar" />
+			<Add directory="..\..\..\libs\glu\include" />
+			<Add directory="..\..\..\libs\freetype\include" />
+			<Add directory="..\..\..\libs\freetype\include\freetype2" />
+			<Add directory="..\..\..\libs\FreeImage\include" />
+			<Add directory="..\..\..\libs\quicktime\include" />
+			<Add directory="..\..\..\libs\rtAudio\include" />
+			<Add directory="..\..\..\libs\fmodex\include" />
+			<Add directory="..\..\..\libs\videoInput\include" />
+			<Add directory="..\..\..\libs\glew\include" />
+			<Add directory="..\..\..\libs\glut\include" />
+			<Add directory="..\..\..\libs\openFrameworks" />
+			<Add directory="..\..\..\libs\openFrameworks\3d" />
+			<Add directory="..\..\..\libs\openFrameworks\app" />
+			<Add directory="..\..\..\libs\openFrameworks\communication" />
+			<Add directory="..\..\..\libs\openFrameworks\events" />
+			<Add directory="..\..\..\libs\openFrameworks\gl" />
+			<Add directory="..\..\..\libs\openFrameworks\graphics" />
+			<Add directory="..\..\..\libs\openFrameworks\math" />
+			<Add directory="..\..\..\libs\openFrameworks\sound" />
+			<Add directory="..\..\..\libs\openFrameworks\types" />
+			<Add directory="..\..\..\libs\openFrameworks\utils" />
+			<Add directory="..\..\..\libs\openFrameworks\video" />
+			<Add directory="..\..\..\libs\poco\include" />
+			<Add directory="..\..\..\libs\tess2\include" />
+			<Add directory="..\..\..\libs\cairo\include\cairo" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\ghost\include" />
+			<Add directory="..\..\..\addons\ofxFenster\src" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\string\include" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\guardedalloc\include" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\imbuf\include" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\memutil\include" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32" />
+			<Add directory="..\..\..\addons\ofxFenster\libs\ghost\src" />
+		</Compiler>
+		<Linker>
+			<Add library="..\..\..\libs\FreeImage\lib\win_cb\FreeImage.lib" />
+			<Add library="..\..\..\libs\rtAudio\lib\win_cb\librtaudio.a" />
+			<Add library="..\..\..\libs\quicktime\lib\win_cb\qtmlClient.lib" />
+			<Add library="..\..\..\libs\cairo\lib\win_cb\libcairo.a" />
+			<Add library="..\..\..\libs\cairo\lib\win_cb\libpixman-1.a" />
+			<Add library="..\..\..\libs\freetype\lib\win_cb\libfreetype.a" />
+			<Add library="..\..\..\libs\glut\lib\win_cb\libglut.a" />
+			<Add library="..\..\..\libs\videoInput\lib\win_cb\videoInputLib.a" />
+			<Add library="..\..\..\libs\fmodex\lib\win_cb\libfmodex.a" />
+			<Add library="..\..\..\libs\glew\lib\win_cb\glew32s.lib" />
+			<Add library="..\..\..\libs\glu\lib\win_cb\glu32.lib" />
+			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoNetmt.a" />
+			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoUtilmt.a" />
+			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoXMLmt.a" />
+			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoFoundationmt.a" />
+			<Add library="..\..\..\libs\tess2\lib\win_cb\libtess2.a" />
+			<Add library="opengl32" />
+			<Add library="gdi32" />
+			<Add library="msimg32" />
+			<Add library="glu32" />
+			<Add library="dsound" />
+			<Add library="winmm" />
+			<Add library="dxguid" />
+			<Add library="strmbase" />
+			<Add library="strmiids" />
+			<Add library="z" />
+			<Add library="uuid" />
+			<Add library="ole32" />
+			<Add library="oleaut32" />
+			<Add library="setupapi" />
+			<Add library="wsock32" />
+			<Add library="ws2_32" />
+			<Add library="Iphlpapi" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+		</Linker>
+		<ExtraCommands>
+			<Add after='xcopy /e /i /y &quot;$(PROJECT_DIR)..\..\..\export\win_cb\*.dll&quot;  &quot;$(PROJECT_DIR)bin&quot;' />
+			<Add after='cmd /c if not exist &quot;$(PROJECT_DIR)bin/data&quot; mkdir &quot;$(PROJECT_DIR)bin/data&quot;' />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_C-api.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_IEvent.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_IEventConsumer.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_ISystem.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_ISystemPaths.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_ITimerTask.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_IWindow.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_Path-api.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_Rect.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\include\GHOST_Types.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Buttons.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Buttons.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_C-api.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_CallbackEventConsumer.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_CallbackEventConsumer.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Debug.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_DisplayManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_DisplayManager.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_DisplayManagerNULL.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Event.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventButton.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventCursor.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventDragnDrop.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventKey.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventManager.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventNDOF.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventPrinter.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventPrinter.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventString.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventTrackpad.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_EventWheel.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_ISystem.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_ISystemPaths.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_ModifierKeys.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_ModifierKeys.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_NDOFManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_NDOFManager.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Path-api.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Rect.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_System.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_System.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_SystemNULL.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_SystemPaths.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_TimerManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_TimerManager.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_TimerTask.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Window.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_Window.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_WindowManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_WindowManager.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\GHOST_WindowNULL.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_DisplayManagerWin32.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_DisplayManagerWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_DropTargetWin32.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_DropTargetWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_SystemPathsWin32.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_SystemPathsWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_SystemWin32.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_SystemWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_TaskbarWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_WindowWin32.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\GHOST_WindowWin32.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\pktdef.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\ghost\src\WIN32\wintab.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\include\MEM_guardedalloc.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\include\MEM_sys_types.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\include\mmap_win.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\src\mallocn.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\src\mallocn.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\guardedalloc\src\mmap_win.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_allocimbuf.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_filetype.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_imbuf.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_imbuf_types.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_metadata.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\IMB_thumbs.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\include\imbuf.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\imbuf\src\allocimbuf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_Allocator.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_CacheLimiter.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_CacheLimiterC-Api.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_NonCopyable.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_RefCountPtr.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_RefCounted.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_RefCountedC-Api.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\memutil\include\MEM_SmartPtr.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\string\include\STR_HashedString.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\string\include\STR_String.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\libs\string\src\STR_String.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\src\ofxFenster.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\src\ofxFenster.h" />
+		<Unit filename="..\..\..\addons\ofxFenster\src\ofxFensterManager.cpp" />
+		<Unit filename="..\..\..\addons\ofxFenster\src\ofxFensterManager.h" />
+		<Unit filename="src\main.cpp">
+			<Option virtualFolder="src\" />
+		</Unit>
+		<Unit filename="src\testApp.cpp">
+			<Option virtualFolder="src\" />
+		</Unit>
+		<Unit filename="src\testApp.h">
+			<Option virtualFolder="src\" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
