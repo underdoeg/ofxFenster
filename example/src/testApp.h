@@ -6,7 +6,7 @@
 class imageWindow: public ofxFensterListener{
 public:
 	~imageWindow(){
-		cout << "Listener destroyed" << endl;
+		cout << "Image Listener destroyed" << endl;
 	}
 	void setup(){
 		cout << "LOADING IMAGE" << endl;
@@ -16,7 +16,7 @@ public:
 		img.draw(0,0);
 	}
 	
-	void keyReleased(int key, ofxFensterPtr window){
+	void keyReleased(int key, ofxFenster* window){
 		ofxFensterManager::get()->deleteFenster(window);
 	}
 	

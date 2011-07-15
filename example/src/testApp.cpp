@@ -12,15 +12,15 @@ void testApp::setup() {
 	
 	int winW=300;
 	for(int i=0;i<3;i++){
-		ofxFensterPtr win=ofxFensterManager::get()->createFenster(400+(i*winW), 0, winW, 300, OF_WINDOW);
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 0, winW, 300, OF_WINDOW);
 		win->addListener(this);
 		mousePos[win->id]=ofVec2f(0,0);
 	}
-	
-	//setup of fensterListener does not get called yet automatically
+
+	//setup of fensterListener does not get called automatically yet
 	imgWin.setup();
 	for(int i=0;i<3;i++){
-		ofxFensterPtr win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
 		if(i==0){
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}
@@ -48,7 +48,6 @@ void testApp::draw() {
 			}
 		}
 	}
-	//ofRect(mp.x, mp.y, 50, 50);
 }
 
 //--------------------------------------------------------------
@@ -103,6 +102,6 @@ void testApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 void testApp::mouseMovedEvent(ofMouseEventArgs &args){
-	cout << "MOUSE WAS MOVED" << endl;
+	//cout << "MOUSE WAS MOVED" << endl;
 }
 
