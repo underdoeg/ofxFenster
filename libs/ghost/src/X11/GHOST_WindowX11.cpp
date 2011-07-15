@@ -154,8 +154,6 @@ GLXContext GHOST_WindowX11::getContext(std::string d) {
 	
 	std::map<std::string, GLXContext>::iterator pos;
 	for (pos = contexts.begin(); pos != contexts.end(); ++pos) {
-		cout << "Looking for display name: " << d << " in " << pos->first << endl;
-		//cout << "A CONTEXT " << pos->first << " "  <<  pos->second << " - " << contexts.size() << endl;
 		if(pos->first==d)
 			return pos->second;
 	}
@@ -198,7 +196,6 @@ GHOST_WindowX11(
 	m_custom_cursor(None){
 
 	m_displayName=GHOST_SystemX11::currentDisplayName;
-	cout << "MY CURRENT DISPLAY NAME IS "<<m_displayName<<endl;
 	
 	m_wm_protocols= XInternAtom(m_display, "WM_PROTOCOLS", False);
 	m_wm_state= XInternAtom(m_display, "WM_STATE", False);

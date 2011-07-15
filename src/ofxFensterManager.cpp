@@ -15,7 +15,7 @@ static ofBaseApp* baseApp;
 ofxFensterManagerPtr ofxFensterManager::singleton;
 
 ofxFensterManager::ofxFensterManager():
-exitOnEscape(true),running(false) {
+exitOnEscape(true),endOnNextUpdate(false),running(false) {
 	timeNow				= 0;
 	timeThen			= 0;
 	fps					= 60.0; //give a realistic starting value - win32 issues
@@ -52,6 +52,10 @@ void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr) {
 	while(running) {
 		update();
 		onTimer();
+		if(endOnNextUpdate){
+			ofExit();
+			return;
+		}
 	}
 }
 
@@ -90,7 +94,7 @@ void ofxFensterManager::onTimer() {
 	{
 		fensterList::iterator it=fensters.begin();
 		while(it!=fensters.end()) {
-			setActiveWindow(*it);
+			setActiveWindow((*it).get());
 			(*it)->update();
 			++it;
 		}
@@ -98,7 +102,7 @@ void ofxFensterManager::onTimer() {
 	{
 		fensterList::iterator it=fensters.begin();
 		while(it!=fensters.end()) {
-			setActiveWindow(*it);
+			setActiveWindow((*it).get());
 			(*it)->draw();
 			++it;
 		}
@@ -110,31 +114,29 @@ void ofxFensterManager::initializeWindow() {
 
 }
 
-
-ofxFensterPtr ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode) {
-	ofxFensterPtr f=ofxFensterPtr(new ofxFenster());
+ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode) {
+	ofxFenster* f=new ofxFenster();
 	f->setupOpenGL(t, l, w, h, screenMode);
-	fensters.push_back(f);
+	fensters.push_back(ofxFensterPtr(f));
 	return f;
 }
 
-ofxFensterPtr ofxFensterManager::createFenster(int w, int h, int screenMode)
+ofxFenster* ofxFensterManager::createFenster(int w, int h, int screenMode)
 {
 	return createFenster(0,0,w,h,screenMode);
 }
 
-void ofxFensterManager::deleteFenster(ofxFensterPtr fenster){
+void ofxFensterManager::deleteFenster(ofxFenster* fenster){
 	fenster->destroy();
 	fensterList::iterator it=fensters.begin();
-    fensterList::iterator del;
 	while(it!=fensters.end()) {
 		if((*it)->id == fenster->id) {
-			del = it;
+			fensters.erase(it);
 			break;
 		}
 		++it;
 	}
-	fensters.erase(del);
+
 }
 
 int handleKeyData(GHOST_TEventKeyData* data) {
@@ -147,7 +149,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 		return false;
 	bool handled = true;
 
-	ofxFensterPtr win=getFensterByHandler(window);
+	ofxFenster* win=getFensterByHandler(window);
 
 	setActiveWindow(win);
 	win->activateDrawingContext();
@@ -184,7 +186,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 			break;
 
 		case GHOST_kEventButtonDown: {
-			ofxFensterPtr win=getFensterByHandler(window);
 			GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
 			win->isButtonDown=true;
 			win->buttonDown=bd->button;
@@ -192,7 +193,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 		}
 			break;
 		case GHOST_kEventButtonUp: {
-			ofxFensterPtr win=getFensterByHandler(window);
 			GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
 			win->isButtonDown=false;
 			win->mouseReleased(bd->button);
@@ -203,12 +203,18 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 		case GHOST_kEventKeyUp: {
 			int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
 			if(key==OF_KEY_ESC && exitOnEscape)
-				ofExit();
-			getFensterByHandler(window)->keyReleased(key);
+				break;
+			win->keyReleased(key);
 		}
 			break;
-		case GHOST_kEventKeyDown:
-			getFensterByHandler(window)->keyPressed(handleKeyData((GHOST_TEventKeyData*) event->getData()));
+		case GHOST_kEventKeyDown:{
+			int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+			if(key==OF_KEY_ESC && exitOnEscape){
+				endOnNextUpdate=true;
+			}else
+				win->keyPressed(key);
+
+		}
 			break;
 
 			////////////////// WINDOW
@@ -230,29 +236,17 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 	return handled;
 }
 
-void ofxFensterManager::setActiveWindow(ofxFensterPtr activeWindow) {
+void ofxFensterManager::setActiveWindow(ofxFenster* activeWindow) {
 	this->activeWindow = activeWindow;
 }
-void ofxFensterManager::setPrimaryWindow(ofxFensterPtr primaryWindow) {
+void ofxFensterManager::setPrimaryWindow(ofxFenster* primaryWindow) {
 	this->primaryWindow = primaryWindow;
 }
-ofxFensterPtr ofxFensterManager::getActiveWindow() {
+ofxFenster* ofxFensterManager::getActiveWindow() {
 	return activeWindow;
 }
 
-ofxFensterPtr ofxFensterManager::getWindowById(int _id) {
-    fensterList::iterator it=fensters.begin();
-	while(it!=fensters.end()) {
-		if((*it)->id == _id) {
-			return *it;
-			break;
-		}
-		++it;
-	}
-	return primaryWindow;
-}
-
-ofxFensterPtr ofxFensterManager::getPrimaryWindow() {
+ofxFenster* ofxFensterManager::getPrimaryWindow() {
 	return primaryWindow;
 }
 
@@ -373,13 +367,27 @@ ofxFensterManagerPtr ofxFensterManager::get() {
 	return singleton;
 }
 
-ofxFensterPtr ofxFensterManager::getFensterByHandler(GHOST_IWindow* win) {
+ofxFenster* ofxFensterManager::getFensterByHandler(GHOST_IWindow* win) {
 	fensterList::iterator it=fensters.begin();
 	while(it!=fensters.end()) {
 		if(win==(*it)->getWindow())
-			return *it;
+			return (*it).get();
 		++it;
 	}
+	ofLog(OF_LOG_WARNING, "ofxFenster - getFensterByHandler: provided GHOST window does not exist");
+	return primaryWindow;
+}
+
+ofxFenster* ofxFensterManager::getWindowById(int _id) {
+    fensterList::iterator it=fensters.begin();
+	while(it!=fensters.end()) {
+		if((*it)->id == _id) {
+			return (*it).get();
+			break;
+		}
+		++it;
+	}
+	ofLog(OF_LOG_WARNING, "ofxFenster - getWindowById: provided id does not exist");
 	return primaryWindow;
 }
 

@@ -14,7 +14,6 @@ typedef ofPtr<ofxFenster> ofxFensterPtr;
 typedef std::vector<ofxFensterPtr> fensterList;
 typedef ofxFensterManager* ofxFensterManagerPtr;
 
-
 class ofxFensterManager: public ofAppBaseWindow, public GHOST_IEventConsumer {
 
 public:
@@ -27,9 +26,9 @@ public:
 	void runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr);
 	void runAppViaInfiniteLoop(ofBaseApp* appPtr);
 
-	ofxFensterPtr createFenster(int t, int l, int w, int h, int screenMode=OF_WINDOW);
-	ofxFensterPtr createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
-	void deleteFenster(ofxFensterPtr fenster);
+	ofxFenster* createFenster(int t, int l, int w, int h, int screenMode=OF_WINDOW);
+	ofxFenster* createFenster(int w=800, int h=600, int screenMode=OF_WINDOW);
+	void deleteFenster(ofxFenster* fenster);
 
 	/*
 	void setScreenNumber(int n);
@@ -70,18 +69,19 @@ public:
 
 	void onTimer();
 
-	void setActiveWindow(ofxFensterPtr activeWindow);
-	void setPrimaryWindow(ofxFensterPtr primaryWindow);
-	ofxFensterPtr getActiveWindow();
-	ofxFensterPtr getPrimaryWindow();
-	ofxFensterPtr getWindowById(int _id);
+	void setActiveWindow(ofxFenster* activeWindow);
+	void setPrimaryWindow(ofxFenster* primaryWindow);
+	ofxFenster* getActiveWindow();
+	ofxFenster* getPrimaryWindow();
+	ofxFenster* getWindowById(int _id);
 
 private:
-	ofxFensterPtr activeWindow;
+	ofxFenster* activeWindow;
 
-	ofxFensterPtr primaryWindow;
-	ofxFensterPtr getFensterByHandler(GHOST_IWindow* win);
+	ofxFenster* primaryWindow;
+	ofxFenster* getFensterByHandler(GHOST_IWindow* win);
 
+	bool endOnNextUpdate;
 	bool running;
 	static ofxFensterManagerPtr singleton;
 	bool processEvent(GHOST_IEvent* event);
