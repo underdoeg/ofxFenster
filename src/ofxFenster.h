@@ -86,6 +86,8 @@ public:
 	}
 	virtual void mouseReleased(int x, int y, int btn) {}
 	virtual void mouseReleased() {};
+
+	bool isUpdated;
 };
 
 typedef ofxFensterListener* ofxFensterListenerPtr;

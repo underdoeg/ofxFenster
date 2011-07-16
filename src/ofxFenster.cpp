@@ -89,7 +89,10 @@ void ofxFenster::update() {
 	ofNotifyEvent(events.update, voidEventArgs);
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
-		(*it)->update(this);
+		if(!(*it)->isUpdated){
+			(*it)->update(this);
+			(*it)->isUpdated=true;
+		}
 		++it;
 	}
 }
@@ -118,6 +121,7 @@ void ofxFenster::draw() {
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
 		(*it)->draw(this);
+		(*it)->isUpdated=false;
 		++it;
 	}
 
