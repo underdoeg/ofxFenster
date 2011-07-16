@@ -41,6 +41,8 @@
 
 #include "GHOST_ISystemPaths.h"
 
+#define GHOST_COCOA
+
 #ifdef WIN32
 #	include "GHOST_SystemPathsWin32.h"
 #else
