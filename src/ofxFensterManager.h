@@ -76,6 +76,9 @@ public:
 	ofxFenster* getPrimaryWindow();
 	ofxFenster* getWindowById(int _id);
 
+	void setAntialiasing(int aa);
+	int getAntialiasing();
+
 private:
 	ofxFenster* activeWindow;
 
@@ -105,6 +108,8 @@ private:
 	int			nFrameCount;
 	int			buttonInUse;
 	bool			bEnableSetupScreen;
+
+	int antialiasing;
 };
 
 #endif // OFXFENSTERMANAGER_H

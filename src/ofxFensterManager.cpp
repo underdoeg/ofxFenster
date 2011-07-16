@@ -17,7 +17,7 @@ ofxFensterManagerPtr ofxFensterManager::singleton;
 static ofEventArgs voidEventArgs;
 
 ofxFensterManager::ofxFensterManager():
-	exitOnEscape(true),endOnNextUpdate(false),running(false)
+	exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0)
 {
 	timeNow				= 0;
 	timeThen			= 0;
@@ -93,27 +93,8 @@ void ofxFensterManager::update()
 	timeThen		= timeNow;
 
 	ofNotifyEvent(ofEvents.update, voidEventArgs);
-	/*
-	// --------------
-	{
-		fensterList::iterator it=fensters.begin();
-		while(it!=fensters.end()) {
-			setActiveWindow((*it).get());
-			(*it)->update();
-			++it;
-		}
-	}*/
 	ofNotifyEvent(ofEvents.draw, voidEventArgs);
-	/*
-		{
-			fensterList::iterator it=fensters.begin();
-			while(it!=fensters.end()) {
-				setActiveWindow((*it).get());
-				(*it)->draw();
-				++it;
-			}
-		}
-	*/
+
 	nFrameCount++;
 }
 
@@ -458,4 +439,14 @@ bool ofxFensterManager::setDisplay(string name, string shareWith)
 #else
 	return false;
 #endif
+}
+
+void ofxFensterManager::setAntialiasing(int aa)
+{
+	antialiasing=aa;
+}
+
+int ofxFensterManager::getAntialiasing()
+{
+	return antialiasing;
 }

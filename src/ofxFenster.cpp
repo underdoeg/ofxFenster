@@ -48,7 +48,7 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	t=screenH-t;
 #endif
 
-	win = GHOST_ISystem::getSystem()->createWindow(title, l, t, w, h, state, GHOST_kDrawingContextTypeOpenGL);
+	win = GHOST_ISystem::getSystem()->createWindow(title, l, t, w, h, state, GHOST_kDrawingContextTypeOpenGL, false, ofxFensterManager::get()->getAntialiasing());
 
 	if (!win) {
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
