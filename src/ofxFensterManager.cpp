@@ -14,8 +14,11 @@
 static ofBaseApp* baseApp;
 ofxFensterManagerPtr ofxFensterManager::singleton;
 
+static ofEventArgs voidEventArgs;
+
 ofxFensterManager::ofxFensterManager():
-exitOnEscape(true),endOnNextUpdate(false),running(false) {
+	exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0)
+{
 	timeNow				= 0;
 	timeThen			= 0;
 	fps					= 60.0; //give a realistic starting value - win32 issues
@@ -30,54 +33,52 @@ exitOnEscape(true),endOnNextUpdate(false),running(false) {
 	ghostSystem->addEventConsumer(this);
 }
 
-ofxFensterManager::~ofxFensterManager() {
-	cout << "FENSTER MANAGER DELETED" << endl;	
+ofxFensterManager::~ofxFensterManager()
+{
+	cout << "FENSTER MANAGER DELETED" << endl;
 }
 
-void ofxFensterManager::setupOpenGL(int w, int h, int screenMode) {
+void ofxFensterManager::setupOpenGL(int w, int h, int screenMode)
+{
+	ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
 	primaryWindow=createFenster(0, 0, w, h, screenMode);
 	setActiveWindow(primaryWindow);
-	ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
 }
 
-void ofxFensterManager::runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr) {
+void ofxFensterManager::runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr)
+{
 	runAppViaInfiniteLoop(appPtr.get());
 }
 
-void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr) {
+void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr)
+{
 	running=true;
 	baseApp=appPtr;
 	baseApp->setup();
-	//setFrameRate(60);
 	while(running) {
 		update();
-		onTimer();
-		if(endOnNextUpdate){
-			ofExit();
-			return;
-		}
 	}
 }
 
-void ofxFensterManager::update() {
+void ofxFensterManager::update()
+{
 	ghostSystem->processEvents(false);
 	ghostSystem->dispatchEvents();
-}
 
-void ofxFensterManager::onTimer() {
-	if (nFrameCount != 0 && bFrameRateSet == true){
+	if (nFrameCount != 0 && bFrameRateSet == true) {
 		diffMillis = ofGetElapsedTimeMillis() - prevMillis;
-		if (diffMillis > millisForFrame){
+		if (diffMillis > millisForFrame) {
 			; // we do nothing, we are already slower than target frame
 		} else {
 			int waitMillis = millisForFrame - diffMillis;
 #ifdef TARGET_WIN32
 			Sleep(waitMillis);         //windows sleep in milliseconds
 #else
-			usleep(waitMillis * 1000);   //mac sleep in microseconds - cooler :)
+			usleep(waitMillis * 1000);   //linux & mac sleep in microseconds - cooler :)
 #endif
 		}
 	}
+
 
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
 
@@ -90,35 +91,24 @@ void ofxFensterManager::onTimer() {
 	}
 	lastFrameTime	= diff;
 	timeThen		= timeNow;
-	// --------------
-	{
-		fensterList::iterator it=fensters.begin();
-		while(it!=fensters.end()) {
-			setActiveWindow((*it).get());
-			(*it)->update();
-			++it;
-		}
-	}
-	{
-		fensterList::iterator it=fensters.begin();
-		while(it!=fensters.end()) {
-			setActiveWindow((*it).get());
-			(*it)->draw();
-			++it;
-		}
-	}
+
+	ofNotifyEvent(ofEvents.update, voidEventArgs);
+	ofNotifyEvent(ofEvents.draw, voidEventArgs);
+
 	nFrameCount++;
 }
 
-void ofxFensterManager::initializeWindow() {
+void ofxFensterManager::initializeWindow()
+{
 
 }
 
-ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode) {
-	ofxFenster* f=new ofxFenster();
-	f->setupOpenGL(t, l, w, h, screenMode);
-	fensters.push_back(ofxFensterPtr(f));
-	return f;
+ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode)
+{
+	ofxFensterPtr f=ofxFensterPtr(new ofxFenster());
+	if(f->setupOpenGL(t, l, w, h, screenMode))
+		fensters.push_back(f);
+	return f.get();
 }
 
 ofxFenster* ofxFensterManager::createFenster(int w, int h, int screenMode)
@@ -126,7 +116,8 @@ ofxFenster* ofxFensterManager::createFenster(int w, int h, int screenMode)
 	return createFenster(0,0,w,h,screenMode);
 }
 
-void ofxFensterManager::deleteFenster(ofxFenster* fenster){
+void ofxFensterManager::deleteFenster(ofxFenster* fenster)
+{
 	fenster->destroy();
 	fensterList::iterator it=fensters.begin();
 	while(it!=fensters.end()) {
@@ -136,13 +127,20 @@ void ofxFensterManager::deleteFenster(ofxFenster* fenster){
 		}
 		++it;
 	}
+	if(fensters.size()==0)
+		ofExit();
 }
 
-int handleKeyData(GHOST_TEventKeyData* data) {
+int handleKeyData(GHOST_TEventKeyData* data)
+{
 	return data->ascii;
 }
 
-bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
+bool ofxFensterManager::processEvent(GHOST_IEvent* event)
+{
+	if(event->getType()==GHOST_kEventUnknown)
+		return false;
+
 	GHOST_IWindow* window = event->getWindow();
 	if(window==NULL) //maybe not the best way to do this...
 		return false;
@@ -150,169 +148,196 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
 
 	ofxFenster* win=getFensterByHandler(window);
 
-	setActiveWindow(win);
-	win->activateDrawingContext();
+	//setActiveWindow(win);
+	//win->activateDrawingContext();
 
 	GHOST_Rect winPos;
 	window->getWindowBounds(winPos);
 
 	switch (event->getType()) {
-		case GHOST_kEventUnknown:
+	case GHOST_kEventUnknown:
 
-			break;
+		break;
 
-			//////////////////// MOUSE
-		case GHOST_kEventCursorMove: {
-			GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
-			ofPoint p(bd->x, bd->y);
+		//////////////////// MOUSE
+	case GHOST_kEventCursorMove: {
+		GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
+		ofPoint p(bd->x, bd->y);
 #ifdef TARGET_OSX
-			p.y=win->getHeight()-p.y;
+		p.y=win->getHeight()-p.y;
 #else
-			p.x-=winPos.m_l;
-			p.y-=winPos.m_t;
+		p.x-=winPos.m_l;
+		p.y-=winPos.m_t;
 #endif
 
-			if(win->isButtonDown) {
-				//win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
-				win->mouseDragged(p.x, p.y, win->buttonDown);
-			} else {
-				//win->mouseMoved(bd->x-winPos.m_l, bd->y-winPos.m_t);
-				win->mouseMoved(p.x, p.y);
-			}
+		if(win->isButtonDown) {
+			//win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
+			win->mouseDragged(p.x, p.y, win->buttonDown);
+		} else {
+			//win->mouseMoved(bd->x-winPos.m_l, bd->y-winPos.m_t);
+			win->mouseMoved(p.x, p.y);
 		}
-			break;
-		case GHOST_kEventWheel:
-			break;
+	}
+	break;
+	case GHOST_kEventWheel:
+		break;
 
-		case GHOST_kEventButtonDown: {
-			GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-			win->isButtonDown=true;
-			win->buttonDown=bd->button;
-			win->mousePressed(bd->button);
-		}
-			break;
-		case GHOST_kEventButtonUp: {
-			GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-			win->isButtonDown=false;
-			win->mouseReleased(bd->button);
-		}
-			break;
+	case GHOST_kEventButtonDown: {
+		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+		win->isButtonDown=true;
+		win->buttonDown=bd->button;
+		win->mousePressed(bd->button);
+	}
+	break;
+	case GHOST_kEventButtonUp: {
+		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+		win->isButtonDown=false;
+		win->mouseReleased(bd->button);
+	}
+	break;
 
-			////////////////// KEYBOARD
-		case GHOST_kEventKeyUp: {
-			int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-			if(key==OF_KEY_ESC && exitOnEscape)
-				break;
-			win->keyReleased(key);
-		}
+	////////////////// KEYBOARD
+	case GHOST_kEventKeyUp: {
+		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+		if(key==OF_KEY_ESC)
 			break;
-		case GHOST_kEventKeyDown:{
-			int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-			if(key==OF_KEY_ESC && exitOnEscape){
-				endOnNextUpdate=true;
-			}else
-				win->keyPressed(key);
+		win->keyReleased(key);
+	}
+	break;
+	case GHOST_kEventKeyDown: {
+		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+		if(key==OF_KEY_ESC)
+			ofExit(0);
+		win->keyPressed(key);
 
-		}
-			break;
+	}
+	break;
 
-			////////////////// WINDOW
-		case GHOST_kEventWindowSize: {
-			GHOST_Rect rect;
-			window->getClientBounds(rect);
-			win->windowResized(rect.getWidth(), rect.getHeight());
-			//win->draw();
-		}
-		case GHOST_kEventWindowUpdate:
-			//win->draw();
-			break;
-		case GHOST_kEventWindowActivate:
-			//win->draw();
-			break;
-		case GHOST_kEventWindowDeactivate:
-			break;
+	////////////////// WINDOW
+	case GHOST_kEventWindowSize: {
+		GHOST_Rect rect;
+		window->getClientBounds(rect);
+		win->windowResized(rect.getWidth(), rect.getHeight());
+		win->draw();
+	}case GHOST_kEventWindowMove: {
+		GHOST_Rect rect;
+		window->getClientBounds(rect);
+		win->windowMoved(rect.m_l, rect.m_t);
+		win->draw();
+	}
+	case GHOST_kEventWindowUpdate:
+		win->draw();
+		break;
+	case GHOST_kEventWindowActivate:
+		win->draw();
+		break;
+	case GHOST_kEventWindowDeactivate:
+		break;
+	case GHOST_kEventWindowClose:
+		deleteFenster(win);
+		break;
 	}
 	return handled;
 }
 
-void ofxFensterManager::setActiveWindow(ofxFenster* activeWindow) {
+void ofxFensterManager::setActiveWindow(ofxFenster* activeWindow)
+{
 	this->activeWindow = activeWindow;
 }
-void ofxFensterManager::setPrimaryWindow(ofxFenster* primaryWindow) {
+void ofxFensterManager::setPrimaryWindow(ofxFenster* primaryWindow)
+{
 	this->primaryWindow = primaryWindow;
 }
-ofxFenster* ofxFensterManager::getActiveWindow() {
+ofxFenster* ofxFensterManager::getActiveWindow()
+{
 	return activeWindow;
 }
 
-ofxFenster* ofxFensterManager::getPrimaryWindow() {
+ofxFenster* ofxFensterManager::getPrimaryWindow()
+{
 	return primaryWindow;
 }
 
-void ofxFensterManager::disableSetupScreen() {
+void ofxFensterManager::disableSetupScreen()
+{
 	activeWindow->disableSetupScreen();
 }
 
-bool ofxFensterManager::doesHWOrientation() {
+bool ofxFensterManager::doesHWOrientation()
+{
 	return false;
 	//return activeWindow->doesHWOrientation();
 }
 
-void ofxFensterManager::enableSetupScreen() {
+void ofxFensterManager::enableSetupScreen()
+{
 	activeWindow->enableSetupScreen();
 }
 
-int ofxFensterManager::getFrameNum() {
+int ofxFensterManager::getFrameNum()
+{
 	return nFrameCount;
 	//return activeWindow->getFrameNum();
 }
 
-float ofxFensterManager::getFrameRate() {
+float ofxFensterManager::getFrameRate()
+{
 	return frameRate;
 	//return activeWindow->getFrameRate();
 }
 
-int ofxFensterManager::getHeight() {
+int ofxFensterManager::getHeight()
+{
 	return activeWindow->getHeight();
 }
 
-double ofxFensterManager::getLastFrameTime() {
+double ofxFensterManager::getLastFrameTime()
+{
 	return activeWindow->getLastFrameTime();
 }
 
-ofOrientation ofxFensterManager::getOrientation() {
+ofOrientation ofxFensterManager::getOrientation()
+{
 	return activeWindow->getOrientation();
 }
 
-ofPoint ofxFensterManager::getScreenSize() {
+ofPoint ofxFensterManager::getScreenSize()
+{
 	return activeWindow->getScreenSize();
 }
 
-int ofxFensterManager::getWidth() {
+int ofxFensterManager::getWidth()
+{
 	return activeWindow->getWidth();
 }
 
-int ofxFensterManager::getWindowMode() {
+int ofxFensterManager::getWindowMode()
+{
 	return activeWindow->getWindowMode();
 }
 
-ofPoint ofxFensterManager::getWindowPosition() {
+ofPoint ofxFensterManager::getWindowPosition()
+{
 	return activeWindow->getWindowPosition();
 }
 
-ofPoint ofxFensterManager::getWindowSize() {
+ofPoint ofxFensterManager::getWindowSize()
+{
 	return activeWindow->getWindowSize();
 }
 
-void ofxFensterManager::hideCursor() {
+void ofxFensterManager::hideCursor()
+{
 	activeWindow->hideCursor();
 }
 
-void onTimerFunc(GHOST_ITimerTask* task, GHOST_TUns64 time) {
-	((ofxFensterManager*)task->getUserData())->onTimer();
+void onTimerFunc(GHOST_ITimerTask* task, GHOST_TUns64 time)
+{
+	//((ofxFensterManager*)task->getUserData())->update();
 }
 
-void ofxFensterManager::setFrameRate(float targetRate) {
+void ofxFensterManager::setFrameRate(float targetRate)
+{
 	/*if(timer) {
 	 GHOST_ISystem::getSystem()->removeTimer(timer);
 	 cout << "GONNA KILL the timer" << endl;
@@ -320,7 +345,7 @@ void ofxFensterManager::setFrameRate(float targetRate) {
 	 int fps=floorf(1000/targetRate);
 	 //timer=GHOST_ISystem::getSystem()->installTimer(0, fps, onTimerFunc, this);
 	 //activeWindow->setFrameRate(targetRate);*/
-	if (targetRate == 0){
+	if (targetRate == 0) {
 		bFrameRateSet = false;
 		return;
 	}
@@ -332,41 +357,50 @@ void ofxFensterManager::setFrameRate(float targetRate) {
 	frameRate				= targetRate;
 }
 
-void ofxFensterManager::setFullscreen(bool fullscreen) {
+void ofxFensterManager::setFullscreen(bool fullscreen)
+{
 	activeWindow->setFullscreen(fullscreen);
 }
 
-void ofxFensterManager::setOrientation(ofOrientation orientation) {
+void ofxFensterManager::setOrientation(ofOrientation orientation)
+{
 	activeWindow->setOrientation(orientation);
 }
 
-void ofxFensterManager::setWindowPosition(int x, int y) {
+void ofxFensterManager::setWindowPosition(int x, int y)
+{
 
 }
 
-void ofxFensterManager::setWindowShape(int w, int h) {
+void ofxFensterManager::setWindowShape(int w, int h)
+{
 }
 
-void ofxFensterManager::setWindowTitle(string title) {
+void ofxFensterManager::setWindowTitle(string title)
+{
 
 }
 
-void ofxFensterManager::showCursor() {
+void ofxFensterManager::showCursor()
+{
 
 }
 
-void ofxFensterManager::toggleFullscreen() {
+void ofxFensterManager::toggleFullscreen()
+{
 	activeWindow->toggleFullscreen();
 }
 
-ofxFensterManagerPtr ofxFensterManager::get() {
+ofxFensterManagerPtr ofxFensterManager::get()
+{
 	if(singleton==FALSE) {
 		singleton=new ofxFensterManager();
 	}
 	return singleton;
 }
 
-ofxFenster* ofxFensterManager::getFensterByHandler(GHOST_IWindow* win) {
+ofxFenster* ofxFensterManager::getFensterByHandler(GHOST_IWindow* win)
+{
 	fensterList::iterator it=fensters.begin();
 	while(it!=fensters.end()) {
 		if(win==(*it)->getWindow())
@@ -377,8 +411,9 @@ ofxFenster* ofxFensterManager::getFensterByHandler(GHOST_IWindow* win) {
 	return primaryWindow;
 }
 
-ofxFenster* ofxFensterManager::getWindowById(int _id) {
-    fensterList::iterator it=fensters.begin();
+ofxFenster* ofxFensterManager::getWindowById(int _id)
+{
+	fensterList::iterator it=fensters.begin();
 	while(it!=fensters.end()) {
 		if((*it)->id == _id) {
 			return (*it).get();
@@ -390,15 +425,28 @@ ofxFenster* ofxFensterManager::getWindowById(int _id) {
 	return primaryWindow;
 }
 
-void ofxFensterManager::onClose(ofEventArgs &e) {
+void ofxFensterManager::onClose(ofEventArgs &e)
+{
 	GHOST_ISystem::disposeSystem();
 }
 
-bool ofxFensterManager::setDisplay(string name, string shareWith) {
+bool ofxFensterManager::setDisplay(string name, string shareWith)
+{
 #if defined( TARGET_LINUX )
 	//GHOST_SystemX11* sys=(GHOST_SystemX11*)ghostSystem->getSystem();
 	//return sys->setDisplay(name, shareWith);
+	return false;
 #else
 	return false;
 #endif
+}
+
+void ofxFensterManager::setAntialiasing(int aa)
+{
+	antialiasing=aa;
+}
+
+int ofxFensterManager::getAntialiasing()
+{
+	return antialiasing;
 }

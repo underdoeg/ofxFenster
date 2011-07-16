@@ -14,7 +14,8 @@ class GHOST_IWindow;
 
 class ofxFenster;
 
-class eventGroup{
+class eventGroup
+{
 public:
 	ofEvent<ofEventArgs> 		setup;
 	ofEvent<ofEventArgs> 		update;
@@ -40,7 +41,8 @@ public:
 	ofEvent<ofDragInfo>			fileDragEvent;
 };
 
-class ofxFensterListener: public ofBaseApp {
+class ofxFensterListener: public ofBaseApp
+{
 public:
 	virtual void setup(ofxFenster* f) {
 		setup();
@@ -65,32 +67,41 @@ public:
 	}
 	virtual void keyReleased(int key) {};
 
+	//WINDOW
+	virtual void windowMoved(int x, int y, ofxFenster* f) {
+		windowMoved(x, y);
+	}
+	virtual void windowMoved(int x, int y) {};
+
 	//MOUSE
-	virtual void mouseMoved(int x, int y, ofxFenster* f){
+	virtual void mouseMoved(int x, int y, ofxFenster* f) {
 		mouseMoved(x, y);
 	}
-	virtual void mouseMoved(int x, int y){};
-	virtual void mouseDragged(int x, int y, int button,  ofxFenster* f){
+	virtual void mouseMoved(int x, int y) {};
+	virtual void mouseDragged(int x, int y, int button,  ofxFenster* f) {
 		mouseDragged(x, y, button);
 	}
-	virtual void mouseDragged(int x, int y, int button){};
-	virtual void mousePressed(int x, int y, int btn, ofxFenster* f){
+	virtual void mouseDragged(int x, int y, int button) {};
+	virtual void mousePressed(int x, int y, int btn, ofxFenster* f) {
 		mousePressed(x, y, btn);
 	}
-	virtual void mousePressed(int x, int y, int btn){};
-	virtual void mouseReleased(int x, int y, int btn, ofxFenster* f){
+	virtual void mousePressed(int x, int y, int btn) {};
+	virtual void mouseReleased(int x, int y, int btn, ofxFenster* f) {
 		mouseReleased(x, y, btn);
 		mouseReleased();
 	}
-	virtual void mouseReleased(int x, int y, int btn){}
-	virtual void mouseReleased(){};
+	virtual void mouseReleased(int x, int y, int btn) {}
+	virtual void mouseReleased() {};
+
+	bool isUpdated;
 };
 
 typedef ofxFensterListener* ofxFensterListenerPtr;
 typedef std::vector< ofxFensterListenerPtr > ofxFensterListenerList;
 
 //class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
-class ofxFenster{
+class ofxFenster
+{
 
 public:
 
@@ -98,7 +109,15 @@ public:
 	~ofxFenster();
 
 	void dragEvent(ofDragInfo dragInfo);
+
+	void setup();
+	void update(ofEventArgs& e);
+	void update();
+	void draw(ofEventArgs& e);
 	void draw();
+	void windowResized(int w, int h);
+	void windowMoved(int x, int y);
+
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseDragged(int x, int y, int button);
@@ -108,9 +127,6 @@ public:
 	void mouseReleased();
 	void mouseReleased(int x, int y, int button);
 	void mouseReleased(int btn);
-	void setup();
-	void update();
-	void windowResized(int w, int h);
 
 	void disableSetupScreen();
 	void enableSetupScreen();
@@ -134,11 +150,13 @@ public:
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
 	string getWindowTitle();
-	void setupOpenGL(int l, int t, int w, int h, int screenMode);
+	bool setupOpenGL(int l, int t, int w, int h, int screenMode);
 	void showCursor();
 	void toggleFullscreen();
 	void activateDrawingContext();
 	void destroy();
+
+	void setActive();
 
 	GHOST_IWindow* getWindow();
 
@@ -166,6 +184,7 @@ private:
 	ofPoint mouseLastPos;
 	int width;
 	int height;
+	ofPoint pos;
 };
 
 #endif // OFXFENSTER_H
