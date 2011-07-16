@@ -55,14 +55,8 @@ void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr)
 	running=true;
 	baseApp=appPtr;
 	baseApp->setup();
-	//setFrameRate(60);
 	while(running) {
 		update();
-		onTimer();
-		if(endOnNextUpdate) {
-			ofExit();
-			return;
-		}
 	}
 }
 
@@ -70,10 +64,7 @@ void ofxFensterManager::update()
 {
 	ghostSystem->processEvents(false);
 	ghostSystem->dispatchEvents();
-}
 
-void ofxFensterManager::onTimer()
-{
 	if (nFrameCount != 0 && bFrameRateSet == true) {
 		diffMillis = ofGetElapsedTimeMillis() - prevMillis;
 		if (diffMillis > millisForFrame) {
@@ -155,6 +146,8 @@ void ofxFensterManager::deleteFenster(ofxFenster* fenster)
 		}
 		++it;
 	}
+	if(fensters.size()==0)
+		ofExit();
 }
 
 int handleKeyData(GHOST_TEventKeyData* data)
@@ -225,17 +218,16 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 	////////////////// KEYBOARD
 	case GHOST_kEventKeyUp: {
 		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-		if(key==OF_KEY_ESC && exitOnEscape)
+		if(key==OF_KEY_ESC)
 			break;
 		win->keyReleased(key);
 	}
 	break;
 	case GHOST_kEventKeyDown: {
 		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-		if(key==OF_KEY_ESC && exitOnEscape) {
-			endOnNextUpdate=true;
-		} else
-			win->keyPressed(key);
+		if(key==OF_KEY_ESC)
+			ofExit(0);
+		win->keyPressed(key);
 
 	}
 	break;
@@ -254,6 +246,9 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 		win->draw();
 		break;
 	case GHOST_kEventWindowDeactivate:
+		break;
+	case GHOST_kEventWindowClose:
+		deleteFenster(win);
 		break;
 	}
 	return handled;
@@ -352,7 +347,7 @@ void ofxFensterManager::hideCursor()
 
 void onTimerFunc(GHOST_ITimerTask* task, GHOST_TUns64 time)
 {
-	((ofxFensterManager*)task->getUserData())->onTimer();
+	//((ofxFensterManager*)task->getUserData())->update();
 }
 
 void ofxFensterManager::setFrameRate(float targetRate)

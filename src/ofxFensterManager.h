@@ -70,8 +70,6 @@ public:
 
 	void onClose(ofEventArgs &e);
 
-	void onTimer();
-
 	void setActiveWindow(ofxFenster* activeWindow);
 	void setPrimaryWindow(ofxFenster* primaryWindow);
 	ofxFenster* getActiveWindow();
