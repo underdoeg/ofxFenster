@@ -238,6 +238,11 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 		window->getClientBounds(rect);
 		win->windowResized(rect.getWidth(), rect.getHeight());
 		win->draw();
+	}case GHOST_kEventWindowMove: {
+		GHOST_Rect rect;
+		window->getClientBounds(rect);
+		win->windowMoved(rect.m_l, rect.m_t);
+		win->draw();
 	}
 	case GHOST_kEventWindowUpdate:
 		win->draw();

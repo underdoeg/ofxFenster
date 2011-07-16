@@ -67,6 +67,12 @@ public:
 	}
 	virtual void keyReleased(int key) {};
 
+	//WINDOW
+	virtual void windowMoved(int x, int y, ofxFenster* f) {
+		windowMoved(x, y);
+	}
+	virtual void windowMoved(int x, int y) {};
+
 	//MOUSE
 	virtual void mouseMoved(int x, int y, ofxFenster* f) {
 		mouseMoved(x, y);
@@ -110,6 +116,7 @@ public:
 	void draw(ofEventArgs& e);
 	void draw();
 	void windowResized(int w, int h);
+	void windowMoved(int x, int y);
 
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -177,6 +184,7 @@ private:
 	ofPoint mouseLastPos;
 	int width;
 	int height;
+	ofPoint pos;
 };
 
 #endif // OFXFENSTER_H
