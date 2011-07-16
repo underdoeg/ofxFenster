@@ -1,6 +1,9 @@
 #ifndef OFXFENSTERMANAGER_H
 #define OFXFENSTERMANAGER_H
 
+#define GHOST_COCOA
+
+
 #include "ofAppBaseWindow.h"
 #include "ofEvents.h"
 #include "ofxFenster.h"

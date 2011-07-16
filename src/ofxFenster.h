@@ -1,6 +1,9 @@
 #ifndef OFXFENSTER_H
 #define OFXFENSTER_H
 
+#define GHOST_COCOA
+
+
 #include <GHOST_ITimerTask.h>
 #include <ofTypes.h>
 #include "ofAppBaseWindow.h"
