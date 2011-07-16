@@ -136,11 +136,10 @@ void ofxFensterManager::deleteFenster(ofxFenster* fenster){
 		}
 		++it;
 	}
-
 }
 
 int handleKeyData(GHOST_TEventKeyData* data) {
-	return data->key;
+	return data->ascii;
 }
 
 bool ofxFensterManager::processEvent(GHOST_IEvent* event) {
