@@ -156,9 +156,9 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 
 	switch (event->getType())
 	{
-	    //////////////////// MOUSE
-	    case GHOST_kEventCursorMove:
-	    {
+        //////////////////// MOUSE
+        case GHOST_kEventCursorMove:
+        {
             GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
             ofPoint p(bd->x, bd->y);
             #ifdef TARGET_OSX
