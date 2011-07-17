@@ -230,6 +230,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
         }
         case GHOST_kEventWindowUpdate:
         {
+            win->draw();
             break;
         }
         case GHOST_kEventWindowActivate:
