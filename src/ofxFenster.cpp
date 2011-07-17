@@ -24,9 +24,9 @@ void ofxFenster::destroy()
 {
 	if(isDestroyed)
 		return;
-	isDestroyed=true;
 	ofRemoveListener(ofEvents.update, this, &ofxFenster::update);
 	ofRemoveListener(ofEvents.draw, this, &ofxFenster::draw);
+	isDestroyed=true;
 	GHOST_ISystem::getSystem()->disposeWindow(win);
 }
 
@@ -93,6 +93,8 @@ void ofxFenster::update(ofEventArgs &e)
 
 void ofxFenster::update()
 {
+	if(isDestroyed) //temporary fix, but we should still find out why update still gets called after destroy...
+		return;
 	setActive();
 	ofNotifyEvent(events.update, voidEventArgs);
 	ofxFensterListenerList::iterator it=listeners.begin();
@@ -112,6 +114,8 @@ void ofxFenster::draw(ofEventArgs &e)
 
 void ofxFenster::draw()
 {
+	if(isDestroyed)
+		return;
 	setActive();
 	ofPoint size=getWindowSize();
 
