@@ -8,14 +8,34 @@ void testApp::setup() {
 	ofSetFrameRate(60);
 
 	ofBackground(0,0,0);
+    mousePos[ofxFensterManager::get()->getPrimaryWindow()->id]=ofVec2f(0,0);
+
+	int winW=300;
+	for(int i=0;i<3;i++){
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 0, winW, 300, OF_WINDOW);
+		win->addListener(this);
+		mousePos[win->id]=ofVec2f(0,0);
+	}
+
+	//setup of fensterListener does not get called automatically yet
+	imgWin.setup();
+	for(int i=0;i<3;i++){
+		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
+		if(i==0){
+			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
+		}
+		win->addListener(&imgWin);
+		win->setWindowTitle("image render "+ofToString(i+1));
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::update() {
-        if(ofGetFrameNum() == 10)
+        //create a window a little bit later
+        if(ofGetFrameNum() == 60)
         {
             imgWin.setup();
-            ofxFenster* win=ofxFensterManager::get()->createFenster(400, 300, 300, 300, OF_WINDOW);
+            ofxFenster* win=ofxFensterManager::get()->createFenster(500, 400, 300, 300, OF_WINDOW);
             ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
             win->addListener(&imgWin);
         }
