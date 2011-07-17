@@ -154,88 +154,98 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 	GHOST_Rect winPos;
 	window->getWindowBounds(winPos);
 
-	switch (event->getType()) {
-	case GHOST_kEventUnknown:
+	switch (event->getType())
+	{
+        //////////////////// MOUSE
+        case GHOST_kEventCursorMove:
+        {
+            GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
+            ofPoint p(bd->x, bd->y);
+            #ifdef TARGET_OSX
+                p.y=win->getHeight()-p.y;
+            #else
+                p.x-=winPos.m_l;
+                p.y-=winPos.m_t;
+            #endif
 
-		break;
-
-		//////////////////// MOUSE
-	case GHOST_kEventCursorMove: {
-		GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
-		ofPoint p(bd->x, bd->y);
-#ifdef TARGET_OSX
-		p.y=win->getHeight()-p.y;
-#else
-		p.x-=winPos.m_l;
-		p.y-=winPos.m_t;
-#endif
-
-		if(win->isButtonDown) {
-			//win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
-			win->mouseDragged(p.x, p.y, win->buttonDown);
-		} else {
-			//win->mouseMoved(bd->x-winPos.m_l, bd->y-winPos.m_t);
-			win->mouseMoved(p.x, p.y);
-		}
-	}
-	break;
-	case GHOST_kEventWheel:
-		break;
-
-	case GHOST_kEventButtonDown: {
-		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-		win->isButtonDown=true;
-		win->buttonDown=bd->button;
-		win->mousePressed(bd->button);
-	}
-	break;
-	case GHOST_kEventButtonUp: {
-		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-		win->isButtonDown=false;
-		win->mouseReleased(bd->button);
-	}
-	break;
-
-	////////////////// KEYBOARD
-	case GHOST_kEventKeyUp: {
-		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-		if(key==OF_KEY_ESC)
-			break;
-		win->keyReleased(key);
-	}
-	break;
-	case GHOST_kEventKeyDown: {
-		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-		if(key==OF_KEY_ESC)
-			ofExit(0);
-		win->keyPressed(key);
-
-	}
-	break;
-
-	////////////////// WINDOW
-	case GHOST_kEventWindowSize: {
-		GHOST_Rect rect;
-		window->getClientBounds(rect);
-		win->windowResized(rect.getWidth(), rect.getHeight());
-		win->draw();
-	}case GHOST_kEventWindowMove: {
-		GHOST_Rect rect;
-		window->getClientBounds(rect);
-		win->windowMoved(rect.m_l, rect.m_t);
-		win->draw();
-	}
-	case GHOST_kEventWindowUpdate:
-		win->draw();
-		break;
-	case GHOST_kEventWindowActivate:
-		win->draw();
-		break;
-	case GHOST_kEventWindowDeactivate:
-		break;
-	case GHOST_kEventWindowClose:
-		deleteFenster(win);
-		break;
+            if(win->isButtonDown) {
+                //win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
+                win->mouseDragged(p.x, p.y, win->buttonDown);
+            } else {
+                //win->mouseMoved(bd->x-winPos.m_l, bd->y-winPos.m_t);
+                win->mouseMoved(p.x, p.y);
+            }
+            break;
+        }
+        case GHOST_kEventWheel:
+        {
+            break;
+        }
+        case GHOST_kEventButtonDown:
+        {
+            GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+            win->isButtonDown=true;
+            win->buttonDown=bd->button;
+            win->mousePressed(bd->button);
+            break;
+        }
+        case GHOST_kEventButtonUp:
+        {
+            GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+            win->isButtonDown=false;
+            win->mouseReleased(bd->button);
+            break;
+        }
+        ////////////////// KEYBOARD
+        case GHOST_kEventKeyUp:
+        {
+            int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+            if(key==OF_KEY_ESC)
+                break;
+            win->keyReleased(key);
+            break;
+        }
+        case GHOST_kEventKeyDown:
+        {
+            int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+            if(key==OF_KEY_ESC)
+                ofExit(0);
+            win->keyPressed(key);
+            break;
+        }
+        ////////////////// WINDOW
+        case GHOST_kEventWindowSize:
+        {
+            GHOST_Rect rect;
+            window->getClientBounds(rect);
+            win->windowResized(rect.getWidth(), rect.getHeight());
+            break;
+        }
+        case GHOST_kEventWindowMove:
+        {
+            GHOST_Rect rect;
+            window->getClientBounds(rect);
+            win->windowMoved(rect.m_l, rect.m_t);
+            break;
+        }
+        case GHOST_kEventWindowUpdate:
+        {
+            win->draw();
+            break;
+        }
+        case GHOST_kEventWindowActivate:
+        {
+            break;
+        }
+        case GHOST_kEventWindowDeactivate:
+        {
+            break;
+        }
+        case GHOST_kEventWindowClose:
+        {
+            deleteFenster(win);
+            break;
+        }
 	}
 	return handled;
 }
