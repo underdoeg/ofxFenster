@@ -40,8 +40,8 @@ ofxFensterManager::~ofxFensterManager()
 
 void ofxFensterManager::setupOpenGL(int w, int h, int screenMode)
 {
-	ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
 	primaryWindow=createFenster(0, 0, w, h, screenMode);
+	ofSetCurrentRenderer(ofPtr<ofBaseRenderer>(new ofGLRenderer));
 	setActiveWindow(primaryWindow);
 }
 
