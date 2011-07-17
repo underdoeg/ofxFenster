@@ -23,6 +23,7 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
+    ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 	ofVec2f mp=mousePos[ofxFensterManager::get()->getActiveWindow()->id];
 	ofVec2f p;
 
@@ -40,7 +41,6 @@ void testApp::draw() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key, ofxFenster* win) {
-
 }
 
 //--------------------------------------------------------------
