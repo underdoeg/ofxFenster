@@ -8,8 +8,8 @@ void testApp::setup() {
 	ofSetFrameRate(60);
 
 	ofBackground(0,0,0);
-	mousePos[ofxFensterManager::get()->getPrimaryWindow()->id]=ofVec2f(0,0);
-	
+    mousePos[ofxFensterManager::get()->getPrimaryWindow()->id]=ofVec2f(0,0);
+
 	int winW=300;
 	for(int i=0;i<3;i++){
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 0, winW, 300, OF_WINDOW);
@@ -31,16 +31,24 @@ void testApp::setup() {
 
 //--------------------------------------------------------------
 void testApp::update() {
-	
+        //create a window a little bit later
+        if(ofGetFrameNum() == 60)
+        {
+            imgWin.setup();
+            ofxFenster* win=ofxFensterManager::get()->createFenster(500, 400, 300, 300, OF_WINDOW);
+            ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
+            win->addListener(&imgWin);
+        }
 }
 
 //--------------------------------------------------------------
 void testApp::draw() {
+    ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 	ofVec2f mp=mousePos[ofxFensterManager::get()->getActiveWindow()->id];
 	ofVec2f p;
-	
+
 	float dSquared=100*100;
-	
+
 	for(int x=0; x<ofGetWidth(); x+=40) {
 		for(int y=0; y<ofGetHeight(); y+=40) {
 			p.set(x, y);
@@ -53,7 +61,6 @@ void testApp::draw() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key, ofxFenster* win) {
-	
 }
 
 //--------------------------------------------------------------
@@ -69,37 +76,37 @@ void testApp::mouseMoved(int x, int y, ofxFenster* win)
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::gotMessage(ofMessage msg) {
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo) {
-	
+
 }
 
 void testApp::mouseMovedEvent(ofMouseEventArgs &args){
