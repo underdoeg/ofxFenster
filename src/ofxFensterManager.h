@@ -75,6 +75,7 @@ public:
 	ofxFenster* getActiveWindow();
 	ofxFenster* getPrimaryWindow();
 	ofxFenster* getWindowById(int _id);
+	ofxFenster* getLastCreatedWindow();
 
 	void setAntialiasing(int aa);
 	int getAntialiasing();

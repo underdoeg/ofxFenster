@@ -441,6 +441,11 @@ ofxFenster* ofxFensterManager::getWindowById(int _id)
 	return primaryWindow;
 }
 
+ofxFenster* ofxFensterManager::getLastCreatedWindow()
+{
+    return fensters[fensters.size()-1].get();
+}
+
 void ofxFensterManager::onClose(ofEventArgs &e)
 {
 	GHOST_ISystem::disposeSystem();
