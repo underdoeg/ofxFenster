@@ -133,7 +133,10 @@ void ofxFensterManager::deleteFenster(ofxFenster* fenster)
 
 int handleKeyData(GHOST_TEventKeyData* data)
 {
-	return data->ascii;
+	if(data->ascii!=0)
+		return data->ascii;
+	else
+		return data->key;
 }
 
 bool ofxFensterManager::processEvent(GHOST_IEvent* event)
