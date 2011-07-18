@@ -14,13 +14,13 @@ public:
 	}
 	void draw(){
 		img.draw(0,0);
-		ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 	}
-
+	
 	void keyReleased(int key, ofxFenster* window){
-		ofxFensterManager::get()->deleteFenster(window);
+		if(key==' ')
+			ofxFensterManager::get()->deleteFenster(window);
 	}
-
+	
 	ofImage img;
 };
 
@@ -45,4 +45,6 @@ public:
 
 	std::map<int, ofVec2f> mousePos;
 	imageWindow imgWin;
+
+	ofxFenster* test;
 };
