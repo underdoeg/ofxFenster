@@ -34,21 +34,7 @@ void testApp::setup()
 //--------------------------------------------------------------
 void testApp::update()
 {
- //create a window a little bit later
-        /*if(ofGetFrameNum() == 60)
-        {
-            cout << "creating test..." << endl;
-            imgWin.setup();
-            test = ofxFensterManager::get()->createFenster(500, 400, 300, 300, OF_WINDOW);
-            ofAddListener(test->events.mouseMoved, this, &testApp::mouseMovedEvent);
-            test->addListener(&imgWin);
-        }
-        if(ofGetFrameNum() == 300)
-        {
-            cout << "deleting test..." << endl;
-            ofRemoveListener(test->events.mouseMoved, this, &testApp::mouseMovedEvent);
-            ofxFensterManager::get()->deleteFenster(test);
-        }*/
+
 }
 
 //--------------------------------------------------------------
