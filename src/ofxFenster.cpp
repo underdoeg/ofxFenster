@@ -6,6 +6,10 @@
 
 #include "ofxFensterManager.h"
 
+#ifdef TARGET_LINUX
+	#include <X11/Xlib.h>
+#endif
+
 static int curID;
 static ofEventArgs voidEventArgs;
 
@@ -40,7 +44,6 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 		state=GHOST_kWindowStateFullScreen;
 	}
 
-
 	win = GHOST_ISystem::getSystem()->createWindow(title, l, t, w, h, state, GHOST_kDrawingContextTypeOpenGL, false, ofxFensterManager::get()->getAntialiasing());
 
 	if (!win) {
@@ -51,8 +54,8 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	win->getClientBounds(rect);
 	height=rect.getHeight();
 	width=rect.getWidth();
-	pos.x=l;
-	pos.y=t;
+	pos.x=rect.m_l;
+	pos.y=rect.m_t;
 	glClearColor(.55, .55, .55, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	setup();
@@ -374,7 +377,10 @@ void ofxFenster::setOrientation(ofOrientation orientation)
 
 void ofxFenster::setWindowPosition(int x, int y)
 {
-	win->setClientPosition(x, y);
+	#ifdef TARGET_LINUX
+		//Window* xwin=static_cast<Window*>(win->getOSWindow());
+		//XmoveWindow(xwin->)
+	#endif
 }
 
 void ofxFenster::setWindowShape(int w, int h)
