@@ -50,12 +50,22 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 		ofLog(OF_LOG_ERROR, "HOUSTON WE GOT A PROBLEM! could not create window");
 		return false;
 	}
+
+	//get background oclor settings
+	float * bgPtr = ofBgColorPtr();
+	bgColor.set(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
+	bClearAuto = ofbClearBg();
+
+
+	//update sizes
 	GHOST_Rect rect;
 	win->getClientBounds(rect);
 	height=rect.getHeight();
 	width=rect.getWidth();
 	pos.x=rect.m_l;
 	pos.y=rect.m_t;
+
+	//initial clear
 	glClearColor(.55, .55, .55, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	setup();
@@ -121,11 +131,8 @@ void ofxFenster::draw()
 	setActive();
 	ofPoint size=getWindowSize();
 
-	float * bgPtr = ofBgColorPtr();
-	bool bClearAuto = ofbClearBg();
-
 	if ( bClearAuto == true) {
-		ofClear(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
+		ofClear(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
 	}
 	ofViewport(0, 0, size.x, size.y);
 	ofSetupScreenPerspective(size.x, size.y, OF_ORIENTATION_DEFAULT);
@@ -432,5 +439,27 @@ void ofxFenster::setActive()
 {
 	ofxFensterManager::get()->setActiveWindow(this);
 	activateDrawingContext();
+}
+
+
+//SET THAT BACKGROUND STUFF
+void ofxFenster::setBackgroundClearAuto(bool bgAuto)
+{
+	bClearAuto=bgAuto;
+}
+
+void ofxFenster::setBackgroundColor(int gray, int alpha)
+{
+	setBackgroundColor(gray, gray, gray, alpha);
+}
+
+void ofxFenster::setBackgroundColor(int r, int g, int b, int a)
+{
+	setBackgroundColor(ofColor(r, g, b, a));
+}
+
+void ofxFenster::setBackgroundColor(ofColor color)
+{
+	bgColor=color;
 }
 
