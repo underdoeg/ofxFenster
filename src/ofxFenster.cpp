@@ -33,7 +33,6 @@ void ofxFenster::destroy()
 
 bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 {
-
 	STR_String title("window");
 	GHOST_TWindowState state=GHOST_kWindowStateNormal;
 	if(screenMode==OF_FULLSCREEN) {
@@ -305,7 +304,8 @@ ofOrientation ofxFenster::getOrientation()
 
 ofPoint ofxFenster::getScreenSize()
 {
-	return ofPoint(0, 0);
+	int w,h;
+	return ofPoint(w, h );
 }
 
 int ofxFenster::getWidth()

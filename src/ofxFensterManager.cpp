@@ -316,7 +316,10 @@ ofOrientation ofxFensterManager::getOrientation()
 
 ofPoint ofxFensterManager::getScreenSize()
 {
-	return activeWindow->getScreenSize();
+	//return activeWindow->getScreenSize();
+	GHOST_TUns32 w, h;
+	ghostSystem->getMainDisplayDimensions(w, h);
+	return ofPoint(w, h);
 }
 
 int ofxFensterManager::getWidth()
