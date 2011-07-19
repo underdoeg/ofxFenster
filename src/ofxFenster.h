@@ -178,6 +178,8 @@ public:
 	eventGroup events;
 
 private:
+	void updateListenersMousePos();
+
 	string windowTitle;
 	bool isDestroyed;
 	int framesElapsed;

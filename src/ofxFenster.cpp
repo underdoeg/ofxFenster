@@ -184,45 +184,43 @@ void ofxFenster::keyReleased(int key)
 	}
 }
 
+void ofxFenster::mouseMoved(int x, int y)
+{
+	static ofMouseEventArgs mouseEventArgs;
+	mouseEventArgs.x = x;
+	mouseEventArgs.y = y;
+	if(x < 0) x = 0; //TODO is < 0 check necessary?
+	if(y < 0) y = 0;
+	mousePos.set(x, y);
+	updateListenersMousePos();
+	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
+	ofNotifyEvent(events.mouseMoved, mouseEventArgs);
+
+	ofxFensterListenerList::iterator it=listeners.begin();
+	while(it!=listeners.end()) {
+		(*it)->mouseMoved(x, y, this);
+		++it;
+	}
+}
+
 void ofxFenster::mouseDragged(int x, int y, int button)
 {
 	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
+
+	if(x < 0) x = 0; //TODO is < 0 check necessary?
+	if(y < 0) y = 0;
 	mousePos.set(x, y);
-	ofxFensterListenerList::iterator it=listeners.begin();
+
+	updateListenersMousePos();
 	ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
 	ofNotifyEvent(events.mouseDragged, mouseEventArgs);
 
+	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
 		(*it)->mouseDragged(x, y, button, this);
-		++it;
-	}
-}
-
-void ofxFenster::mouseMoved(int x, int y)
-{
-	static ofMouseEventArgs mouseEventArgs;
-	mouseEventArgs.x = x;
-	mouseEventArgs.y = y;
-	if(x < 0)
-	{
-	    x = 0;
-	}
-	if(y < 0)
-	{
-	    y = 0;
-	}
-	mousePos.set(x, y);
-	ofxFensterListenerList::iterator it=listeners.begin();
-	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
-	ofNotifyEvent(events.mouseMoved, mouseEventArgs);
-
-	while(it!=listeners.end()) {
-		(*it)->mouseMoved(x, y, this);
-		(*it)->mouseX = x;
-		(*it)->mouseY = y;
 		++it;
 	}
 }
@@ -233,10 +231,10 @@ void ofxFenster::mousePressed(int x, int y, int button)
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
-	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
 	ofNotifyEvent(events.mousePressed, mouseEventArgs);
 
+	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
 		(*it)->mousePressed(x, y, button, this);
 		++it;
@@ -432,6 +430,7 @@ void ofxFenster::toggleFullscreen()
 void ofxFenster::addListener(ofxFensterListener* listener)
 {
 	listeners.push_back(listener);
+	updateListenersMousePos();
 }
 
 void ofxFenster::dragEvent(ofDragInfo dragInfo)
@@ -481,4 +480,14 @@ void ofxFenster::setBorder(bool border){
 	hasBorder=border;
 	if(!border)
 		win->setState(GHOST_kWindowStateEmbedded);
+}
+
+void ofxFenster::updateListenersMousePos()
+{
+	ofxFensterListenerList::iterator it=listeners.begin();
+	while(it!=listeners.end()) {
+		(*it)->mouseX = mousePos.x;
+		(*it)->mouseY = mousePos.y;
+		++it;
+	}
 }
