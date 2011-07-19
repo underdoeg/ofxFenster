@@ -206,6 +206,14 @@ void ofxFenster::mouseMoved(int x, int y)
 	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
+	if(x < 0)
+	{
+	    x = 0;
+	}
+	if(y < 0)
+	{
+	    y = 0;
+	}
 	mousePos.set(x, y);
 	ofxFensterListenerList::iterator it=listeners.begin();
 	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
@@ -213,6 +221,8 @@ void ofxFenster::mouseMoved(int x, int y)
 
 	while(it!=listeners.end()) {
 		(*it)->mouseMoved(x, y, this);
+		(*it)->mouseX = x;
+		(*it)->mouseY = y;
 		++it;
 	}
 }
