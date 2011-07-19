@@ -17,6 +17,7 @@ ofxFenster::ofxFenster():framesElapsed(0),isDestroyed(false), timer(0), isFullsc
 {
 	id=curID;
 	curID++;
+	bClearAuto=true;
 }
 
 ofxFenster::~ofxFenster()
@@ -51,12 +52,14 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 		return false;
 	}
 
-	//get background oclor settings
-	float * bgPtr = ofBgColorPtr();
-	bgColor.set(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
-	bClearAuto = ofbClearBg();
+	//get background color. not working yet because opengl renderer does not exist yet, so fill with black
+	//float * bgPtr = ofBgColorPtr();
+	//bgColor.set(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
+	//bClearAuto = ofbClearBg();
 
-
+	bgColor.set(0,0,0);
+	//ofClear(bgColor.r, bgColor.g, bgColor.b, bgColor.a); 
+		
 	//update sizes
 	GHOST_Rect rect;
 	win->getClientBounds(rect);
