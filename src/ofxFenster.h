@@ -160,7 +160,9 @@ public:
 	void setBackgroundColor(int r, int g, int b, int a=255);
 	void setBackgroundColor(ofColor color);
 	void setBackgroundClearAuto(bool bgAuto);
-
+	
+	void setBorder(bool border);
+	
 	void setActive();
 
 	GHOST_IWindow* getWindow();
@@ -192,6 +194,7 @@ private:
 	ofPoint pos;
 	ofColor bgColor;
 	bool bClearAuto;
+	bool hasBorder;
 };
 
 #endif // OFXFENSTER_H

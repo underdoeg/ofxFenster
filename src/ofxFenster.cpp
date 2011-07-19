@@ -18,6 +18,7 @@ ofxFenster::ofxFenster():framesElapsed(0),isDestroyed(false), timer(0), isFullsc
 	id=curID;
 	curID++;
 	bClearAuto=true;
+	hasBorder=true;
 }
 
 ofxFenster::~ofxFenster()
@@ -466,3 +467,8 @@ void ofxFenster::setBackgroundColor(ofColor color)
 	bgColor=color;
 }
 
+void ofxFenster::setBorder(bool border){
+	hasBorder=border;
+	if(!border)
+		win->setState(GHOST_kWindowStateEmbedded);
+}
