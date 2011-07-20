@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_Window.h 37765 2011-06-23 19:55:47Z blendix $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or

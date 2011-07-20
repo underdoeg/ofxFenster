@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_WindowX11.h 36985 2011-05-28 15:34:02Z campbellbarton $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or

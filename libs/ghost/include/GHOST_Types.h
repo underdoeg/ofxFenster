@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_Types.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -23,8 +23,7 @@
  *
  * Contributor(s): none yet.
  *
- * ***** END GPL LICENSE
- BLOCK *****
+ * ***** END GPL LICENSE BLOCK *****
  */
 
 /** \file ghost/GHOST_Types.h
@@ -54,8 +53,8 @@ typedef	unsigned int		GHOST_TUns32;
 #endif
 
 #if defined(WIN32) && !defined(FREE_WINDOWS)
-typedef int			    GHOST_TInt64;
-typedef unsigned int	GHOST_TUns64;
+typedef __int64				GHOST_TInt64;
+typedef unsigned __int64	GHOST_TUns64;
 #else
 typedef long long			GHOST_TInt64;
 typedef unsigned long long	GHOST_TUns64;
@@ -69,7 +68,7 @@ typedef enum
 	GHOST_kSuccess
 } GHOST_TSuccess;
 
-/* Xtilt and Ytilt represent how much the pen is tilted away from
+/* Xtilt and Ytilt represent how much the pen is tilted away from 
  * vertically upright in either the X or Y direction, with X and Y the
  * axes of the tablet surface.
  * In other words, Xtilt and Ytilt are components of a vector created by projecting
@@ -180,12 +179,12 @@ typedef enum {
 	GHOST_kEventWindowUpdate,
 	GHOST_kEventWindowSize,
 	GHOST_kEventWindowMove,
-
+	
 	GHOST_kEventDraggingEntered,
 	GHOST_kEventDraggingUpdated,
 	GHOST_kEventDraggingExited,
 	GHOST_kEventDraggingDropDone,
-
+	
 	GHOST_kEventOpenMainFile, // Needed for Cocoa to open double-clicked .blend file at startup
 
 	GHOST_kEventTimer,
@@ -199,9 +198,9 @@ typedef enum {
 	GHOST_kStandardCursorDefault = 0,
 	GHOST_kStandardCursorRightArrow,
 	GHOST_kStandardCursorLeftArrow,
-	GHOST_kStandardCursorInfo,
+	GHOST_kStandardCursorInfo, 
 	GHOST_kStandardCursorDestroy,
-	GHOST_kStandardCursorHelp,
+	GHOST_kStandardCursorHelp,    
 	GHOST_kStandardCursorCycle,
 	GHOST_kStandardCursorSpray,
 	GHOST_kStandardCursorWait,
@@ -218,9 +217,10 @@ typedef enum {
 	GHOST_kStandardCursorBottomRightCorner,
 	GHOST_kStandardCursorBottomLeftCorner,
 	GHOST_kStandardCursorCopy,
-	GHOST_kStandardCursorCustom,
-	GHOST_kStandardCursorNumCursors,
-	GHOST_kStandardCursorPencil
+	GHOST_kStandardCursorCustom, 
+	GHOST_kStandardCursorPencil,
+
+	GHOST_kStandardCursorNumCursors
 } GHOST_TStandardCursor;
 
 
@@ -231,7 +231,7 @@ typedef enum {
 	GHOST_kKeyLinefeed,
 	GHOST_kKeyClear,
 	GHOST_kKeyEnter  = 0x0D,
-
+	
 	GHOST_kKeyEsc    = 0x1B,
 	GHOST_kKeySpace  = ' ',
 	GHOST_kKeyQuote  = 0x27,
@@ -288,7 +288,7 @@ typedef enum {
 	GHOST_kKeyBackslash    = 0x5C,
 	GHOST_kKeyAccentGrave  = '`',
 
-
+	
 	GHOST_kKeyLeftShift = 0x100,
 	GHOST_kKeyRightShift,
 	GHOST_kKeyLeftControl,
@@ -360,7 +360,7 @@ typedef enum {
 	GHOST_kKeyF22,
 	GHOST_kKeyF23,
 	GHOST_kKeyF24,
-
+	
 	// Multimedia keypad buttons
 	GHOST_kKeyMediaPlay,
 	GHOST_kKeyMediaStop,
@@ -391,7 +391,7 @@ typedef struct {
 
 typedef struct {
 	/** Displacement of a mouse wheel. */
-	GHOST_TInt32 z;
+	GHOST_TInt32 z;	
 } GHOST_TEventWheelData;
 
 typedef enum {
@@ -401,7 +401,7 @@ typedef enum {
 	GHOST_kTrackpadEventSwipe, /* Reserved, not used for now */
 	GHOST_kTrackpadEventMagnify
 } GHOST_TTrackpadEventSubTypes;
-
+	
 
 typedef struct {
 	/** The event subtype */
@@ -467,7 +467,7 @@ typedef void    (*GHOST_NDOFLibraryShutdown_fp)(void* deviceHandle);
 typedef void*   (*GHOST_NDOFDeviceOpen_fp)(void* platformData);
 
 // original patch windows callback. In mac os X version the callback is internal to the plug-in and post an event to main thead.
-// not necessary faster, but better integration with other events.
+// not necessary faster, but better integration with other events. 
 
 //typedef int     (*GHOST_NDOFEventHandler_fp)(float* result7, void* deviceHandle, unsigned int message, unsigned int* wParam, unsigned long* lParam);
 //typedef void     (*GHOST_NDOFCallBack_fp)(GHOST_TEventNDOFDataV2 *VolDatas);

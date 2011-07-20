@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemPathsX11.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id$
  *
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
@@ -35,7 +35,7 @@
 #define _GHOST_SYSTEM_PATHS_X11_H_
 
 #include "GHOST_SystemPaths.h"
-#include "GHOST_Types.h"
+#include "../GHOST_Types.h"
 
 
 class GHOST_SystemPathsX11 : public GHOST_SystemPaths {

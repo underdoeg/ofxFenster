@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_C-api.h 36426 2011-05-02 08:07:24Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or

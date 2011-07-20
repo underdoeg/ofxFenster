@@ -36,7 +36,6 @@ void ofxFenster::destroy()
 	GHOST_ISystem::getSystem()->disposeWindow(win);
 }
 
-
 bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 {
 	STR_String title("window");
@@ -132,6 +131,7 @@ void ofxFenster::draw()
 {
 	if(isDestroyed)
 		return;
+
 	setActive();
 	ofPoint size=getWindowSize();
 

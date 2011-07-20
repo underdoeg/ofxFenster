@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_EventDragnDrop.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -36,8 +36,8 @@
 
 #include "GHOST_Event.h"
 extern "C" {
-#include "IMB_imbuf.h"
-#include "IMB_imbuf_types.h"
+//#include "IMB_imbuf.h"
+//#include "IMB_imbuf_types.h"
 };
 
 /**
@@ -98,7 +98,8 @@ public:
 		
 		switch (m_dragnDropEventData.dataType) {
 			case GHOST_kDragnDropTypeBitmap:
-				IMB_freeImBuf((ImBuf*)m_dragnDropEventData.data);
+				//TODO: something has to be freed here
+				//IMB_freeImBuf((ImBuf*)m_dragnDropEventData.data);
 				break;
 			case GHOST_kDragnDropTypeFilenames:
 			{

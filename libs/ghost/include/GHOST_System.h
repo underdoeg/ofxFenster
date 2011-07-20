@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_System.h 35792 2011-03-26 08:13:42Z campbellbarton $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -30,6 +30,9 @@
  *  \ingroup GHOST
  * Declaration of GHOST_System class.
  */
+
+
+
 
 #ifndef _GHOST_SYSTEM_H_
 #define _GHOST_SYSTEM_H_

@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemX11.h 38329 2011-07-12 12:53:23Z campbellbarton $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -38,7 +38,7 @@
 #include <GL/glx.h>
 
 #include "GHOST_System.h"
-#include "GHOST_Types.h"
+#include "../GHOST_Types.h"
 
 class GHOST_WindowX11;
 

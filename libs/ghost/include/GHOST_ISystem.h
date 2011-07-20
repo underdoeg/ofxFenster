@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_ISystem.h 36426 2011-05-02 08:07:24Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -35,8 +35,6 @@
 
 #ifndef _GHOST_ISYSTEM_H_
 #define _GHOST_ISYSTEM_H_
-
-#define GHOST_COCOA 
 
 #include "GHOST_Types.h"
 #include "GHOST_ITimerTask.h"
