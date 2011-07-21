@@ -151,9 +151,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 
 	ofxFenster* win=getFensterByHandler(window);
 
-	//setActiveWindow(win);
-	//win->activateDrawingContext();
-
 	GHOST_Rect winPos;
 	window->getWindowBounds(winPos);
 

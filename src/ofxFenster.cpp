@@ -56,7 +56,9 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	//float * bgPtr = ofBgColorPtr();
 	//bgColor.set(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
 	//bClearAuto = ofbClearBg();
-
+	
+	setActive();
+	
 	bgColor.set(0,0,0);
 	//ofClear(bgColor.r, bgColor.g, bgColor.b, bgColor.a); 
 		
@@ -72,7 +74,7 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	glClearColor(.55, .55, .55, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	setup();
-	win->swapBuffers();
+	//win->swapBuffers();
 	return true;
 }
 
@@ -144,7 +146,7 @@ void ofxFenster::draw()
 	ofGetWidth();
 
 	ofNotifyEvent(events.draw, voidEventArgs);
-
+	
 	ofxFensterListenerList::iterator it=listeners.begin();
 	while(it!=listeners.end()) {
 		(*it)->draw(this);
@@ -152,7 +154,7 @@ void ofxFenster::draw()
 		++it;
 	}
 
-	win->swapBuffers();
+	//win->swapBuffers();
 	return;
 }
 
