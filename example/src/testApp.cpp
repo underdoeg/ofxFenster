@@ -31,6 +31,7 @@ void testApp::setup()
 	}
 }
 
+
 //--------------------------------------------------------------
 void testApp::update()
 {
@@ -40,6 +41,14 @@ void testApp::update()
 //--------------------------------------------------------------
 void testApp::draw()
 {
+	ofNoFill();
+	ofSetRectMode(OF_RECTMODE_CENTER);
+	ofSetColor(255);
+	ofCircle(mouseX, mouseY, 10);
+
+	ofSetRectMode(OF_RECTMODE_CORNER);
+	ofFill();
+	ofSetColor(255);
 	ofVec2f mp=mousePos[ofxFensterManager::get()->getActiveWindow()->id];
 	ofVec2f p;
 
@@ -54,6 +63,7 @@ void testApp::draw()
 		}
 	}
 
+	ofSetColor(0);
 	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 }
 

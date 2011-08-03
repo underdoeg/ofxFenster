@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_DisplayManagerWin32.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@
  *  \ingroup GHOST
  * Declaration of GHOST_DisplayManagerWin32 class.
  */
-#ifdef WIN32
+
 #ifndef _GHOST_DISPLAY_MANAGER_WIN32_H_
 #define _GHOST_DISPLAY_MANAGER_WIN32_H_
 
@@ -100,4 +100,3 @@ protected:
 
 #endif // _GHOST_DISPLAY_MANAGER_WIN32_H_
 
-#endif

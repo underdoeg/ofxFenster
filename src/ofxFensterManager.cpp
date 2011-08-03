@@ -145,8 +145,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 		return false;
 
 	GHOST_IWindow* window = event->getWindow();
-	if(window==NULL) //maybe not the best way to do this...
-		return false;
 	bool handled = true;
 
 	ofxFenster* win=getFensterByHandler(window);
@@ -231,6 +229,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
         case GHOST_kEventWindowUpdate:
         {
             win->draw();
+			window->swapBuffers();
             break;
         }
         case GHOST_kEventWindowActivate:

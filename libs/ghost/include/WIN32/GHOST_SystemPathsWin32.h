@@ -1,6 +1,5 @@
-#ifdef WIN32
 /*
- * $Id: GHOST_SystemPathsWin32.h 35152 2011-02-25 11:28:33Z jesterking $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -39,6 +38,8 @@
 #error WIN32 only!
 #endif // WIN32
 
+#define _WIN32_WINNT 0x501 // require Windows XP or newer
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 #include "GHOST_SystemPaths.h"
@@ -90,4 +91,3 @@ public:
 
 #endif // _GHOST_SYSTEM_PATHS_WIN32_H_
 
-#endif

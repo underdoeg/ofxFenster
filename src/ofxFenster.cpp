@@ -74,7 +74,6 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	glClearColor(.55, .55, .55, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	setup();
-	//win->swapBuffers();
 	return true;
 }
 
@@ -153,8 +152,7 @@ void ofxFenster::draw()
 		(*it)->isUpdated=false;
 		++it;
 	}
-
-	//win->swapBuffers();
+	win->swapBuffers();
 	return;
 }
 
