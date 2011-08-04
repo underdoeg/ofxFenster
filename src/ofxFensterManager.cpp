@@ -149,7 +149,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 
 	ofxFenster* win=getFensterByHandler(window);
 
-	GHOST_Rect winPos;
+	GHOST_Rect winPos; //why on every process...?
 	window->getWindowBounds(winPos);
 
 	switch (event->getType())
@@ -160,11 +160,10 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
             GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
             ofPoint p(bd->x, bd->y);
             #ifdef TARGET_OSX
-                p.y=win->getHeight()-p.y;
-            #else
-                p.x-=winPos.m_l;
-                p.y-=winPos.m_t;
-            #endif
+			p.y=getScreenSize().y-p.y+30;
+			#endif
+			p.x-=winPos.m_l;
+			p.y-=winPos.m_t;
 
             if(win->isButtonDown) {
                 //win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
