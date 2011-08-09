@@ -221,7 +221,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
         case GHOST_kEventWindowMove:
         {
             GHOST_Rect rect;
-            window->getClientBounds(rect);
+            window->getWindowBounds(rect);
             win->windowMoved(rect.m_l, rect.m_t);
             break;
         }
