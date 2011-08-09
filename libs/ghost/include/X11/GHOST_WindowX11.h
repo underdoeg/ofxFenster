@@ -238,6 +238,11 @@ public:
 	bool m_post_init;
 	GHOST_TWindowState m_post_state;
 
+	int oldW;
+	int oldH;
+	int oldX;
+	int oldY;
+
 protected:
 	/**
 	 * Tries to install a rendering context in this window.
