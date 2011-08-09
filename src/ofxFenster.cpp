@@ -396,14 +396,12 @@ void ofxFenster::setOrientation(ofOrientation orientation)
 
 void ofxFenster::setWindowPosition(int x, int y)
 {
-	#ifdef TARGET_LINUX
-		//Window* xwin=static_cast<Window*>(win->getOSWindow());
-		//XmoveWindow(xwin->)
-	#endif
+	win->setWindowPosition(x, y);
 }
 
 void ofxFenster::setWindowShape(int w, int h)
 {
+	win->setClientSize(w, h);
 }
 
 void ofxFenster::setWindowTitle(string title)
