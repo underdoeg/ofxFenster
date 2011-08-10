@@ -1,6 +1,5 @@
-#ifdef WIN32
 /*
- * $Id: GHOST_WindowWin32.h 36470 2011-05-04 01:50:17Z dfelinto $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -40,26 +39,17 @@
 #endif // WIN32
 
 #include "GHOST_Window.h"
-
-/* MinGW needs it */
-#ifdef FREE_WINDOWS
-#ifdef WINVER
-#undef WINVER
-#endif
-#define WINVER 0x0501
-#endif
-
-
-#include <windows.h>
 #include "GHOST_TaskbarWin32.h"
+
+#define _WIN32_WINNT 0x501 // require Windows XP or newer
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 
 
 #include <wintab.h>
 #define PACKETDATA	(PK_BUTTONS | PK_NORMAL_PRESSURE | PK_ORIENTATION | PK_CURSOR)
 #define PACKETMODE	PK_BUTTONS
 #include <pktdef.h>
-
-
 
 class GHOST_SystemWin32;
 class GHOST_DropTargetWin32;
@@ -146,11 +136,11 @@ public:
 
 	/**
 	 * Returns the window rectangle dimensions.
-	 * The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+	 * The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen. 
 	 * @param bounds The bounding rectangle of the window.
 	 */
 	virtual	void getWindowBounds(GHOST_Rect& bounds) const;
-
+	
 	/**
 	 * Returns the client rectangle dimensions.
 	 * The left and top members of the rectangle are always zero.
@@ -237,12 +227,12 @@ public:
 	 * @param progress The progress %
 	 */
 	virtual GHOST_TSuccess setProgressBar(float progress);
-
+	
 	/**
 	 * Hides the progress bar in the icon
 	 */
 	virtual GHOST_TSuccess endProgressBar();
-
+	
 	/**
 	 * Returns the name of the window class.
 	 * @return The name of the window class.
@@ -250,11 +240,11 @@ public:
 	static LPCSTR getWindowClassName() { return s_windowClassName; }
 
 	/**
-	 * Register a mouse click event (should be called
+	 * Register a mouse click event (should be called 
 	 * for any real button press, controls mouse
 	 * capturing).
 	 *
-	 * @param press
+	 * @param press	
 	 *		0 - mouse pressed
 	 *		1 - mouse released
 	 *		2 - operator grab
@@ -302,14 +292,14 @@ protected:
 	 * native window system calls.
 	 */
 	virtual GHOST_TSuccess setWindowCursorVisibility(bool visible);
-
+	
 	/**
 	 * Sets the cursor grab on the window using native window system calls.
 	 * Using registerMouseClickEvent.
 	 * @param mode	GHOST_TGrabCursorMode.
 	 */
 	virtual GHOST_TSuccess setWindowCursorGrab(GHOST_TGrabCursorMode mode);
-
+	
 	/**
 	 * Sets the cursor shape on the window using
 	 * native window system calls.
@@ -323,16 +313,16 @@ protected:
 	virtual GHOST_TSuccess setWindowCustomCursorShape(GHOST_TUns8 bitmap[16][2], GHOST_TUns8 mask[16][2], int hotX, int hotY);
 
 	virtual GHOST_TSuccess setWindowCustomCursorShape(
-		GHOST_TUns8 *bitmap,
-		GHOST_TUns8 *mask,
-		int sizex,
+		GHOST_TUns8 *bitmap, 
+		GHOST_TUns8 *mask, 
+		int sizex, 
 		int sizey,
-		int hotX,
+		int hotX, 
 		int hotY,
-		int fg_color,
+		int fg_color, 
 		int bg_color
 	);
-
+	
 	/** Pointer to system */
 	GHOST_SystemWin32 * m_system;
 	/** Pointer to COM IDropTarget implementor */
@@ -349,7 +339,7 @@ protected:
 	static HDC s_firstHDC;
 	/** Flag for if window has captured the mouse */
 	bool m_hasMouseCaptured;
-	/** Flag if an operator grabs the mouse with WM_cursor_grab/ungrab()
+	/** Flag if an operator grabs the mouse with WM_cursor_grab/ungrab() 
 	 * Multiple grabs must be realesed with a single ungrab*/
 	bool m_hasGrabMouse;
 	/** Count of number of pressed buttons */
@@ -400,5 +390,3 @@ protected:
 };
 
 #endif // _GHOST_WINDOW_WIN32_H_
-
-#endif

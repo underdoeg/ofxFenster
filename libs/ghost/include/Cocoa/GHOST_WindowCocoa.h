@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_WindowCocoa.h 37861 2011-06-27 13:57:27Z blendix $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -123,6 +123,20 @@ public:
 	 * @param bounds The bounding rectangle of the window.
 	 */
 	virtual	void getWindowBounds(GHOST_Rect& bounds) const;
+	
+/**
+	 * sets window position.
+	 * @param x The new X position of the window.
+	 * @param y The new Y position of the window.
+	 */
+	virtual	GHOST_TSuccess setWindowPosition(GHOST_TUns32 x, GHOST_TUns32 y);
+
+	/**
+	 * sets window border.
+	 * @param hasBorder true to draw a border, false to hide it
+	 */
+	virtual	GHOST_TSuccess setWindowBorder(bool hasBorder);
+	
 	
 	/**
 	 * Returns the client rectangle dimensions.
@@ -327,4 +341,3 @@ protected:
 };
 
 #endif // _GHOST_WINDOW_COCOA_H_
-

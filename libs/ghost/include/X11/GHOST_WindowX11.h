@@ -103,7 +103,16 @@ public:
 	getWindowBounds(
 		GHOST_Rect& bounds
 	) const;
-	
+
+		GHOST_TSuccess
+	setWindowPosition(GHOST_TUns32 x, GHOST_TUns32 y);
+
+		GHOST_TSuccess
+	setWindowBorder(bool hasBorder);
+
+		GHOST_TSuccess
+	setWindowOnTop(bool onTop);
+
 		void 
 	getClientBounds(
 		GHOST_Rect& bounds

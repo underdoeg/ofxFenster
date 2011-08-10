@@ -1,5 +1,5 @@
 /*
- * $Id: GHOST_SystemCocoa.h 37861 2011-06-27 13:57:27Z blendix $
+ * $Id$
  * ***** BEGIN GPL LICENSE BLOCK *****
  *
  * This program is free software; you can redistribute it and/or
@@ -221,6 +221,11 @@ public:
     GHOST_TSuccess handleApplicationBecomeActiveEvent();
 
 	/**
+	 * External objects should call this when they send an event outside processEvents.
+	 */
+	void notifyExternalEventProcessed();
+
+	/**
 	 * @see GHOST_ISystem
 	 */
 	int toggleConsole(int action) { return 0; }
@@ -267,7 +272,7 @@ protected:
 	/** Start time at initialization. */
 	GHOST_TUns64 m_start_time;
 	
-	/** Event has been processed directly by Cocoa and has sent a ghost event to be dispatched */
+	/** Event has been processed directly by Cocoa (or NDOF manager) and has sent a ghost event to be dispatched */
 	bool m_outsideLoopEventProcessed;
 	
 	/** Raised window is not yet known by the window manager, so delay application become active event handling */
