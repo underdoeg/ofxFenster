@@ -58,8 +58,8 @@ bool ofxFenster::setupOpenGL(int l, int t, int w, int h, int screenMode)
 	//bClearAuto = ofbClearBg();
 
 	bgColor.set(0,0,0);
-	//ofClear(bgColor.r, bgColor.g, bgColor.b, bgColor.a); 
-		
+	//ofClear(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+
 	//update sizes
 	GHOST_Rect rect;
 	win->getClientBounds(rect);

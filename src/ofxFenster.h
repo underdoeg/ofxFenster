@@ -2,7 +2,7 @@
 #define OFXFENSTER_H
 
 #define GHOST_COCOA
-
+#define FREE_WINDOWS
 
 #include <GHOST_ITimerTask.h>
 #include <ofTypes.h>
@@ -160,9 +160,9 @@ public:
 	void setBackgroundColor(int r, int g, int b, int a=255);
 	void setBackgroundColor(ofColor color);
 	void setBackgroundClearAuto(bool bgAuto);
-	
+
 	void setBorder(bool border);
-	
+
 	void setActive();
 
 	GHOST_IWindow* getWindow();
