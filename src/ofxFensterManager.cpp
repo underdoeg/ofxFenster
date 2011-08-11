@@ -150,7 +150,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 	ofxFenster* win=getFensterByHandler(window);
 
 	GHOST_Rect winPos; //why on every process...?
-	window->getWindowBounds(winPeos);
+	window->getWindowBounds(winPos);
 
 	switch (event->getType())
 	{
