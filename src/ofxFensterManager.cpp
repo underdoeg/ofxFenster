@@ -158,12 +158,11 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
         case GHOST_kEventCursorMove:
         {
             GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
-            ofPoint p(bd->x, bd->y);
-            #ifdef TARGET_OSX
-			p.y=getScreenSize().y-p.y+30;
-			#endif
-			p.x-=winPos.m_l;
-			p.y-=winPos.m_t;
+			GHOST_TInt32 x,y;
+			window->screenToClient(bd->x, bd->y, x, y);
+			
+			ofPoint p(x, y);
+			p.y -= 1;
 
             if(win->isButtonDown) {
                 //win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);

@@ -62,7 +62,7 @@ void testApp::draw()
 			}
 		}
 	}
-
+	
 	ofSetColor(0);
 	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 }
