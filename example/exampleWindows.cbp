@@ -67,6 +67,9 @@
 			<Add directory="..\..\..\libs\poco\include" />
 			<Add directory="..\..\..\libs\tess2\include" />
 			<Add directory="..\..\..\libs\cairo\include\cairo" />
+			<Add directory="..\src" />
+			<Add directory="..\libs\ghost\include" />
+			<Add directory="..\libs\string\include" />
 		</Compiler>
 		<Linker>
 			<Add library="..\..\..\libs\FreeImage\lib\win_cb\FreeImage.lib" />
@@ -85,6 +88,7 @@
 			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoXMLmt.a" />
 			<Add library="..\..\..\libs\poco\lib\win_cb\libPocoFoundationmt.a" />
 			<Add library="..\..\..\libs\tess2\lib\win_cb\libtess2.a" />
+			<Add library="..\libs\ghost\lib\win_cb\libGhost32.a" />
 			<Add library="opengl32" />
 			<Add library="gdi32" />
 			<Add library="msimg32" />
