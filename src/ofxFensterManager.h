@@ -81,6 +81,8 @@ public:
 	void setAntialiasing(int aa);
 	int getAntialiasing();
 
+	void setIcon(ofPixelsRef pixels);
+
 private:
 	ofxFenster* activeWindow;
 

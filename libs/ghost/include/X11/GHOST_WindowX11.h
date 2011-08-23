@@ -321,6 +321,15 @@ protected:
 		int bg_color
 	);
 
+	/**
+	 * Sets the window icon
+	 */
+		GHOST_TSuccess
+	setIcon(GHOST_TUns8* pixels,
+		int sizex,
+		int sizey
+	);
+
 private :
 
 	/// Force use of public constructor.

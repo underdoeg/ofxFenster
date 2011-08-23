@@ -163,6 +163,8 @@ public:
 
 	void setBorder(bool border);
 
+	void setIcon(ofPixelsRef pixels);
+
 	void setActive();
 
 	GHOST_IWindow* getWindow();

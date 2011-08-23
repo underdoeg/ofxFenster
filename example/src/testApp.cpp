@@ -29,12 +29,26 @@ void testApp::setup()
 		win->addListener(&imgWin);
 		win->setWindowTitle("image render "+ofToString(i+1));
 	}
+
+	ofImage icon;
+ubuntu 	//this currently only works on linux
+	icon.loadImage("icon.png");
+	ofxFensterManager::get()->setIcon(icon.getPixelsRef());
+
 }
 
 
 //--------------------------------------------------------------
 void testApp::update()
 {
+	if(ofGetFrameNum()%90 == 0){
+		iconCount++;
+		iconCount = iconCount%4;
+		ofImage icon;
+		icon.loadImage("icon"+ofToString(iconCount)+".png");
+		//this only works partially in ubuntu 11.04
+		ofxFensterManager::get()->setIcon(icon.getPixelsRef());
+	}
 
 }
 

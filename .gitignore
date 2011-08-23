@@ -1,1 +1,3 @@
+*.session
+*.tags
 .DS_Store

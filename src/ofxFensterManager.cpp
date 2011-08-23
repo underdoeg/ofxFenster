@@ -465,3 +465,12 @@ int ofxFensterManager::getAntialiasing()
 {
 	return antialiasing;
 }
+
+void ofxFensterManager::setIcon(ofPixelsRef pixels)
+{
+	fensterList::iterator it=fensters.begin();
+	while(it!=fensters.end()) {
+		(*it)->setIcon(pixels);
+		++it;
+	}
+}

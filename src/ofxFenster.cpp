@@ -489,3 +489,8 @@ void ofxFenster::updateListenersMousePos()
 		++it;
 	}
 }
+
+void ofxFenster::setIcon(ofPixelsRef pixels)
+{
+	win->setIcon(pixels.getPixels(), pixels.getWidth(), pixels.getHeight());
+}

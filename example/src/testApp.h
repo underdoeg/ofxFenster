@@ -47,4 +47,6 @@ public:
 	imageWindow imgWin;
 
 	ofxFenster* test;
+
+	int iconCount;
 };

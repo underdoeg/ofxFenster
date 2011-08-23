@@ -128,7 +128,7 @@ public:
 	 * sets window to top
 	 * @param alwaysOnTop true to have the window always on top
 	 */
-	virtual	GHOST_TSuccess setWindowOnTop(bool alwaysOnTop) = 0;
+	virtual	GHOST_TSuccess setWindowOnTop(bool alwaysOnTop) {};
 
 	/**
 	 * Returns the client rectangle dimensions.
@@ -268,7 +268,16 @@ public:
 	 * Hides the progress bar in the icon
 	 */
 	virtual GHOST_TSuccess endProgressBar() = 0;
-	
+
+	/**
+	 * Sets the window icon
+	 */
+	virtual	GHOST_TSuccess
+	setIcon(GHOST_TUns8* pixels,
+		int sizex,
+		int sizey
+	){return GHOST_kFailure;};
+
 	/***************************************************************************************
 	 ** Cursor management functionality
 	 ***************************************************************************************/
