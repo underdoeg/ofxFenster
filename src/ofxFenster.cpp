@@ -456,7 +456,7 @@ void ofxFenster::setActive()
 //SET THAT BACKGROUND STUFF
 void ofxFenster::setBackgroundClearAuto(bool bgAuto)
 {
-	bClearAuto=bgAuto;
+	bClearAuto=bgAuto;	
 }
 
 void ofxFenster::setBackgroundColor(int gray, int alpha)
@@ -476,8 +476,11 @@ void ofxFenster::setBackgroundColor(ofColor color)
 
 void ofxFenster::setBorder(bool border){
 	hasBorder=border;
-	if(!border)
-		win->setState(GHOST_kWindowStateEmbedded);
+	//if(!border){
+	//	win->setWindowBorder(false);
+	//	win->setState(GHOST_kWindowStateEmbedded);
+	//}
+	win->setWindowBorder(false);
 }
 
 void ofxFenster::updateListenersMousePos()

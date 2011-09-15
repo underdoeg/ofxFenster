@@ -5,7 +5,7 @@ void testApp::setup()
 {
 	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
-
+	
 	ofSetFrameRate(60);
 
 	ofBackground(0,0,0);
@@ -23,6 +23,7 @@ void testApp::setup()
 	imgWin.setup();
 	for(int i=0; i<3; i++) {
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
+		win->setBorder(false);
 		if(i==0) {
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}
@@ -31,7 +32,7 @@ void testApp::setup()
 	}
 
 	ofImage icon;
-ubuntu 	//this currently only works on linux
+ 	//this currently only works on linux
 	icon.loadImage("icon.png");
 	ofxFensterManager::get()->setIcon(icon.getPixelsRef());
 
