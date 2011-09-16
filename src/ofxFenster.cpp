@@ -13,7 +13,7 @@
 static int curID;
 static ofEventArgs voidEventArgs;
 
-ofxFenster::ofxFenster():framesElapsed(0),isDestroyed(false), timer(0), isFullscreen(false)
+ofxFenster::ofxFenster():framesElapsed(0),isDestroyed(false), timer(0), isFullscreen(false), isDraggable(false)
 {
 	id=curID;
 	curID++;
@@ -189,8 +189,7 @@ void ofxFenster::mouseMoved(int x, int y)
 	static ofMouseEventArgs mouseEventArgs;
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
-	if(x < 0) x = 0; //TODO is < 0 check necessary?
-	if(y < 0) y = 0;
+
 	mousePos.set(x, y);
 	updateListenersMousePos();
 	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
@@ -209,9 +208,10 @@ void ofxFenster::mouseDragged(int x, int y, int button)
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
-
-	if(x < 0) x = 0; //TODO is < 0 check necessary?
-	if(y < 0) y = 0;
+	
+	if(isDraggable && button == 0)
+		move(mousePos.x - x, mousePos.y - y);
+	
 	mousePos.set(x, y);
 
 	updateListenersMousePos();
@@ -396,6 +396,11 @@ void ofxFenster::setOrientation(ofOrientation orientation)
 
 void ofxFenster::setWindowPosition(int x, int y)
 {
+#ifdef	TARGET_OSX
+	int nX, nY;
+	win->screenToClient(x, y, nX, nY);
+	y = nY;
+#endif
 	win->setWindowPosition(x, y);
 }
 
@@ -496,4 +501,17 @@ void ofxFenster::updateListenersMousePos()
 void ofxFenster::setIcon(ofPixelsRef pixels)
 {
 	win->setIcon(pixels.getPixels(), pixels.getWidth(), pixels.getHeight());
+}
+
+void ofxFenster::move(int x, int y){
+	ofPoint p = getWindowPosition();
+	int nx, ny;
+	//win->screenToClient(p.x+x, p.y+y, nx, ny);
+	nx = p.x + x;
+	ny = p.y + y;
+	setWindowPosition(nx, ny);
+}
+
+void ofxFenster::setDraggable(bool d){
+	isDraggable = d;
 }

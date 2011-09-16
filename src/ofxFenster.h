@@ -149,6 +149,7 @@ public:
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
+	void move(int x, int y);
 	string getWindowTitle();
 	bool setupOpenGL(int l, int t, int w, int h, int screenMode);
 	void showCursor();
@@ -162,6 +163,7 @@ public:
 	void setBackgroundClearAuto(bool bgAuto);
 
 	void setBorder(bool border);
+	void setDraggable(bool draggable);
 
 	void setIcon(ofPixelsRef pixels);
 
@@ -181,7 +183,7 @@ public:
 
 private:
 	void updateListenersMousePos();
-
+	
 	string windowTitle;
 	bool isDestroyed;
 	int framesElapsed;
@@ -199,6 +201,7 @@ private:
 	ofColor bgColor;
 	bool bClearAuto;
 	bool hasBorder;
+	bool isDraggable;
 };
 
 #endif // OFXFENSTER_H
