@@ -264,6 +264,15 @@ public:
 	{ return m_tablet; }
 	
 	/**
+	 * Sets the window icon
+	 */
+	GHOST_TSuccess
+	setIcon(GHOST_TUns8* pixels,
+			int sizex,
+			int sizey
+			);
+	
+	/**
 	 * Sets the progress bar value displayed in the window/application icon
 	 * @param progress The progress % (0.0 to 1.0)
 	 */

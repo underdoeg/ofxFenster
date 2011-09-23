@@ -32,7 +32,6 @@ void testApp::setup()
 	}
 
 	ofImage icon;
- 	//this currently only works on linux
 	icon.loadImage("icon.png");
 	ofxFensterManager::get()->setIcon(icon.getPixelsRef());
 

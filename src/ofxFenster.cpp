@@ -500,7 +500,8 @@ void ofxFenster::updateListenersMousePos()
 
 void ofxFenster::setIcon(ofPixelsRef pixels)
 {
-	win->setIcon(pixels.getPixels(), pixels.getWidth(), pixels.getHeight());
+	if(!win->setIcon(pixels.getPixels(), pixels.getWidth(), pixels.getHeight()))
+		ofLog(OF_LOG_WARNING, "oops, looks like setIcon is not yet supported on your system");
 }
 
 void ofxFenster::move(int x, int y){
