@@ -24,5 +24,6 @@ SCREENS
 
 LICENCE
 ======================
-ofxFEnster has an MIT Licence http://en.wikipedia.org/wiki/MIT_License
+ofxFenster has an MIT Licence http://en.wikipedia.org/wiki/MIT_License
+
 GHOST is GPL licenced. The modified source code can be found here: https://github.com/underdoeg/ghost
