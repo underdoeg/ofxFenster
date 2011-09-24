@@ -396,11 +396,6 @@ void ofxFenster::setOrientation(ofOrientation orientation)
 
 void ofxFenster::setWindowPosition(int x, int y)
 {
-#ifdef	TARGET_OSX
-	int nX, nY;
-	win->screenToClient(x, y, nX, nY);
-	y = nY;
-#endif
 	win->setWindowPosition(x, y);
 }
 

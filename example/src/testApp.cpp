@@ -23,7 +23,6 @@ void testApp::setup()
 	imgWin.setup();
 	for(int i=0; i<3; i++) {
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
-		win->setBorder(false);
 		if(i==0) {
 			ofAddListener(win->events.mouseMoved, this, &testApp::mouseMovedEvent);
 		}
