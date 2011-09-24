@@ -7,6 +7,7 @@ The current state is stable and more or less production ready.
 It should work on linux, mac and windows. Linux and mac should run fine, windows version does compile, but gets only occasional updates.
 
 See this thread for more details: http://forum.openframeworks.cc/index.php/topic,6499.0.html
+
 Or visit the generated docs: http://ofxfenster.undef.ch/docs/index.html
 
 FEATURES
