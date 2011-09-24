@@ -336,7 +336,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FA153A4B142DEE72009A6797</string>
+										<string>FA153A83142DFB7E009A6797</string>
 										<key>history</key>
 										<array>
 											<string>FA5EA24513CDB7CB003ADC35</string>
@@ -359,14 +359,15 @@
 											<string>FA37633D13D864C400E7EBDE</string>
 											<string>FA37633E13D864C400E7EBDE</string>
 											<string>FA37633F13D864C400E7EBDE</string>
-											<string>FA2C59FC14223B80009D107A</string>
 											<string>FA2C5A1B14224445009D107A</string>
-											<string>FA1539D9142C8767009A6797</string>
 											<string>FA1539DA142C8767009A6797</string>
 											<string>FA1539DB142C8767009A6797</string>
 											<string>FA153A3B142DEE07009A6797</string>
-											<string>FA153A41142DEE50009A6797</string>
-											<string>FA153A42142DEE50009A6797</string>
+											<string>FA153A52142DF35A009A6797</string>
+											<string>FA153A7C142DFB46009A6797</string>
+											<string>FA153A80142DFB7E009A6797</string>
+											<string>FA153A81142DFB7E009A6797</string>
+											<string>FA153A82142DFB7E009A6797</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -564,7 +565,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>FA153A4C142DEE72009A6797</string>
 		<string>FA1539EA142C8767009A6797</string>
 		<string>FA1539EB142C8767009A6797</string>
 		<string>1CD10A99069EF8BA00B06720</string>
@@ -909,7 +909,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {468, 384}}</string>
 								<key>RubberWindowFrame</key>
-								<string>926 450 468 425 0 0 1440 878 </string>
+								<string>975 451 468 425 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -938,7 +938,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>926 450 468 425 0 0 1440 878 </string>
+			<string>975 451 468 425 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>

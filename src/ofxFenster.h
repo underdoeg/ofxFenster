@@ -166,6 +166,7 @@ public:
 	void setDraggable(bool draggable);
 
 	void setIcon(ofPixelsRef pixels);
+	void setCursor(ofPixelsRef pixels, int hotX = 0, int hotY = 0);
 
 	void setActive();
 

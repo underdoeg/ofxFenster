@@ -21,6 +21,7 @@ void testApp::setup()
 
 	//setup of fensterListener does not get called automatically yet
 	imgWin.setup();
+	
 	for(int i=0; i<3; i++) {
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
 		if(i==0) {

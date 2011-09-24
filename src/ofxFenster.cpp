@@ -499,6 +499,28 @@ void ofxFenster::setIcon(ofPixelsRef pixels)
 		ofLog(OF_LOG_WARNING, "oops, looks like setIcon is not yet supported on your system");
 }
 
+void ofxFenster::setCursor(ofPixelsRef pixels, int hotX, int hotY){
+	if(pixels.getNumChannels()<4){
+		ofLog(OF_LOG_WARNING, "setCursor ignored. please provide a pixelsRef with alpha channel.");
+		return;
+	}
+	GHOST_TUns8 bitmap[pixels.getWidth()*pixels.getHeight()*3];
+	GHOST_TUns8 mask[pixels.getWidth()*pixels.getHeight()];
+	unsigned char* pixl = pixels.getPixels();
+	int bmpCount = 0;
+	int mskCount = 0;
+	for(int i=0;i<pixels.getWidth()*pixels.getHeight()*4;i+=4){
+		for(int j=0;j<3;j++){
+			bitmap[bmpCount] = pixl[i+j];
+			bmpCount++;
+		}
+		mask[mskCount] = pixl[i+3];
+		mskCount++;
+	}
+	if(!win->setCustomCursorShape(bitmap, mask, pixels.getWidth(), pixels.getHeight(), hotX, hotY, 1, 0))
+		ofLog(OF_LOG_WARNING, "setCursor: something went wrong. Maybe it's not supported on your system.");
+}
+
 void ofxFenster::move(int x, int y){
 	ofPoint p = getWindowPosition();
 	int nx, ny;
