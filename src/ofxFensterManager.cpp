@@ -474,3 +474,7 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 		++it;
 	}
 }
+
+void ofxFensterManager::setActiveDisplay(ofxDisplay display){
+	activeDisplay = display;
+}

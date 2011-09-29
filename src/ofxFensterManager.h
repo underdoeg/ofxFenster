@@ -9,8 +9,9 @@
 #include "ofEvents.h"
 #include "ofxFenster.h"
 #include "GHOST_IEventConsumer.h"
-
+#include "ofxDisplay.h"
 #include "GHOST_ISystem.h"
+
 
 class ofxFensterManager;
 
@@ -61,6 +62,8 @@ public:
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
+	
+	void setActiveDisplay(ofxDisplay display);
 
 	void update();
 
@@ -114,6 +117,8 @@ private:
 	bool			bEnableSetupScreen;
 
 	int antialiasing;
+	
+	ofxDisplay activeDisplay;
 };
 
 #endif // OFXFENSTERMANAGER_H
