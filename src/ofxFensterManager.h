@@ -8,8 +8,9 @@
 #include "ofAppBaseWindow.h"
 #include "ofEvents.h"
 #include "ofxFenster.h"
+#include "ofxDisplayManager.h"
+
 #include "GHOST_IEventConsumer.h"
-#include "ofxDisplay.h"
 #include "GHOST_ISystem.h"
 
 
@@ -63,7 +64,7 @@ public:
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
 	
-	void setActiveDisplay(ofxDisplay display);
+	void setActiveDisplay(ofxDisplay* display);
 
 	void update();
 
@@ -118,7 +119,7 @@ private:
 
 	int antialiasing;
 	
-	ofxDisplay activeDisplay;
+	ofxDisplayPtr activeDisplay;
 };
 
 #endif // OFXFENSTERMANAGER_H

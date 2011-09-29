@@ -4,5 +4,6 @@
 *.pbxuser
 *.mode1v3
 example/ofxFensterExample.xcodeproj/phwhitfield.pbxuser
-
 example/ofxFensterExample.xcodeproj/phwhitfield.mode1v3
+exampleMultipleGraphicCards/ofxFensterExample.xcodeproj/phwhitfield.pbxuser
+exampleMultipleGraphicCards/ofxFensterExample.xcodeproj/phwhitfield.mode1v3

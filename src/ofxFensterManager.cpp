@@ -31,6 +31,10 @@ ofxFensterManager::ofxFensterManager():
 	if(!ghostSystem)
 		ofLog(OF_LOG_ERROR, "COULD NOT CREATE GHOST SYSTEM! \n\nhelp... o_O");
 	ghostSystem->addEventConsumer(this);
+
+	#ifdef TARGET_LINUX
+	setActiveDisplay(ofxDisplayManager::get()->getDisplays()[0]);
+	#endif
 }
 
 ofxFensterManager::~ofxFensterManager()
@@ -475,6 +479,10 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 	}
 }
 
-void ofxFensterManager::setActiveDisplay(ofxDisplay display){
-	activeDisplay = display;
+void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
+	activeDisplay = ofxDisplayPtr(display);
+	#ifdef TARGET_LINUX //a lot of casting, but this should only get called on startup and has to be safe
+	((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(((ofxDisplayLinux*)display)->display);
+	//((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(XOpenDisplay(":0.2"));
+	#endif
 }

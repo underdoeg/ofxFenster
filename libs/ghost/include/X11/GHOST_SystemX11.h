@@ -255,6 +255,11 @@ public:
 	Atom m_incr;
 	Atom m_utf8_string;
 
+	/**
+	 * set the current display
+	 **/
+	 void setDisplay(Display* d);
+
 private :
 
 	Display * m_display;
@@ -295,6 +300,8 @@ private :
 		bool
 	generateWindowExposeEvents(
  	);
+
+
 };
 
 #endif

@@ -15,9 +15,37 @@
 class ofxDisplay{
 public:
       ofxDisplay();
-      ~ofxDisplay();      
+      ~ofxDisplay();
+	int id;
+	int width;
+	int height;
 protected:
 private:
 };
+
+/***LINUX***/
+
+#ifdef TARGET_LINUX
+#include <X11/extensions/Xrandr.h>
+
+class ofxDisplayLinux: public ofxDisplay{
+public:
+	Display* display;
+};
+#endif
+
+/***MAC***/
+
+#ifdef TARGET_OSX
+class ofxDisplayMac: public ofxDisplay{
+public:
+};
+#endif
+
+/***WINDOWS***/
+
+#ifdef TARGET_WIN32
+//TODO
+#endif
 
 #endif

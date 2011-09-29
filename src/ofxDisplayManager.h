@@ -12,7 +12,7 @@
 
 #include "ofMain.h"
 #include "ofxDisplay.h"
-
+typedef ofPtr<ofxDisplay> ofxDisplayPtr;
 typedef std::vector<ofxDisplay*> ofxDisplayList;
 
 class ofxDisplayManager{
@@ -21,7 +21,7 @@ public:
 	~ofxDisplayManager();
 	
 	static ofxDisplayManager* get();
-	virtual ofxDisplayList getDisplays(){ofLog(OF_LOG_WARNING, "Display Manager is not supported on your system");return ofxDisplayList();};
+	virtual ofxDisplayList getDisplays();
 protected:
 private:
 	
@@ -29,22 +29,34 @@ private:
 	static ofxDisplayManager* singleton;
 };
 
-#ifdef TARGET_OSX
-class ofxDisplayManagerMac: public ofxDisplayManager{
+/***LINUX***/
+
+#ifdef TARGET_LINUX
+#include <X11/extensions/Xrandr.h>
+
+class ofxDisplayManagerLinux: public ofxDisplayManager{
 public:
 	ofxDisplayList getDisplays();
 };
 #endif
 
-#ifdef TARGET_LINUX
-class ofxDisplayManagerLinux: public ofxDisplayManager{
+/***MAC***/
+
+#ifdef TARGET_OSX
+class ofxDisplayManagerMac: public ofxDisplayManager{
 public:
-	ofxDisplayList getDisplays();
-}
+	//ofxDisplayList getDisplays();
+};
 #endif
+
+/***WINDOWS***/
 
 #ifdef TARGET_WIN32
 //TODO
+class ofxDisplayManagerWin: public ofxDisplayManager{
+public:
+	//ofxDisplayList getDisplays();
+};
 #endif
 
 #endif

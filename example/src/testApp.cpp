@@ -5,7 +5,7 @@ void testApp::setup()
 {
 	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
-	
+
 	ofSetFrameRate(60);
 
 	ofBackground(0,0,0);
@@ -21,7 +21,7 @@ void testApp::setup()
 
 	//setup of fensterListener does not get called automatically yet
 	imgWin.setup();
-	
+
 	for(int i=0; i<3; i++) {
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
 		if(i==0) {
@@ -76,7 +76,7 @@ void testApp::draw()
 			}
 		}
 	}
-	
+
 	ofSetColor(0);
 	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 }
