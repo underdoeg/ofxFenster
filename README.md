@@ -18,6 +18,7 @@ FEATURES
 - separated event handling for every window
 - borderless windows
 - use an ofImage as app icon at runtime
+- multiple graphic cards and displays management on linux
 - ...
 
 SCREENS

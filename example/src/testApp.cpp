@@ -5,7 +5,9 @@ void testApp::setup()
 {
 	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
-
+	
+	ofxFensterManager::get()->getPrimaryWindow()->setWindowPosition(500, 0);
+	
 	ofSetFrameRate(60);
 
 	ofBackground(0,0,0);
@@ -49,7 +51,6 @@ void testApp::update()
 		//this only works partially in ubuntu 11.04
 		ofxFensterManager::get()->setIcon(icon.getPixelsRef());
 	}
-
 }
 
 //--------------------------------------------------------------
@@ -79,6 +80,8 @@ void testApp::draw()
 
 	ofSetColor(0);
 	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
+	
+	
 }
 
 //--------------------------------------------------------------

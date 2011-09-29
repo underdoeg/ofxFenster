@@ -449,17 +449,6 @@ void ofxFensterManager::onClose(ofEventArgs &e)
 	GHOST_ISystem::disposeSystem();
 }
 
-bool ofxFensterManager::setDisplay(string name, string shareWith)
-{
-#if defined( TARGET_LINUX )
-	//GHOST_SystemX11* sys=(GHOST_SystemX11*)ghostSystem->getSystem();
-	//return sys->setDisplay(name, shareWith);
-	return false;
-#else
-	return false;
-#endif
-}
-
 void ofxFensterManager::setAntialiasing(int aa)
 {
 	antialiasing=aa;
