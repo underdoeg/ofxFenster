@@ -504,6 +504,8 @@ void ofxFenster::setIcon(ofPixelsRef pixels)
 }
 
 void ofxFenster::setCursor(ofPixelsRef pixels, int hotX, int hotY){
+	//not compiling on windows right now
+	#if !defined(TARGET_WIN32)
         if(pixels.getNumChannels()<4){
                 ofLog(OF_LOG_WARNING, "setCursor ignored. please provide a pixelsRef with alpha channel.");
                 return;
@@ -523,6 +525,9 @@ void ofxFenster::setCursor(ofPixelsRef pixels, int hotX, int hotY){
         }
         if(!win->setCustomCursorShape(bitmap, mask, pixels.getWidth(), pixels.getHeight(), hotX, hotY, 1, 0))
                 ofLog(OF_LOG_WARNING, "setCursor: something went wrong. Maybe it's not supported on your system.");
+	#else
+		ofLog(OF_LOG_WARNING, "setCursor: not supported on windows yet.");
+	#endif
 }
 
 void ofxFenster::move(int x, int y){

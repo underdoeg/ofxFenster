@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\testApp.cpp" />
+    <ClCompile Include="..\src\ofxDisplay.cpp">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxDisplayManager.cpp">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxFenster.cpp">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxFensterManager.cpp">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h" />
+    <ClInclude Include="..\src\ofxDisplay.h">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxDisplayManager.h">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxFenster.h">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxFensterManager.h">
+      <Filter>addons\ofxFenster\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Buttons.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventButton.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_C-api.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_CallbackEventConsumer.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Debug.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_DisplayManager.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_DisplayManagerNULL.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Event.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventCursor.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_WindowNULL.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventDragnDrop.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventKey.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventManager.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventNDOF.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventPrinter.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventString.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventTrackpad.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_EventWheel.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_IEvent.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_IEventConsumer.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_ISystem.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_ISystemPaths.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_ITimerTask.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_IWindow.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_ModifierKeys.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Path-api.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Rect.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_System.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_SystemNULL.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_SystemPaths.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_TimerManager.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_TimerTask.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Types.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_Window.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\GHOST_WindowManager.h">
+      <Filter>addons\ofxFenster\libs\ghost\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_DisplayManagerWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_WindowWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_DropTargetWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_SystemPathsWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_SystemWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\GHOST_TaskbarWin32.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\pktdef.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\ghost\include\WIN32\wintab.h">
+      <Filter>addons\ofxFenster\libs\ghost\include\WIN32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\string\include\STR_String.h">
+      <Filter>addons\ofxFenster\libs\string\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="addons">
+      <UniqueIdentifier>{b36e9f1c-2a12-4612-9cf0-1a7f1bf749af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster">
+      <UniqueIdentifier>{08b40def-991a-4d93-ad82-3a0fee725564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\src">
+      <UniqueIdentifier>{3a819065-5ea0-49a3-88ec-044f1964f99c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs">
+      <UniqueIdentifier>{1b7885ff-a379-46a7-bdcb-5313b9474ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs\ghost">
+      <UniqueIdentifier>{55431176-48ed-492e-9e4c-06819e1999f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs\ghost\include">
+      <UniqueIdentifier>{25fef81d-728f-46d5-88e1-9075794755f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs\ghost\include\WIN32">
+      <UniqueIdentifier>{50ac4568-a8eb-4757-811a-151894507f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs\string">
+      <UniqueIdentifier>{6d5dd2f4-8bd5-4a83-866a-2d1a3143b60b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFenster\libs\string\include">
+      <UniqueIdentifier>{a9dd3393-b5fd-467b-aa6e-6c1987eff59c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
