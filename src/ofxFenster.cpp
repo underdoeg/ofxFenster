@@ -10,6 +10,7 @@
         #include <X11/Xlib.h>
 #endif
 
+
 static int curID;
 static ofEventArgs voidEventArgs;
 

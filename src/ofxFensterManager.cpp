@@ -11,30 +11,105 @@
 #include "GHOST_SystemX11.h"
 #endif
 
+///////////////////////////////////////////
+// HELPERS FOR ofRunFensterApp 
+
+class ofxFensterToOfBaseApp: public ofxFensterListener{
+	
+public:
+	ofxFensterToOfBaseApp(ofBaseApp* base){
+		mouseX = mouseY = 0;
+		baseApp = base;
+	}
+	
+	void setup(){
+		baseApp->setup();
+	}
+	void update(){
+		baseApp->update();
+	}
+	void draw(){
+		baseApp->draw();
+	}
+	void exit(){
+		baseApp->exit();
+	}
+	
+	void windowResized(int w, int h){
+		baseApp->windowResized(w, h);
+	}
+	
+	void keyPressed( int key ){
+		baseApp->keyPressed(key);
+	}
+	void keyReleased( int key ){
+		baseApp->keyReleased(key);
+	}
+	
+	void mouseMoved( int x, int y ){
+		baseApp->mouseMoved(x, y);
+	}
+	void mouseDragged( int x, int y, int button ){
+		baseApp->mouseDragged(x, y, button);
+	}
+	void mousePressed( int x, int y, int button ){
+		baseApp->mousePressed(x, y, button);
+	}
+	void mouseReleased(){
+		baseApp->mouseReleased();
+	}
+	void mouseReleased(int x, int y, int button ){
+		baseApp->mouseReleased(x, y, button);
+	}
+	
+	void dragEvent(ofDragInfo dragInfo) {
+		baseApp->dragEvent(dragInfo);
+	}
+	void gotMessage(ofMessage msg){
+		baseApp->gotMessage(msg);
+	}		
+	
+private:
+	ofBaseApp* baseApp;
+};
+
+void ofRunFensterApp(ofxFensterListener* app){
+	ofxFensterManager::get()->getPrimaryWindow()->addListener(app);
+	ofRunApp(app);
+}
+
+void ofRunFensterApp(ofBaseApp* app){
+	ofxFensterToOfBaseApp* appWrapper = new ofxFensterToOfBaseApp(app);
+	ofRunFensterApp(appWrapper);
+}
+
+
+///////////////////////////////////////
+
 static ofBaseApp* baseApp;
 ofxFensterManagerPtr ofxFensterManager::singleton;
 
 static ofEventArgs voidEventArgs;
 
 ofxFensterManager::ofxFensterManager():
-	exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0)
+exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0)
 {
 	timeNow				= 0;
 	timeThen			= 0;
 	fps					= 60.0; //give a realistic starting value - win32 issues
 	frameRate			= 500.0;
 	bFrameRateSet		= 0;
-
+	
 	ofAddListener(ofEvents.exit, this, &ofxFensterManager::onClose);
 	GHOST_ISystem::createSystem();
 	ghostSystem=GHOST_ISystem::getSystem();
 	if(!ghostSystem)
 		ofLog(OF_LOG_ERROR, "COULD NOT CREATE GHOST SYSTEM! \n\nhelp... o_O");
 	ghostSystem->addEventConsumer(this);
-
-	#ifdef TARGET_LINUX
+	
+#ifdef TARGET_LINUX
 	setActiveDisplay(ofxDisplayManager::get()->getDisplays()[0]);
-	#endif
+#endif
 }
 
 ofxFensterManager::~ofxFensterManager()
@@ -68,7 +143,7 @@ void ofxFensterManager::update()
 {
 	ghostSystem->processEvents(false);
 	ghostSystem->dispatchEvents();
-
+	
 	if (nFrameCount != 0 && bFrameRateSet == true) {
 		diffMillis = ofGetElapsedTimeMillis() - prevMillis;
 		if (diffMillis > millisForFrame) {
@@ -82,10 +157,10 @@ void ofxFensterManager::update()
 #endif
 		}
 	}
-
-
+	
+	
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
-
+	
 	timeNow = ofGetElapsedTimef();
 	double diff = timeNow-timeThen;
 	if( diff  > 0.00001 ) {
@@ -95,16 +170,16 @@ void ofxFensterManager::update()
 	}
 	lastFrameTime	= diff;
 	timeThen		= timeNow;
-
+	
 	ofNotifyEvent(ofEvents.update, voidEventArgs);
 	ofNotifyEvent(ofEvents.draw, voidEventArgs);
-
+	
 	nFrameCount++;
 }
 
 void ofxFensterManager::initializeWindow()
 {
-
+	
 }
 
 ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode)
@@ -147,18 +222,18 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 {
 	if(event->getType()==GHOST_kEventUnknown)
 		return false;
-
+	
 	GHOST_IWindow* window = event->getWindow();
 	bool handled = true;
-
+	
 	ofxFenster* win=getFensterByHandler(window);
-
+	
 	GHOST_Rect winPos; //why on every process...?
 	window->getWindowBounds(winPos);
-
+	
 	switch (event->getType())
 	{
-        //////////////////// MOUSE
+			//////////////////// MOUSE
         case GHOST_kEventCursorMove:
         {
             GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
@@ -167,7 +242,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 			
 			ofPoint p(x, y);
 			p.y -= 1;
-
+			
             if(win->isButtonDown) {
                 //win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
                 win->mouseDragged(p.x, p.y, win->buttonDown);
@@ -196,7 +271,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
             win->mouseReleased(bd->button);
             break;
         }
-        ////////////////// KEYBOARD
+			////////////////// KEYBOARD
         case GHOST_kEventKeyUp:
         {
             int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
@@ -213,7 +288,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
             win->keyPressed(key);
             break;
         }
-        ////////////////// WINDOW
+			////////////////// WINDOW
         case GHOST_kEventWindowSize:
         {
             GHOST_Rect rect;
@@ -363,11 +438,11 @@ void ofxFensterManager::setFrameRate(float targetRate)
 		bFrameRateSet = false;
 		return;
 	}
-
+	
 	bFrameRateSet 			= true;
 	float durationOfFrame 	= 1.0f / (float)targetRate;
 	millisForFrame 			= (int)(1000.0f * durationOfFrame);
-
+	
 	frameRate				= targetRate;
 }
 
@@ -383,7 +458,7 @@ void ofxFensterManager::setOrientation(ofOrientation orientation)
 
 void ofxFensterManager::setWindowPosition(int x, int y)
 {
-
+	
 }
 
 void ofxFensterManager::setWindowShape(int w, int h)
@@ -392,12 +467,12 @@ void ofxFensterManager::setWindowShape(int w, int h)
 
 void ofxFensterManager::setWindowTitle(string title)
 {
-
+	
 }
 
 void ofxFensterManager::showCursor()
 {
-
+	
 }
 
 void ofxFensterManager::toggleFullscreen()
@@ -470,8 +545,8 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 
 void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
 	activeDisplay = ofxDisplayPtr(display);
-	#ifdef TARGET_LINUX //a lot of casting, but this should only get called on startup and has to be safe
+#ifdef TARGET_LINUX //a lot of casting, but this should only get called on startup and has to be safe
 	((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(((ofxDisplayLinux*)display)->display);
 	//((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(XOpenDisplay(":0.2"));
-	#endif
+#endif
 }

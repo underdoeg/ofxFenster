@@ -14,6 +14,11 @@
 #include "GHOST_ISystem.h"
 
 
+void ofRunFensterApp(ofxFensterListener* app);
+void ofRunFensterApp(ofBaseApp* app);
+
+//////////////////
+
 class ofxFensterManager;
 
 typedef ofPtr<ofxFenster> ofxFensterPtr;

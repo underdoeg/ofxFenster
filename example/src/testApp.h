@@ -9,7 +9,7 @@ public:
 		cout << "Image Listener destroyed" << endl;
 	}
 	void setup(){
-		cout << "LOADING IMAGE" << endl;
+		cout << "LOADING IMAGE" << endl;
 		img.loadImage("someImage.JPG");
 	}
 	void draw(){
@@ -24,7 +24,31 @@ public:
 	ofImage img;
 };
 
-class testApp : public ofxFensterListener {
+class boxWindow: public ofxFensterListener{
+public:
+	boxWindow(){
+		rotX = ofRandom(-20, 20);
+		rotY = ofRandom(-10, 10);
+	}
+	
+	void draw(){
+		ofNoFill();
+		ofTranslate(ofGetWidth()*.5, ofGetHeight()*.5, 0);
+		ofRotateX(rotX);
+		ofRotateY(rotY);
+		ofBox(0, 0, 0, 100);
+	}
+	
+	void mouseMoved(int x, int y){
+		rotY = ofMap(x, 0, ofGetWidth(), -20, 20);
+		rotX = ofMap(y, 0, ofGetHeight(), 60, -60);
+	}
+	
+	float rotX;
+	float rotY;
+};
+
+class testApp : public ofBaseApp {
 
 public:
 	void setup();
@@ -43,7 +67,7 @@ public:
 	void gotMessage(ofMessage msg);
 	void mouseMovedEvent(ofMouseEventArgs &args);
 
-	std::map<int, ofVec2f> mousePos;
+	ofVec2f mousePos;
 	imageWindow imgWin;
 
 	ofxFenster* test;
