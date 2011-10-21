@@ -47,18 +47,26 @@ public:
 	}
 	
 	void mouseMoved( int x, int y ){
+		baseApp->mouseX = x;
+		baseApp->mouseY = y;
 		baseApp->mouseMoved(x, y);
 	}
 	void mouseDragged( int x, int y, int button ){
+		baseApp->mouseX = x;
+		baseApp->mouseY = y;
 		baseApp->mouseDragged(x, y, button);
 	}
 	void mousePressed( int x, int y, int button ){
+		baseApp->mouseX = x;
+		baseApp->mouseY = y;
 		baseApp->mousePressed(x, y, button);
 	}
 	void mouseReleased(){
 		baseApp->mouseReleased();
 	}
 	void mouseReleased(int x, int y, int button ){
+		baseApp->mouseX = x;
+		baseApp->mouseY = y;
 		baseApp->mouseReleased(x, y, button);
 	}
 	
