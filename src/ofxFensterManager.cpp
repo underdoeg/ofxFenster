@@ -308,7 +308,11 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
         {
             GHOST_Rect rect;
             window->getWindowBounds(rect);
+			//cout << rect.m_t << endl;
+			//GHOST_TInt32 x,y;
+			//window->screenToClient(rect.m_l, rect.m_t, x, y);
             win->windowMoved(rect.m_l, rect.m_t);
+			
             break;
         }
         case GHOST_kEventWindowUpdate:
@@ -471,11 +475,12 @@ void ofxFensterManager::setWindowPosition(int x, int y)
 
 void ofxFensterManager::setWindowShape(int w, int h)
 {
+	activeWindow->setWindowShape(w, h);
 }
 
 void ofxFensterManager::setWindowTitle(string title)
 {
-	
+	activeWindow->setWindowTitle(title);
 }
 
 void ofxFensterManager::showCursor()

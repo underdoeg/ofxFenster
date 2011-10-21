@@ -1,0 +1,2170 @@
+# depslib dependency file v1.0
+1310744144 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\examples\exampleWindows\src\testapp.cpp
+	"testApp.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\examples\exampleWindows\src\testapp.h
+	"ofMain.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\ofmain.h
+	"ofConstants.h"
+	"ofFileUtils.h"
+	"ofLog.h"
+	"ofSystemUtils.h"
+	"ofThread.h"
+	"ofURLFileLoader.h"
+	"ofUtils.h"
+	"ofBaseTypes.h"
+	"ofTypes.h"
+	"ofColor.h"
+	"ofPoint.h"
+	"ofRectangle.h"
+	"ofMath.h"
+	"ofVectorMath.h"
+	"ofSerial.h"
+	"ofArduino.h"
+	"ofFbo.h"
+	"ofGLRenderer.h"
+	"ofGLUtils.h"
+	"ofLight.h"
+	"ofMaterial.h"
+	"ofShader.h"
+	"ofTexture.h"
+	"ofVbo.h"
+	"ofVboMesh.h"
+	"ofCairoRenderer.h"
+	"ofGraphics.h"
+	"ofImage.h"
+	"ofPath.h"
+	"ofPixels.h"
+	"ofPolyline.h"
+	"ofRendererCollection.h"
+	"ofTessellator.h"
+	"ofTrueTypeFont.h"
+	"ofBaseApp.h"
+	"ofAppRunner.h"
+	"ofSoundStream.h"
+	"ofSoundPlayer.h"
+	"ofVideoGrabber.h"
+	"ofVideoPlayer.h"
+	"ofEvents.h"
+	"of3dUtils.h"
+	"ofCamera.h"
+	"ofEasyCam.h"
+	"ofMesh.h"
+	"ofNode.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\ofconstants.h
+	<TargetConditionals.h>
+	<windows.h>
+	"GL\glew.h"
+	"GL\wglew.h"
+	"glu.h"
+	<unistd.h>
+	"GL/glew.h"
+	<OpenGL/gl.h>
+	<ApplicationServices/ApplicationServices.h>
+	<unistd.h>
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<unistd.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	"glu.h"
+	"tesselator.h"
+	<cstdlib>
+	<cstdio>
+	<cstdarg>
+	<cmath>
+	<ctime>
+	<cstdlib>
+	<string>
+	<iostream>
+	<vector>
+	<cstring>
+	<sstream>
+	<iomanip>
+	<fstream>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\glew\include\gl\wglew.h
+	<windows.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\glu\include\glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\tess2\include\tesselator.h
+	<TargetConditionals.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\offileutils.h
+	"ofConstants.h"
+	"Poco/File.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file.h
+	"Poco/Foundation.h"
+	"Poco/Timestamp.h"
+	<vector>
+	"File_WINCE.h"
+	"Poco/File_WIN32U.h"
+	"Poco/File_WIN32.h"
+	"Poco/File_UNIX.h"
+	"Poco/File_VMS.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\foundation.h
+	"Poco/Config.h"
+	"Poco/Platform.h"
+	"Poco/Platform_WIN32.h"
+	"Poco/Platform_VMS.h"
+	"Poco/Platform_POSIX.h"
+	"Poco/Bugcheck.h"
+	"Poco/Types.h"
+	<string>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\config.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\platform.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\platform_win32.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\platform_vms.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\platform_posix.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\bugcheck.h
+	"Poco/Foundation.h"
+	<string>
+	<iostream>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\types.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\timestamp.h
+	"Poco/Foundation.h"
+	<ctime>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file_wince.h
+	"Poco/Foundation.h"
+	"Poco/Timestamp.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file_win32u.h
+	"Poco/Foundation.h"
+	"Poco/Timestamp.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file_win32.h
+	"Poco/Foundation.h"
+	"Poco/Timestamp.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file_unix.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\file_vms.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\oflog.h
+	"ofConstants.h"
+	"ofFileUtils.h"
+	"ofTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\types\oftypes.h
+	"ofConstants.h"
+	"ofColor.h"
+	<memory>
+	<tr1/memory>
+	"Poco/Mutex.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\types\ofcolor.h
+	<limits>
+	"ofMath.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofmath.h
+	"ofPoint.h"
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\types\ofpoint.h
+	"ofVec3f.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofvec3f.h
+	"ofVec2f.h"
+	"ofVec4f.h"
+	"ofConstants.h"
+	<cmath>
+	<iostream>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofvec2f.h
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofvec4f.h
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\mutex.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/ScopedLock.h"
+	"Poco/Mutex_WINCE.h"
+	"Poco/Mutex_WIN32.h"
+	"Poco/Mutex_POSIX.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\exception.h
+	"Poco/Foundation.h"
+	<stdexcept>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\scopedlock.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\mutex_wince.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/UnWindows.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\unwindows.h
+	<windows.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\mutex_win32.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/UnWindows.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\mutex_posix.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	<pthread.h>
+	<errno.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\ofsystemutils.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\ofthread.h
+	"ofConstants.h"
+	"ofTypes.h"
+	<process.h>
+	<pthread.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\ofurlfileloader.h
+	<deque>
+	<queue>
+	"ofThread.h"
+	"ofEvents.h"
+	"ofFileUtils.h"
+	"Poco/Condition.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\events\ofevents.h
+	"ofConstants.h"
+	"ofPoint.h"
+	"ofEventUtils.h"
+	"ofxEventUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\events\ofeventutils.h
+	"ofConstants.h"
+	"Poco/FIFOEvent.h"
+	"Poco/Delegate.h"
+	<stdio.h>
+	<stdlib.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\fifoevent.h
+	"Poco/AbstractEvent.h"
+	"Poco/FIFOStrategy.h"
+	"Poco/AbstractDelegate.h"
+	"Poco/CompareFunctions.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\abstractevent.h
+	"Poco/Foundation.h"
+	"Poco/SingletonHolder.h"
+	"Poco/SharedPtr.h"
+	"Poco/ActiveResult.h"
+	"Poco/ActiveMethod.h"
+	"Poco/Mutex.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\singletonholder.h
+	"Poco/Foundation.h"
+	"Poco/Mutex.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\sharedptr.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/AtomicCounter.h"
+	<algorithm>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\atomiccounter.h
+	"Poco/Foundation.h"
+	"Poco/UnWindows.h"
+	<libkern/OSAtomic.h>
+	"Poco/Mutex.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\activeresult.h
+	"Poco/Foundation.h"
+	"Poco/Mutex.h"
+	"Poco/Event.h"
+	"Poco/RefCountedObject.h"
+	"Poco/Exception.h"
+	<algorithm>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\event.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/Event_WIN32.h"
+	"Poco/Event_POSIX.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\event_win32.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	"Poco/UnWindows.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\event_posix.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	<pthread.h>
+	<errno.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\refcountedobject.h
+	"Poco/Foundation.h"
+	"Poco/AtomicCounter.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\activemethod.h
+	"Poco/Foundation.h"
+	"Poco/ActiveResult.h"
+	"Poco/ActiveRunnable.h"
+	"Poco/ActiveStarter.h"
+	"Poco/AutoPtr.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\activerunnable.h
+	"Poco/Foundation.h"
+	"Poco/ActiveResult.h"
+	"Poco/Runnable.h"
+	"Poco/RefCountedObject.h"
+	"Poco/AutoPtr.h"
+	"Poco/Exception.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\runnable.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\autoptr.h
+	"Poco/Foundation.h"
+	"Poco/Exception.h"
+	<algorithm>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\activestarter.h
+	"Poco/Foundation.h"
+	"Poco/ThreadPool.h"
+	"Poco/ActiveRunnable.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\threadpool.h
+	"Poco/Foundation.h"
+	"Poco/Thread.h"
+	"Poco/Mutex.h"
+	<vector>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\thread.h
+	"Poco/Foundation.h"
+	"Poco/Mutex.h"
+	"Poco/Thread_WINCE.h"
+	"Poco/Thread_WIN32.h"
+	"Poco/Thread_POSIX.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\thread_wince.h
+	"Poco/Foundation.h"
+	"Poco/Runnable.h"
+	"Poco/UnWindows.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\thread_win32.h
+	"Poco/Foundation.h"
+	"Poco/Runnable.h"
+	"Poco/UnWindows.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\thread_posix.h
+	"Poco/Foundation.h"
+	"Poco/Runnable.h"
+	"Poco/SignalHandler.h"
+	"Poco/Event.h"
+	"Poco/RefCountedObject.h"
+	"Poco/AutoPtr.h"
+	<pthread.h>
+	<limits.h>
+	<sys/select.h>
+	<errno.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\signalhandler.h
+	"Poco/Foundation.h"
+	<vector>
+	<setjmp.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\fifostrategy.h
+	"Poco/NotificationStrategy.h"
+	<map>
+	<list>
+	<memory>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\notificationstrategy.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\abstractdelegate.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\comparefunctions.h
+	"Poco/Foundation.h"
+	<functional>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\delegate.h
+	"Poco/Foundation.h"
+	"Poco/AbstractDelegate.h"
+	"Poco/FunctionDelegate.h"
+	"Poco/Expire.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\functiondelegate.h
+	"Poco/Foundation.h"
+	"Poco/AbstractDelegate.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\expire.h
+	"Poco/Foundation.h"
+	"Poco/AbstractDelegate.h"
+	"Poco/Timestamp.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\condition.h
+	"Poco/Foundation.h"
+	"Poco/Mutex.h"
+	"Poco/ScopedUnlock.h"
+	"Poco/Event.h"
+	"Poco/Exception.h"
+	<deque>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\poco\include\poco\scopedunlock.h
+	"Poco/Foundation.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\utils\ofutils.h
+	"ofConstants.h"
+	<bitset>
+	"ofLog.h"
+	<shellapi.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\types\ofbasetypes.h
+	"ofPoint.h"
+	"ofRectangle.h"
+	"ofConstants.h"
+	"ofColor.h"
+	"ofMesh.h"
+	"ofPixels.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\types\ofrectangle.h
+	"ofPoint.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\3d\ofmesh.h
+	"ofVec3f.h"
+	"ofVec2f.h"
+	"ofColor.h"
+	"ofUtils.h"
+	"ofConstants.h"
+	"ofGLUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofglutils.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofpixels.h
+	"ofConstants.h"
+	"ofUtils.h"
+	"ofColor.h"
+	"ofMath.h"
+	<limits>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofvectormath.h
+	"ofVec2f.h"
+	"ofVec3f.h"
+	"ofVec4f.h"
+	"ofMatrix3x3.h"
+	"ofMatrix4x4.h"
+	"ofQuaternion.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofmatrix3x3.h
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofmatrix4x4.h
+	"ofVec3f.h"
+	"ofVec4f.h"
+	"ofQuaternion.h"
+	"ofConstants.h"
+	<cmath>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\math\ofquaternion.h
+	"ofConstants.h"
+	"ofVec3f.h"
+	"ofVec4f.h"
+	<cmath>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\communication\ofserial.h
+	"ofConstants.h"
+	"ofTypes.h"
+	<termios.h>
+	<winbase.h>
+	<tchar.h>
+	<iostream>
+	<string.h>
+	<setupapi.h>
+	<regstr.h>
+	<winioctl.h>
+	<initguid.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\communication\ofarduino.h
+	<list>
+	<vector>
+	<string>
+	<iostream>
+	"ofEvents.h"
+	"ofSerial.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\offbo.h
+	"ofTexture.h"
+	"ofMain.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\oftexture.h
+	"ofPoint.h"
+	"ofRectangle.h"
+	"ofBaseTypes.h"
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofglrenderer.h
+	"ofBaseTypes.h"
+	"ofPolyline.h"
+	<stack>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofpolyline.h
+	"ofPoint.h"
+	"ofConstants.h"
+	<deque>
+	"ofRectangle.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\oflight.h
+	"ofNode.h"
+	"ofColor.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\3d\ofnode.h
+	"ofVectorMath.h"
+	"of3dUtils.h"
+	"ofGraphics.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\3d\of3dutils.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofgraphics.h
+	"ofConstants.h"
+	"ofColor.h"
+	"ofPoint.h"
+	"ofMatrix4x4.h"
+	"ofRectangle.h"
+	"ofTypes.h"
+	"ofBaseTypes.h"
+	"ofGLRenderer.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofmaterial.h
+	"ofColor.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofshader.h
+	"ofConstants.h"
+	"ofBaseTypes.h"
+	"ofTexture.h"
+	<map>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofvbo.h
+	"ofConstants.h"
+	"ofVec3f.h"
+	"ofColor.h"
+	"ofUtils.h"
+	"ofMesh.h"
+	"ofGLUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\gl\ofvbomesh.h
+	"ofMesh.h"
+	"ofVbo.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofcairorenderer.h
+	"cairo-features.h"
+	"cairo-pdf.h"
+	"cairo-svg.h"
+	"cairo.h"
+	<deque>
+	<stack>
+	"ofMatrix4x4.h"
+	"ofBaseTypes.h"
+	"ofPath.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo-features.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo-pdf.h
+	"cairo.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo.h
+	"cairo-version.h"
+	"cairo-features.h"
+	"cairo-deprecated.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo-version.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo-deprecated.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\cairo\include\cairo\cairo-svg.h
+	"cairo.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofpath.h
+	"ofConstants.h"
+	"ofPoint.h"
+	"ofColor.h"
+	"ofPolyline.h"
+	"ofBaseTypes.h"
+	"ofMesh.h"
+	"ofTessellator.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\oftessellator.h
+	"ofConstants.h"
+	"ofMesh.h"
+	"ofTypes.h"
+	"ofPolyline.h"
+	"tesselator.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofimage.h
+	"ofFileUtils.h"
+	"ofTexture.h"
+	"ofPixels.h"
+	"ofBaseTypes.h"
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\ofrenderercollection.h
+	"ofBaseTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\graphics\oftruetypefont.h
+	<vector>
+	"ofPoint.h"
+	"ofRectangle.h"
+	"ofConstants.h"
+	"ofPath.h"
+	"ofTexture.h"
+	"ofMesh.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\app\ofbaseapp.h
+	"ofPoint.h"
+	"ofEvents.h"
+	"ofBaseTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\app\ofapprunner.h
+	"ofConstants.h"
+	"ofPoint.h"
+	"ofRectangle.h"
+	"ofTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofsoundstream.h
+	"ofConstants.h"
+	"ofBaseTypes.h"
+	"ofBaseApp.h"
+	"ofTypes.h"
+	"ofxAndroidSoundStream.h"
+	"ofRtAudioSoundStream.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofrtaudiosoundstream.h
+	"ofConstants.h"
+	"ofBaseSoundStream.h"
+	"ofTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofbasesoundstream.h
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofsoundplayer.h
+	"ofConstants.h"
+	"ofTypes.h"
+	"fmod.h"
+	"fmod_errors.h"
+	"ofBaseTypes.h"
+	"ofBaseSoundPlayer.h"
+	"ofQuicktimeSoundPlayer.h"
+	"ofFmodSoundPlayer.h"
+	"ofOpenALSoundPlayer.h"
+	"ofxOpenALSoundPlayer.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\fmodex\include\fmod.h
+	"fmod_codec.h"
+	"fmod_dsp.h"
+	"fmod_memoryinfo.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\fmodex\include\fmod_codec.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\fmodex\include\fmod_dsp.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\fmodex\include\fmod_memoryinfo.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\fmodex\include\fmod_errors.h
+	"fmod.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofbasesoundplayer.h
+	"ofConstants.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\offmodsoundplayer.h
+	"ofConstants.h"
+	"ofBaseSoundPlayer.h"
+	"fmod.h"
+	"fmod_errors.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\sound\ofopenalsoundplayer.h
+	"ofConstants.h"
+	"ofBaseSoundPlayer.h"
+	"ofEvents.h"
+	"ofThread.h"
+	<OpenAL/al.h>
+	<OpenAL/alc.h>
+	<AL/al.h>
+	<AL/alc.h>
+	"kiss_fft.h"
+	"kiss_fftr.h"
+	<sndfile.h>
+	<mpg123.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofvideograbber.h
+	"ofConstants.h"
+	"ofTexture.h"
+	"ofBaseTypes.h"
+	"ofPixels.h"
+	"ofTypes.h"
+	"ofiPhoneVideoGrabber.h"
+	"ofQuickTimeGrabber.h"
+	"ofDirectShowGrabber.h"
+	"ofGstVideoGrabber.h"
+	"ofxAndroidVideoGrabber.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofiphonevideograbber.h
+	"ofVideoGrabber.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofquicktimegrabber.h
+	"ofConstants.h"
+	"ofQtUtils.h"
+	"ofTexture.h"
+	"ofBaseTypes.h"
+	"ofPixels.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofqtutils.h
+	"ofConstants.h"
+	<QuickTime/QuickTime.h>
+	<CoreServices/CoreServices.h>
+	<ApplicationServices/ApplicationServices.h>
+	<QTML.h>
+	<FixMath.h>
+	<QuickTimeComponents.h>
+	<TextUtils.h>
+	<MediaHandlers.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\qtml.h
+	<MacTypes.h>
+	<MacMemory.h>
+	<MacWindows.h>
+	<OSUtils.h>
+	<Files.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\mactypes.h
+	<ConditionalMacros.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\conditionalmacros.h
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\macmemory.h
+	<MacTypes.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\mixedmode.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\macwindows.h
+	<MacTypes.h>
+	<Aliases.h>
+	<AppleEvents.h>
+	<Collections.h>
+	<Drag.h>
+	<Events.h>
+	<Menus.h>
+	<MixedMode.h>
+	<QDOffscreen.h>
+	<Quickdraw.h>
+	<TextCommon.h>
+	<Icons.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\aliases.h
+	<MacTypes.h>
+	<AppleTalk.h>
+	<Files.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\appletalk.h
+	<MacTypes.h>
+	<OSUtils.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\osutils.h
+	<MacTypes.h>
+	<MixedMode.h>
+	<MacMemory.h>
+	<Patches.h>
+	<DateTimeUtils.h>
+	<Endian.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\patches.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\datetimeutils.h
+	<ConditionalMacros.h>
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\endian.h
+	<ConditionalMacros.h>
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\files.h
+	<MacTypes.h>
+	<MixedMode.h>
+	<OSUtils.h>
+	<TextCommon.h>
+	<UTCUtils.h>
+	<Finder.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\textcommon.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\utcutils.h
+	<MacTypes.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\macerrors.h
+	<ConditionalMacros.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\finder.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\appleevents.h
+	<MacTypes.h>
+	<MixedMode.h>
+	<Notification.h>
+	<Events.h>
+	<AEDataModel.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\notification.h
+	<MacTypes.h>
+	<OSUtils.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\events.h
+	<OSUtils.h>
+	<Quickdraw.h>
+	<MacTypes.h>
+	<Endian.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\quickdraw.h
+	<Components.h>
+	<MacTypes.h>
+	<MixedMode.h>
+	<QuickdrawText.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\components.h
+	<MacErrors.h>
+	<MacTypes.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\quickdrawtext.h
+	<MacTypes.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\aedatamodel.h
+	<MacTypes.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\collections.h
+	<MacTypes.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\drag.h
+	<MacTypes.h>
+	<Events.h>
+	<Files.h>
+	<AppleEvents.h>
+	<Quickdraw.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\menus.h
+	<MacTypes.h>
+	<Events.h>
+	<Quickdraw.h>
+	<Fonts.h>
+	<TextCommon.h>
+	<Processes.h>
+	<AppleEvents.h>
+	<Collections.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\fonts.h
+	<MacTypes.h>
+	<Files.h>
+	<Quickdraw.h>
+	<TextCommon.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\processes.h
+	<MacTypes.h>
+	<Events.h>
+	<Files.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\qdoffscreen.h
+	<MacErrors.h>
+	<Quickdraw.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\icons.h
+	<MacTypes.h>
+	<Quickdraw.h>
+	<Files.h>
+	<CodeFragments.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\codefragments.h
+	<MacTypes.h>
+	<Files.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\fixmath.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\quicktimecomponents.h
+	<MacTypes.h>
+	<MixedMode.h>
+	<Components.h>
+	<ImageCompression.h>
+	<Movies.h>
+	<Quickdraw.h>
+	<Video.h>
+	<Sound.h>
+	<QuickTimeMusic.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\imagecompression.h
+	<MacTypes.h>
+	<Quickdraw.h>
+	<QDOffscreen.h>
+	<Components.h>
+	<StandardFile.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\standardfile.h
+	<MacTypes.h>
+	<Dialogs.h>
+	<Files.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\dialogs.h
+	<MacTypes.h>
+	<MixedMode.h>
+	<Events.h>
+	<MacWindows.h>
+	<TextEdit.h>
+	<Controls.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\textedit.h
+	<MacTypes.h>
+	<Quickdraw.h>
+	<MixedMode.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\controls.h
+	<MacTypes.h>
+	<Quickdraw.h>
+	<Menus.h>
+	<TextEdit.h>
+	<Drag.h>
+	<Icons.h>
+	<Collections.h>
+	<MacErrors.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\movies.h
+	<Quickdraw.h>
+	<Aliases.h>
+	<Events.h>
+	<Menus.h>
+	<Components.h>
+	<ImageCompression.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\video.h
+	<Quickdraw.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\sound.h
+	<MacTypes.h>
+	<Dialogs.h>
+	<Components.h>
+	<MixedMode.h>
+	<Movies.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\quicktimemusic.h
+	<Components.h>
+	<ImageCompression.h>
+	<Movies.h>
+	<Quickdraw.h>
+	<Video.h>
+	<MacMemory.h>
+	<Sound.h>
+	<Endian.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\textutils.h
+	<MacTypes.h>
+	<NumberFormatting.h>
+	<StringCompare.h>
+	<DateTimeUtils.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\numberformatting.h
+	<ConditionalMacros.h>
+	<MacTypes.h>
+	<IntlResources.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\intlresources.h
+	<MacTypes.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\stringcompare.h
+	<MacTypes.h>
+	<TextCommon.h>
+	<Script.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\script.h
+	<MacTypes.h>
+	<Quickdraw.h>
+	<IntlResources.h>
+	<Events.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\mediahandlers.h
+	<ConditionalMacros.h>
+	<MacTypes.h>
+	<Components.h>
+	<Movies.h>
+	<Sound.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofdirectshowgrabber.h
+	"ofConstants.h"
+	"ofTexture.h"
+	"ofBaseTypes.h"
+	"ofPixels.h"
+	"videoInput.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\videoinput\include\videoinput.h
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	<string.h>
+	<wchar.h>
+	<windows.h>
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofgstvideograbber.h
+	"ofGstUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofgstutils.h
+	"ofConstants.h"
+	<gst/gst.h>
+	<gst/app/gstappsink.h>
+	"ofConstants.h"
+	"ofBaseTypes.h"
+	"ofPixels.h"
+	"ofTypes.h"
+	"ofEvents.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofvideoplayer.h
+	"ofConstants.h"
+	"ofTexture.h"
+	"ofBaseTypes.h"
+	"ofTypes.h"
+	"ofGstVideoPlayer.h"
+	"ofQuickTimePlayer.h"
+	"ofiPhoneVideoPlayer.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofgstvideoplayer.h
+	"ofGstUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofquicktimeplayer.h
+	"ofConstants.h"
+	"ofBaseTypes.h"
+	"ofPixels.h"
+	"ofQtUtils.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\video\ofiphonevideoplayer.h
+	"ofPixels.h"
+	"ofBaseTypes.h"
+	"ofTexture.h"
+	"ofVideoPlayer.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\3d\ofcamera.h
+	"ofRectangle.h"
+	"ofAppRunner.h"
+	"ofNode.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\3d\ofeasycam.h
+	"ofCamera.h"
+	"ofEvents.h"
+
+1310744144 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\examples\exampleWindows\src\main.cpp
+	"ofMain.h"
+	"testApp.h"
+	"ofAppGlutWindow.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\app\ofappglutwindow.h
+	"ofConstants.h"
+	"ofAppBaseWindow.h"
+	"ofEvents.h"
+	"ofTypes.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\openframeworks\app\ofappbasewindow.h
+	"ofPoint.h"
+	"ofTypes.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_buttons.cpp
+	"GHOST_Buttons.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_buttons.h
+	"GHOST_Types.h"
+
+1310756450 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_types.h
+	"MEM_guardedalloc.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\include\mem_guardedalloc.h
+	<stdio.h>
+	"MEM_sys_types.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\include\mem_sys_types.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+	<sys/types.h>
+	<sys/param.h>
+	<sys/types.h>
+	<netinet/in.h>
+
+1310761956 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_c-api.cpp
+	<stdlib.h>
+	"GHOST_Debug.h"
+	"GHOST_C-api.h"
+	"GHOST_ISystem.h"
+	"GHOST_IEvent.h"
+	"GHOST_IEventConsumer.h"
+	"GHOST_CallbackEventConsumer.h"
+
+1310760920 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_debug.h
+	<iostream>
+	<stdio.h>
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_c-api.h
+	"GHOST_Types.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_isystem.h
+	"GHOST_Types.h"
+	"GHOST_ITimerTask.h"
+	"GHOST_IWindow.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_itimertask.h
+	"GHOST_Types.h"
+
+1310761993 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_iwindow.h
+	"STR_String.h"
+	"GHOST_Rect.h"
+	"GHOST_Types.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\string\include\str_string.h
+	<vector>
+	<limits.h>
+	<cstring>
+	<cstdlib>
+	"MEM_guardedalloc.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_rect.h
+	"GHOST_Types.h"
+	<stdio.h>
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_ievent.h
+	<stddef.h>
+	"GHOST_Types.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_ieventconsumer.h
+	"GHOST_IEvent.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_callbackeventconsumer.h
+	"GHOST_IEventConsumer.h"
+	"GHOST_C-api.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_callbackeventconsumer.cpp
+	"GHOST_Debug.h"
+	"GHOST_C-api.h"
+	"GHOST_CallbackEventConsumer.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_displaymanager.cpp
+	"GHOST_DisplayManager.h"
+	"GHOST_Debug.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_displaymanager.h
+	"GHOST_Types.h"
+	<vector>
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventmanager.cpp
+	"GHOST_EventManager.h"
+	<algorithm>
+	"GHOST_Debug.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventmanager.h
+	<deque>
+	<vector>
+	"GHOST_IEventConsumer.h"
+
+1310760920 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventprinter.cpp
+	"GHOST_EventPrinter.h"
+	<iostream>
+	"GHOST_EventKey.h"
+	"GHOST_EventDragnDrop.h"
+	"GHOST_Debug.h"
+	<stdio.h>
+
+1310760920 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventprinter.h
+	"GHOST_IEventConsumer.h"
+	"STR_String.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventkey.h
+	"GHOST_Event.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_event.h
+	"GHOST_IEvent.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventdragndrop.h
+	"GHOST_Event.h"
+	"IMB_imbuf.h"
+	"IMB_imbuf_types.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imb_imbuf.h
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imb_imbuf_types.h
+
+1310760920 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_isystem.cpp
+	"GHOST_ISystem.h"
+	"GHOST_SystemNULL.h"
+	"GHOST_SystemSDL.h"
+	"GHOST_SystemWin32.h"
+	"GHOST_SystemCocoa.h"
+	"GHOST_SystemCarbon.h"
+	"GHOST_SystemX11.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_systemnull.h
+	"GHOST_System.h"
+	"../GHOST_Types.h"
+	"GHOST_DisplayManagerNULL.h"
+	"GHOST_WindowNULL.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_system.h
+	"GHOST_ISystem.h"
+	"GHOST_Debug.h"
+	"GHOST_Buttons.h"
+	"GHOST_ModifierKeys.h"
+	"GHOST_EventManager.h"
+	"GHOST_EventPrinter.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_modifierkeys.h
+	"GHOST_Types.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_displaymanagernull.h
+	"GHOST_DisplayManager.h"
+	"GHOST_SystemNULL.h"
+
+1310760920 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_windownull.h
+	"GHOST_Window.h"
+	<map>
+
+1310760920 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_window.h
+	"GHOST_IWindow.h"
+
+1310762247 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_systemwin32.h
+	<Windows.h>
+	"GHOST_System.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_isystempaths.cpp
+	"GHOST_ISystemPaths.h"
+	"GHOST_SystemPathsWin32.h"
+	"GHOST_SystemPathsCocoa.h"
+	"GHOST_SystemPathsCarbon.h"
+	"GHOST_SystemPathsX11.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_isystempaths.h
+	"GHOST_Types.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_systempathswin32.h
+	<windows.h>
+	"GHOST_SystemPaths.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_systempaths.h
+	"GHOST_ISystemPaths.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_modifierkeys.cpp
+	"GHOST_ModifierKeys.h"
+
+1310760920 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_ndofmanager.cpp
+	<stdio.h>
+	"GHOST_NDOFManager.h"
+	"GHOST_SystemX11.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_ndofmanager.h
+	"GHOST_System.h"
+	"GHOST_IWindow.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_path-api.cpp
+	"intern/GHOST_Debug.h"
+	"GHOST_Types.h"
+	"GHOST_Path-api.h"
+	"GHOST_ISystemPaths.h"
+
+1310755746 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\include\ghost_path-api.h
+	"GHOST_Types.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_rect.cpp
+	"GHOST_Rect.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_system.cpp
+	"GHOST_System.h"
+	<time.h>
+	<stdio.h>
+	"GHOST_DisplayManager.h"
+	"GHOST_EventManager.h"
+	"GHOST_NDOFManager.h"
+	"GHOST_TimerTask.h"
+	"GHOST_TimerManager.h"
+	"GHOST_WindowManager.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_timertask.h
+	"GHOST_ITimerTask.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_timermanager.h
+	<vector>
+	"GHOST_Types.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_windowmanager.h
+	<vector>
+	"GHOST_Rect.h"
+	"GHOST_IWindow.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_timermanager.cpp
+	"GHOST_TimerManager.h"
+	<algorithm>
+	"GHOST_TimerTask.h"
+
+1310760920 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_window.cpp
+	"GHOST_Window.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_windowmanager.cpp
+	"GHOST_WindowManager.h"
+	<algorithm>
+	"GHOST_Debug.h"
+	"GHOST_Window.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_displaymanagerwin32.cpp
+	"GHOST_DisplayManagerWin32.h"
+	"GHOST_Debug.h"
+	<windows.h>
+	<multimon.h>
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_displaymanagerwin32.h
+	"GHOST_DisplayManager.h"
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_droptargetwin32.cpp
+	"GHOST_Debug.h"
+	"GHOST_DropTargetWin32.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_droptargetwin32.h
+	<windows.h>
+	<string.h>
+	<GHOST_Types.h>
+	"GHOST_WindowWin32.h"
+	"GHOST_SystemWin32.h"
+
+1310762318 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_windowwin32.h
+	"GHOST_Window.h"
+	<windows.h>
+	"GHOST_TaskbarWin32.h"
+	<wintab.h>
+	<pktdef.h>
+
+1308287608 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_taskbarwin32.h
+	<windows.h>
+	<shlobj.h>
+
+1310759128 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\wintab.h
+
+1310759123 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\pktdef.h
+	<wintab.h>
+	<pktdef.h>
+	<wintab.h>
+	<pktdef.h>
+	<pktdef.h>
+	<pktdef.h>
+	<wintab.h>
+	<pktdef.h>
+
+1308255208 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_systempathswin32.cpp
+	"GHOST_SystemPathsWin32.h"
+	<windows.h>
+	<shlobj.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\windows.h
+	<sdkddkver.h>
+	<winresrc.h>
+	<excpt.h>
+	<stdarg.h>
+	<windef.h>
+	<winbase.h>
+	<wingdi.h>
+	<winuser.h>
+	<winnls.h>
+	<wincon.h>
+	<winver.h>
+	<winreg.h>
+	<winnetwk.h>
+	<cderr.h>
+	<dde.h>
+	<ddeml.h>
+	<dlgs.h>
+	<lzexpand.h>
+	<mmsystem.h>
+	<nb30.h>
+	<rpc.h>
+	<shellapi.h>
+	<winperf.h>
+	<winsock.h>
+	<wincrypt.h>
+	<winefs.h>
+	<winscard.h>
+	<winspool.h>
+	<ole.h>
+	<ole2.h>
+	<commdlg.h>
+	<stralign.h>
+	<winwlm.h>
+	<ole2.h>
+	<winsvc.h>
+	<mcx.h>
+	<imm.h>
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\sdkddkver.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winresrc.h
+	<winuser.rh>
+	<commctrl.rh>
+	<dde.rh>
+	<winnt.rh>
+	<dlgs.h>
+	<winver.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winuser.rh
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\commctrl.rh
+
+1271735048 c:\program files\microsoft sdks\windows\v7.1\include\dde.rh
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winnt.rh
+
+1271735050 c:\program files\microsoft sdks\windows\v7.1\include\dlgs.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winver.h
+	<SpecStrings.h>
+	<verrsrc.h>
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\specstrings.h
+	"sal_supp.h"
+	"specstrings_supp.h"
+	<sal.h>
+	<specstrings_strict.h>
+	<driverspecs.h>
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h
+	"sal_supp.h"
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\specstrings_strict.h
+	<specstrings_undef.h>
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\specstrings_undef.h
+
+1271735050 c:\program files\microsoft sdks\windows\v7.1\include\driverspecs.h
+	<specstrings.h>
+	"sdv_driverspecs.h"
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\sdv_driverspecs.h
+
+1271735076 c:\program files\microsoft sdks\windows\v7.1\include\verrsrc.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\windef.h
+	<winnt.h>
+	<specstrings.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winnt.h
+	<ctype.h>
+	<specstrings.h>
+	<kernelspecs.h>
+	<basetsd.h>
+	<guiddef.h>
+	<excpt.h>
+	<sdkddkver.h>
+	"pshpack4.h"
+	"poppack.h"
+	"pshpack4.h"
+	"poppack.h"
+	<pshpack4.h>
+	<poppack.h>
+	"pshpack4.h"
+	"pshpack2.h"
+	"pshpack1.h"
+	"poppack.h"
+	"pshpack2.h"
+	<pshpack2.h>
+	<poppack.h>
+	"poppack.h"
+	"pshpack8.h"
+	"poppack.h"
+	"poppack.h"
+	<string.h>
+	<string.h>
+	<ktmtypes.h>
+
+1271735020 c:\program files\microsoft sdks\windows\v7.1\include\kernelspecs.h
+	"DriverSpecs.h"
+
+1271735036 c:\program files\microsoft sdks\windows\v7.1\include\basetsd.h
+
+1271735056 c:\program files\microsoft sdks\windows\v7.1\include\guiddef.h
+	<string.h>
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\pshpack4.h
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\poppack.h
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\pshpack2.h
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\pshpack1.h
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\pshpack8.h
+
+1271735060 c:\program files\microsoft sdks\windows\v7.1\include\ktmtypes.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winbase.h
+	<macwin32.h>
+	<winerror.h>
+	"winbase.inl"
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winerror.h
+	<specstrings.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winbase.inl
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\wingdi.h
+	<macwin32.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack2.h>
+	<poppack.h>
+	<pshpack2.h>
+	<poppack.h>
+	<pshpack4.h>
+	<poppack.h>
+	<pshpack4.h>
+	<poppack.h>
+	"pshpack4.h"
+	"poppack.h"
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winuser.h
+	<macwin32.h>
+	<stdarg.h>
+	<pshpack2.h>
+	<poppack.h>
+	<tvout.h>
+	"winuser.inl"
+
+1271735076 c:\program files\microsoft sdks\windows\v7.1\include\tvout.h
+	<guiddef.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winuser.inl
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winnls.h
+	<macwin32.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\wincon.h
+	<wingdi.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winreg.h
+	<macwin32.h>
+	<reason.h>
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\reason.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winnetwk.h
+	<wnnc.h>
+
+1271735082 c:\program files\microsoft sdks\windows\v7.1\include\wnnc.h
+
+1271735040 c:\program files\microsoft sdks\windows\v7.1\include\cderr.h
+
+1271735048 c:\program files\microsoft sdks\windows\v7.1\include\dde.h
+	<windef.h>
+
+1271735048 c:\program files\microsoft sdks\windows\v7.1\include\ddeml.h
+
+1271735060 c:\program files\microsoft sdks\windows\v7.1\include\lzexpand.h
+
+1271735062 c:\program files\microsoft sdks\windows\v7.1\include\mmsystem.h
+	<pshpack1.h>
+	<macwin32.h>
+	<poppack.h>
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\nb30.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpc.h
+	<windows.h>
+	<pshpack2.h>
+	<basetsd.h>
+	<pshpack8.h>
+	<setjmp.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcerr.h>
+	<rpcmac.h>
+	<poppack.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcnterr.h>
+	<excpt.h>
+	<winerror.h>
+	<rpcasync.h>
+	<poppack.h>
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcdce.h
+	<specstrings.h>
+	<guiddef.h>
+	<rpcdcep.h>
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcdcep.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcnsi.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcnterr.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcasync.h
+	<pshpack8.h>
+	<ntddk.h>
+	<windef.h>
+	<poppack.h>
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shellapi.h
+	<SpecStrings.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winperf.h
+	<pshpack8.h>
+	<poppack.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winsock.h
+	<windows.h>
+	<inaddr.h>
+
+1271735058 c:\program files\microsoft sdks\windows\v7.1\include\inaddr.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\wincrypt.h
+	<specstrings.h>
+	<bcrypt.h>
+	<ncrypt.h>
+
+1271735036 c:\program files\microsoft sdks\windows\v7.1\include\bcrypt.h
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\ncrypt.h
+	<bcrypt.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winefs.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winscard.h
+	<wtypes.h>
+	<winioctl.h>
+	"winsmcrd.h"
+	"SCardErr.h"
+
+1271735084 c:\program files\microsoft sdks\windows\v7.1\include\wtypes.h
+	"rpc.h"
+	"rpcndr.h"
+	"basetsd.h"
+	"guiddef.h"
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcndr.h
+	<pshpack8.h>
+	<basetsd.h>
+	<rpcnsip.h>
+	<rpcsal.h>
+	<poppack.h>
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcnsip.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\rpcsal.h
+	<specstrings.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winioctl.h
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winsmcrd.h
+
+1271735070 c:\program files\microsoft sdks\windows\v7.1\include\scarderr.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winspool.h
+	<prsht.h>
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\prsht.h
+	<pshpack8.h>
+	<pshpack4.h>
+	"prsht.inl"
+	<poppack.h>
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\prsht.inl
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\ole.h
+	<pshpack1.h>
+	<poppack.h>
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\ole2.h
+	<pshpack8.h>
+	<winerror.h>
+	<objbase.h>
+	<oleauto.h>
+	<oleidl.h>
+	<poppack.h>
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\objbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<pshpack8.h>
+	<stdlib.h>
+	<wtypes.h>
+	<unknwn.h>
+	<objidl.h>
+	<guiddef.h>
+	<cguid.h>
+	<urlmon.h>
+	<propidl.h>
+	<poppack.h>
+
+1271735076 c:\program files\microsoft sdks\windows\v7.1\include\unknwn.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"wtypes.h"
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\objidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"unknwn.h"
+
+1271735042 c:\program files\microsoft sdks\windows\v7.1\include\cguid.h
+
+1271735076 c:\program files\microsoft sdks\windows\v7.1\include\urlmon.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+	"oleidl.h"
+	"servprov.h"
+	"msxml.h"
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\oleidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\servprov.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+
+1271735064 c:\program files\microsoft sdks\windows\v7.1\include\msxml.h
+	"rpc.h"
+	"rpcndr.h"
+	"unknwn.h"
+	"objidl.h"
+	"oaidl.h"
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\oaidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\propidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+	"oaidl.h"
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\oleauto.h
+	<pshpack8.h>
+	<oaidl.h>
+	<poppack.h>
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\commdlg.h
+	<prsht.h>
+	<pshpack1.h>
+	"commdlg.inl"
+	<poppack.h>
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\commdlg.inl
+
+1271735074 c:\program files\microsoft sdks\windows\v7.1\include\stralign.h
+
+1271735080 c:\program files\microsoft sdks\windows\v7.1\include\winsvc.h
+
+1271735060 c:\program files\microsoft sdks\windows\v7.1\include\mcx.h
+
+1271735058 c:\program files\microsoft sdks\windows\v7.1\include\imm.h
+	<ime_cmodes.h>
+
+1271735058 c:\program files\microsoft sdks\windows\v7.1\include\ime_cmodes.h
+
+1271735064 c:\program files\microsoft sdks\windows\v7.1\include\multimon.h
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shlobj.h
+	<ole2.h>
+	<prsht.h>
+	<commctrl.h>
+	<shlguid.h>
+	<shtypes.h>
+	<shobjidl.h>
+	<pshpack1.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<poppack.h>
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\commctrl.h
+	<prsht.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	"commctrl.inl"
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\commctrl.inl
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shlguid.h
+	<isguids.h>
+	<exdisp.h>
+	<shldisp.h>
+	<knownfolders.h>
+
+1271735058 c:\program files\microsoft sdks\windows\v7.1\include\isguids.h
+
+1271735054 c:\program files\microsoft sdks\windows\v7.1\include\exdisp.h
+	"rpc.h"
+	"rpcndr.h"
+	"ocidl.h"
+	"docobj.h"
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\ocidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"oleidl.h"
+	"oaidl.h"
+	"servprov.h"
+	"urlmon.h"
+
+1271735050 c:\program files\microsoft sdks\windows\v7.1\include\docobj.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"ocidl.h"
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shldisp.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"ocidl.h"
+
+1271735058 c:\program files\microsoft sdks\windows\v7.1\include\knownfolders.h
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shtypes.h
+	"rpc.h"
+	"rpcndr.h"
+	"wtypes.h"
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\shobjidl.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+	"oleidl.h"
+	"oaidl.h"
+	"docobj.h"
+	"shtypes.h"
+	"comcat.h"
+	"propidl.h"
+	"prsht.h"
+	"propsys.h"
+	"ObjectArray.h"
+	<sherrors.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<prsht.h>
+	<pshpack8.h>
+	<poppack.h>
+	<commctrl.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack8.h>
+	<poppack.h>
+
+1271735044 c:\program files\microsoft sdks\windows\v7.1\include\comcat.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"unknwn.h"
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\propsys.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"objidl.h"
+	"oleidl.h"
+	"ocidl.h"
+	"shtypes.h"
+	"StructuredQueryCondition.h"
+	<propkeydef.h>
+
+1271735074 c:\program files\microsoft sdks\windows\v7.1\include\structuredquerycondition.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"oaidl.h"
+	"ocidl.h"
+	"propidl.h"
+
+1271735068 c:\program files\microsoft sdks\windows\v7.1\include\propkeydef.h
+
+1271735066 c:\program files\microsoft sdks\windows\v7.1\include\objectarray.h
+	"rpc.h"
+	"rpcndr.h"
+	"windows.h"
+	"ole2.h"
+	"oaidl.h"
+	"ocidl.h"
+
+1271735072 c:\program files\microsoft sdks\windows\v7.1\include\sherrors.h
+	<winerror.h>
+
+1310761299 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_systemwin32.cpp
+	<iostream>
+	"GHOST_SystemWin32.h"
+	"GHOST_EventDragnDrop.h"
+	<windows.h>
+	<shlobj.h>
+	"GHOST_Debug.h"
+	"GHOST_DisplayManagerWin32.h"
+	"GHOST_EventButton.h"
+	"GHOST_EventCursor.h"
+	"GHOST_EventKey.h"
+	"GHOST_EventWheel.h"
+	"GHOST_EventNDOF.h"
+	"GHOST_TimerTask.h"
+	"GHOST_TimerManager.h"
+	"GHOST_WindowManager.h"
+	"GHOST_WindowWin32.h"
+	"GHOST_NDOFManager.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventbutton.h
+	"GHOST_Event.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventcursor.h
+	"GHOST_Event.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventwheel.h
+	"GHOST_Event.h"
+
+1308255208 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\ghost_eventndof.h
+	"GHOST_Event.h"
+
+1310763509 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\ghost\src\win32\ghost_windowwin32.cpp
+	<string.h>
+	"GHOST_WindowWin32.h"
+	"GHOST_SystemWin32.h"
+	"GHOST_SystemWin32.h"
+	"GHOST_DropTargetWin32.h"
+	<GL/glew.h>
+	<GL/wglew.h>
+	<math.h>
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\src\mallocn.c
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	<sys/types.h>
+	"mmap_win.h"
+	<sys/mman.h>
+	"MEM_guardedalloc.h"
+	<fcntl.h>
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\include\mmap_win.h
+	"MEM_sys_types.h"
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\src\mallocn.cpp
+	<new>
+	"MEM_guardedalloc.h"
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\guardedalloc\src\mmap_win.c
+	<windows.h>
+	<errno.h>
+	<io.h>
+	<sys/types.h>
+	<stdio.h>
+	"mmap_win.h"
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\string\src\str_string.cpp
+	<stdio.h>
+	<stdarg.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	<strings.h>
+	"STR_String.h"
+
+1310744144 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\libs\quicktime\include\strings.h
+	<TextUtils.h>
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\src\ofxfenster.cpp
+	"ofxFenster.h"
+	"ofMain.h"
+	"GHOST_ISystem.h"
+	"GHOST_IWindow.h"
+	"ofxFensterManager.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\src\ofxfenster.h
+	<GHOST_ITimerTask.h>
+	<ofTypes.h>
+	"ofAppBaseWindow.h"
+	"ofBaseApp.h"
+	"ofGLRenderer.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\src\ofxfenstermanager.h
+	"ofAppBaseWindow.h"
+	"ofEvents.h"
+	"ofxFenster.h"
+	"GHOST_IEventConsumer.h"
+	"GHOST_ISystem.h"
+
+1310755747 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\src\ofxfenstermanager.cpp
+	"ofxFensterManager.h"
+	"ofMain.h"
+	"STR_String.h"
+	"GHOST_Rect.h"
+	"GHOST_IEvent.h"
+	"GHOST_SystemX11.h"
+
+1310755746 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\addonsexamples\ofxfensterexample\src\main.cpp
+	"ofMain.h"
+	"testApp.h"
+	"ofxFensterManager.h"
+	"ofAppGlutWindow.h"
+
+1310763325 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\addonsexamples\ofxfensterexample\src\testapp.h
+	"ofMain.h"
+	"ofxFensterManager.h"
+
+1310755746 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\apps\addonsexamples\ofxfensterexample\src\testapp.cpp
+	"testApp.h"
+
+1310763011 source:c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\src\allocimbuf.c
+	<stddef.h>
+	"IMB_imbuf.h"
+	"IMB_imbuf_types.h"
+	"IMB_allocimbuf.h"
+	"IMB_filetype.h"
+	"IMB_metadata.h"
+	"imbuf.h"
+	"MEM_CacheLimiterC-Api.h"
+	"MEM_guardedalloc.h"
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imb_allocimbuf.h
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imb_filetype.h
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imb_metadata.h
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\imbuf\include\imbuf.h
+	<stdlib.h>
+	<sys/types.h>
+	<stdio.h>
+	<unistd.h>
+	<fcntl.h>
+	<sys/stat.h>
+	<string.h>
+	<math.h>
+	<sys/mman.h>
+
+1310755747 c:\users\administrator\desktop\openframeworks-openframeworks-f4ff109\addons\ofxfenster\libs\memutil\include\mem_cachelimiterc-api.h
+
