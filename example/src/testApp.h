@@ -3,47 +3,57 @@
 #include "ofMain.h"
 #include "ofxFensterManager.h"
 
-class imageWindow: public ofxFensterListener{
+class imageWindow: public ofxFensterListener {
 public:
-	~imageWindow(){
+	~imageWindow() {
 		cout << "Image Listener destroyed" << endl;
 	}
-	void setup(){
+	void setup() {
 		cout << "LOADING IMAGE" << endl;
 		img.loadImage("someImage.JPG");
 	}
-	void draw(){
+	void draw() {
 		img.draw(0,0);
 	}
-	
-	void keyReleased(int key, ofxFenster* window){
+
+	void keyReleased(int key, ofxFenster* window) {
 		if(key==' ')
 			ofxFensterManager::get()->deleteFenster(window);
 	}
-	
+
 	ofImage img;
 };
 
-class boxWindow: public ofxFensterListener{
+class boxWindow: public ofxFensterListener {
 public:
-	boxWindow(){
+	boxWindow() {
 		rotX = ofRandom(-20, 20);
 		rotY = ofRandom(-10, 10);
 	}
-	
-	void draw(){
+
+	void draw() {
 		ofNoFill();
 		ofTranslate(ofGetWidth()*.5, ofGetHeight()*.5, 0);
 		ofRotateX(rotX);
 		ofRotateY(rotY);
 		ofBox(0, 0, 0, 100);
 	}
-	
-	void mouseMoved(int x, int y){
+
+	void mouseMoved(int x, int y) {
 		rotY = ofMap(x, 0, ofGetWidth(), -20, 20);
 		rotX = ofMap(y, 0, ofGetHeight(), 60, -60);
 	}
-	
+
+	void dragEvent(ofDragInfo dragInfo) {
+		cout << "GOT SOME FILES: "<<endl;
+		std::vector<string>::iterator it = dragInfo.files.begin();
+		while(it != dragInfo.files.end()) {
+			cout << *it << endl;
+			++it;
+		}
+	}
+
+
 	float rotX;
 	float rotY;
 };

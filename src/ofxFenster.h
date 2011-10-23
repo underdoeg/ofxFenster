@@ -93,6 +93,9 @@ public:
 	virtual void mouseReleased(int x, int y, int btn) {}
 	virtual void mouseReleased() {};
 
+	virtual void dragEvent(ofDragInfo info){}
+	virtual void dragEvent(ofDragInfo info, ofxFenster* f){dragEvent(info);}
+
 	bool isUpdated;
 };
 
@@ -127,6 +130,7 @@ public:
 	void mouseReleased();
 	void mouseReleased(int x, int y, int button);
 	void mouseReleased(int btn);
+	void fileDropped(ofDragInfo info);
 
 	void disableSetupScreen();
 	void enableSetupScreen();
@@ -174,6 +178,8 @@ public:
 
 	void addListener(ofxFensterListener* listener);
 	void onTimer(GHOST_ITimerTask* task, GHOST_TUns64 time);
+
+	void setDragAndDrop(bool on);
 
 	bool isButtonDown;
 	int buttonDown;

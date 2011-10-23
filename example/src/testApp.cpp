@@ -142,7 +142,12 @@ void testApp::gotMessage(ofMessage msg)
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo)
 {
-
+	cout << "GOT SOME FILES: "<<endl;
+	std::vector<string>::iterator it = dragInfo.files.begin();
+	while(it != dragInfo.files.end()){
+		cout << *it << endl;
+		++it;
+	}
 }
 
 void testApp::mouseMovedEvent(ofMouseEventArgs &args)

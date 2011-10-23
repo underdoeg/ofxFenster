@@ -334,6 +334,40 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
             deleteFenster(win);
             break;
         }
+		//drag and drop
+		case GHOST_kEventDraggingEntered:
+		{
+			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+			//needs to be handled, but of doesn't really provide anything out of the box
+			break;
+		}
+		case GHOST_kEventDraggingUpdated:
+		{
+			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+			//needs to be handled, but of doesn't really provide anything out of the box
+			break;
+		}
+		case GHOST_kEventDraggingExited:
+		{
+			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+			//needs to be handled, but of doesn't really provide anything out of the box
+			break;
+		}
+		case GHOST_kEventDraggingDropDone:
+		{
+			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+			if(dragnDropData->dataType == GHOST_kDragnDropTypeFilenames){//TODO: STRING AND BITMAP IS ALSO SUPPORTED IN GHOST
+				static ofDragInfo info;
+				GHOST_TStringArray *strArray = (GHOST_TStringArray*)dragnDropData->data;
+				for (int i=0;i<strArray->count;i++){
+					const char* filename = (char*)strArray->strings[i];
+					info.files.push_back(filename);
+				}
+				info.position.set(dragnDropData->x, dragnDropData->y); //TODO check if drag'n'drop position is actually correct
+				win->fileDropped(info);
+			}
+			break;
+		}
 	}
 	return handled;
 }
