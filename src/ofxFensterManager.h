@@ -62,8 +62,8 @@ public:
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
 	void setWindowTitle(string title);
-	string getClipboard();
-	void setClipboard(string data);
+	unsigned char* getClipboard();
+	void setClipboard(char* data);
 	
 	void setActiveDisplay(ofxDisplay* display);
 

@@ -81,9 +81,10 @@ void testApp::draw()
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key, ofxFenster* win)
+void testApp::keyPressed(int key)
 {
-
+	if(key == 'c')
+		cout << "CLIPBOARD DATA: " << ofxFensterManager::get()->getClipboard() << endl;
 }
 
 //--------------------------------------------------------------

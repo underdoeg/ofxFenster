@@ -65,7 +65,7 @@ public:
 	void update();
 	void draw();
 
-	void keyPressed  (int key, ofxFenster* win);
+	void keyPressed  (int key);
 	void keyReleased(int key, ofxFenster* win);
 	void mouseMoved(int x, int y );
 	void mouseMoved(int x, int y, ofxFenster* win);

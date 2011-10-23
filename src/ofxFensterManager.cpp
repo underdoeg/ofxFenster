@@ -590,12 +590,12 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 	}
 }
 
-string ofxFensterManager::getClipboard(){
-	return (char*)ghostSystem->getClipboard(false);
+unsigned char* ofxFensterManager::getClipboard(){
+	return ghostSystem->getClipboard(false);
 }
 
-void ofxFensterManager::setClipboard(string data){
-	ghostSystem->putClipboard((GHOST_TInt8*)data.c_str(), false);
+void ofxFensterManager::setClipboard(char* data){
+	ghostSystem->putClipboard(data, false);
 }
 
 void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
