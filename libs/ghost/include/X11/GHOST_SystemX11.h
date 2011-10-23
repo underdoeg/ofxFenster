@@ -264,6 +264,8 @@ private :
 
 	Display * m_display;
 
+	std::vector<Display*> displays;
+
 	/// The vector of windows that need to be updated.
 	std::vector<GHOST_WindowX11 *> m_dirty_windows;
 
