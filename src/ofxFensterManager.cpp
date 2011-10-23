@@ -590,6 +590,14 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 	}
 }
 
+string ofxFensterManager::getClipboard(){
+	return (char*)ghostSystem->getClipboard(false);
+}
+
+void ofxFensterManager::setClipboard(string data){
+	ghostSystem->putClipboard((GHOST_TInt8*)data.c_str(), false);
+}
+
 void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
 	activeDisplay = ofxDisplayPtr(display);
 #ifdef TARGET_LINUX //a lot of casting, but this should only get called on startup and has to be safe
@@ -597,3 +605,5 @@ void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
 	//((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(XOpenDisplay(":0.2"));
 #endif
 }
+
+
