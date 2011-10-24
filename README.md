@@ -19,6 +19,7 @@ FEATURES
 - borderless windows
 - use an ofImage as app icon at runtime
 - multiple graphic cards and displays management on linux
+- drag and drop of files and textual clipboard access
 - ...
 
 SCREENS
