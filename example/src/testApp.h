@@ -19,6 +19,10 @@ public:
 	void keyReleased(int key, ofxFenster* window) {
 		if(key==' ')
 			ofxFensterManager::get()->deleteFenster(window);
+		if(key == 'm'){ //this is to test set and get window position
+			ofPoint winPos = window->getWindowPosition();
+			window->setWindowPosition(winPos.x + 10, winPos.y);
+		}
 	}
 
 	ofImage img;
@@ -66,7 +70,7 @@ public:
 	void draw();
 
 	void keyPressed  (int key);
-	void keyReleased(int key, ofxFenster* win);
+	void keyReleased(int key);
 	void mouseMoved(int x, int y );
 	void mouseMoved(int x, int y, ofxFenster* win);
 	void mouseDragged(int x, int y, int button);

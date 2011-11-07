@@ -83,19 +83,20 @@ void testApp::draw()
 //--------------------------------------------------------------
 void testApp::keyPressed(int key)
 {
-	if(key == 'c')
-		cout << "CLIPBOARD DATA: " << ofxFensterManager::get()->getClipboard() << endl;
+	
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key, ofxFenster* win)
+void testApp::keyReleased(int key)
 {
 	//cout << (0x0400) << endl;
 	//cout << (101 | OF_KEY_MODIFIER) << " " << key << endl;
 	if(key=='f')
-		win->toggleFullscreen();
+		ofxFensterManager::get()->getPrimaryWindow()->toggleFullscreen();
 	if(key==' ')
 		ofxFensterManager::get()->createFenster(0, 0, 400, 300, OF_WINDOW)->addListener(&imgWin);
+	if(key == 'c')
+		cout << "CLIPBOARD DATA: " << ofxFensterManager::get()->getClipboard() << endl;
 }
 
 //this only works if testApp is extending ofxFensterListener and not ofBaseApp

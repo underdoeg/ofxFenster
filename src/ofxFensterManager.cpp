@@ -11,76 +11,6 @@
 #include "GHOST_SystemX11.h"
 #endif
 
-///////////////////////////////////////////
-// HELPERS FOR ofRunFensterApp 
-
-class ofxFensterToOfBaseApp: public ofxFensterListener{
-	
-public:
-	ofxFensterToOfBaseApp(ofBaseApp* base){
-		mouseX = mouseY = 0;
-		baseApp = base;
-	}
-	
-	void setup(){
-		baseApp->setup();
-	}
-	void update(){
-		baseApp->update();
-	}
-	void draw(){
-		baseApp->draw();
-	}
-	void exit(){
-		baseApp->exit();
-	}
-	
-	void windowResized(int w, int h){
-		baseApp->windowResized(w, h);
-	}
-	
-	void keyPressed( int key ){
-		baseApp->keyPressed(key);
-	}
-	void keyReleased( int key ){
-		baseApp->keyReleased(key);
-	}
-	
-	void mouseMoved( int x, int y ){
-		baseApp->mouseX = x;
-		baseApp->mouseY = y;
-		baseApp->mouseMoved(x, y);
-	}
-	void mouseDragged( int x, int y, int button ){
-		baseApp->mouseX = x;
-		baseApp->mouseY = y;
-		baseApp->mouseDragged(x, y, button);
-	}
-	void mousePressed( int x, int y, int button ){
-		baseApp->mouseX = x;
-		baseApp->mouseY = y;
-		baseApp->mousePressed(x, y, button);
-	}
-	void mouseReleased(){
-		baseApp->mouseReleased();
-	}
-	void mouseReleased(int x, int y, int button ){
-		baseApp->mouseX = x;
-		baseApp->mouseY = y;
-		baseApp->mouseReleased(x, y, button);
-	}
-	
-	void dragEvent(ofDragInfo dragInfo) {
-		baseApp->dragEvent(dragInfo);
-	}
-	void gotMessage(ofMessage msg){
-		baseApp->gotMessage(msg);
-	}		
-	
-private:
-	ofBaseApp* baseApp;
-};
-
 void ofRunFensterApp(ofxFensterListener* app){
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(app);
 	ofRunApp(app);
@@ -90,7 +20,6 @@ void ofRunFensterApp(ofBaseApp* app){
 	ofxFensterToOfBaseApp* appWrapper = new ofxFensterToOfBaseApp(app);
 	ofRunFensterApp(appWrapper);
 }
-
 
 ///////////////////////////////////////
 

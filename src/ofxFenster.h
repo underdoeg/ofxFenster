@@ -177,6 +177,7 @@ public:
 	GHOST_IWindow* getWindow();
 
 	void addListener(ofxFensterListener* listener);
+	void addListener(ofBaseApp* app);
 	void onTimer(GHOST_ITimerTask* task, GHOST_TUns64 time);
 
 	void setDragAndDrop(bool on);

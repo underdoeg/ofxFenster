@@ -399,6 +399,11 @@ void ofxFenster::addListener(ofxFensterListener* listener) {
 	updateListenersMousePos();
 }
 
+void ofxFenster::addListener(ofBaseApp* app){
+	ofxFensterToOfBaseApp* appWrapper = new ofxFensterToOfBaseApp(app);
+	addListener(appWrapper);
+}
+
 void ofxFenster::dragEvent(ofDragInfo dragInfo) {
 
 }
@@ -500,3 +505,4 @@ void ofxFenster::setDraggable(bool d) {
 void ofxFenster::setDragAndDrop(bool on) {
 	win->setAcceptDragOperation(on);
 }
+
