@@ -17,6 +17,13 @@ void testApp::setup()
 	//setup of fensterListener does not get called automatically yet
 	imgWin.setup();
 
+	//IF the following code is uncommented, all the following windows should be created on the second display, if there is one available
+	/*ofxDisplayList displays = ofxDisplayManager::get()->getDisplays();
+	ofxDisplay* disp = displays[0];
+	if(displays.size() > 1)
+		disp = displays[1];
+	ofxFensterManager::get()->setActiveDisplay(disp);*/
+
 	for(int i=0; i<3; i++) {
 		ofxFenster* win=ofxFensterManager::get()->createFenster(400+(i*winW), 300, winW, 300, OF_WINDOW);
 		if(i==0) {

@@ -529,6 +529,8 @@ void ofxFensterManager::setClipboard(char* data){
 }
 
 void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
+	if(hasActiveDisplay && activeDisplay->id == display->id)
+		return;
 	activeDisplay = display;
 	hasActiveDisplay = true;
 #ifdef TARGET_LINUX //a lot of casting, but this should be type safe
