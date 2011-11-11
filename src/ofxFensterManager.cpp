@@ -171,9 +171,6 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 	
 	ofxFenster* win=getFensterByHandler(window);
 	
-	GHOST_Rect winPos; //why on every process...?
-	window->getWindowBounds(winPos);
-	
 	switch (event->getType())
 	{
 			//////////////////// MOUSE
@@ -187,10 +184,8 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 			p.y -= 1;
 			
             if(win->isButtonDown) {
-                //win->mouseDragged(bd->x-winPos.m_l, bd->y-winPos.m_t, win->buttonDown);
                 win->mouseDragged(p.x, p.y, win->buttonDown);
             } else {
-                //win->mouseMoved(bd->x-winPos.m_l, bd->y-winPos.m_t);
                 win->mouseMoved(p.x, p.y);
             }
             break;
