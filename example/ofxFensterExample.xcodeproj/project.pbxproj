@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48D0339813AE3F4600FFC1C5 /* ofxFenster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48D0332B13AE3F4600FFC1C5 /* ofxFenster.cpp */; };
-		48D0339913AE3F4600FFC1C5 /* ofxFensterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48D0332D13AE3F4600FFC1C5 /* ofxFensterManager.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
 		E45BE97D0E8CC7DD009D7055 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */; };
@@ -23,8 +21,11 @@
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		FA2780BF13D8526600AD75E1 /* libGhost32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2780BE13D8526600AD75E1 /* libGhost32.a */; };
 		FA37630913D862BC00E7EBDE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA37630813D862BC00E7EBDE /* OpenGL.framework */; };
-		FAB311C81434CCF60063589B /* ofxDisplayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */; };
-		FAB311CD1434CDA70063589B /* ofxDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB311CC1434CDA70063589B /* ofxDisplay.cpp */; };
+		FAEF86BB146D8B890019AD26 /* ofxDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEF86B1146D8B890019AD26 /* ofxDisplay.cpp */; };
+		FAEF86BC146D8B890019AD26 /* ofxDisplayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEF86B4146D8B890019AD26 /* ofxDisplayManager.cpp */; };
+		FAEF86BD146D8B890019AD26 /* ofxDisplayManagerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEF86B6146D8B890019AD26 /* ofxDisplayManagerMac.mm */; };
+		FAEF86BE146D8B890019AD26 /* ofxFenster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEF86B7146D8B890019AD26 /* ofxFenster.cpp */; };
+		FAEF86BF146D8B890019AD26 /* ofxFensterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEF86B9146D8B890019AD26 /* ofxFensterManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,10 +68,6 @@
 		48D032E913AE3F4600FFC1C5 /* GHOST_Path-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHOST_Path-api.h"; sourceTree = "<group>"; };
 		48D032EA13AE3F4600FFC1C5 /* GHOST_Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_Rect.h; sourceTree = "<group>"; };
 		48D032EB13AE3F4600FFC1C5 /* GHOST_Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_Types.h; sourceTree = "<group>"; };
-		48D0332B13AE3F4600FFC1C5 /* ofxFenster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFenster.cpp; sourceTree = "<group>"; };
-		48D0332C13AE3F4600FFC1C5 /* ofxFenster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFenster.h; sourceTree = "<group>"; };
-		48D0332D13AE3F4600FFC1C5 /* ofxFensterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFensterManager.cpp; sourceTree = "<group>"; };
-		48D0332E13AE3F4600FFC1C5 /* ofxFensterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFensterManager.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -91,10 +88,16 @@
 		FA2780BD13D8524F00AD75E1 /* STR_String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STR_String.h; sourceTree = "<group>"; };
 		FA2780BE13D8526600AD75E1 /* libGhost32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGhost32.a; path = ../../../addons/ofxFenster/libs/ghost/lib/osx32/libGhost32.a; sourceTree = SOURCE_ROOT; };
 		FA37630813D862BC00E7EBDE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
-		FAB311C61434CCF60063589B /* ofxDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDisplayManager.h; sourceTree = "<group>"; };
-		FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDisplayManager.cpp; sourceTree = "<group>"; };
-		FAB311CB1434CDA70063589B /* ofxDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDisplay.h; sourceTree = "<group>"; };
-		FAB311CC1434CDA70063589B /* ofxDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDisplay.cpp; sourceTree = "<group>"; };
+		FAEF86B1146D8B890019AD26 /* ofxDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDisplay.cpp; path = ../src/ofxDisplay.cpp; sourceTree = SOURCE_ROOT; };
+		FAEF86B2146D8B890019AD26 /* ofxDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDisplay.h; path = ../src/ofxDisplay.h; sourceTree = SOURCE_ROOT; };
+		FAEF86B3146D8B890019AD26 /* ofxDisplayMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDisplayMac.h; path = ../src/ofxDisplayMac.h; sourceTree = SOURCE_ROOT; };
+		FAEF86B4146D8B890019AD26 /* ofxDisplayManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxDisplayManager.cpp; path = ../src/ofxDisplayManager.cpp; sourceTree = SOURCE_ROOT; };
+		FAEF86B5146D8B890019AD26 /* ofxDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDisplayManager.h; path = ../src/ofxDisplayManager.h; sourceTree = SOURCE_ROOT; };
+		FAEF86B6146D8B890019AD26 /* ofxDisplayManagerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofxDisplayManagerMac.mm; path = ../src/ofxDisplayManagerMac.mm; sourceTree = SOURCE_ROOT; };
+		FAEF86B7146D8B890019AD26 /* ofxFenster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxFenster.cpp; path = ../src/ofxFenster.cpp; sourceTree = SOURCE_ROOT; };
+		FAEF86B8146D8B890019AD26 /* ofxFenster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxFenster.h; path = ../src/ofxFenster.h; sourceTree = SOURCE_ROOT; };
+		FAEF86B9146D8B890019AD26 /* ofxFensterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxFensterManager.cpp; path = ../src/ofxFensterManager.cpp; sourceTree = SOURCE_ROOT; };
+		FAEF86BA146D8B890019AD26 /* ofxFensterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxFensterManager.h; path = ../src/ofxFensterManager.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,14 +171,16 @@
 		48D0332A13AE3F4600FFC1C5 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				48D0332B13AE3F4600FFC1C5 /* ofxFenster.cpp */,
-				48D0332C13AE3F4600FFC1C5 /* ofxFenster.h */,
-				48D0332D13AE3F4600FFC1C5 /* ofxFensterManager.cpp */,
-				48D0332E13AE3F4600FFC1C5 /* ofxFensterManager.h */,
-				FAB311C61434CCF60063589B /* ofxDisplayManager.h */,
-				FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */,
-				FAB311CB1434CDA70063589B /* ofxDisplay.h */,
-				FAB311CC1434CDA70063589B /* ofxDisplay.cpp */,
+				FAEF86B1146D8B890019AD26 /* ofxDisplay.cpp */,
+				FAEF86B2146D8B890019AD26 /* ofxDisplay.h */,
+				FAEF86B3146D8B890019AD26 /* ofxDisplayMac.h */,
+				FAEF86B4146D8B890019AD26 /* ofxDisplayManager.cpp */,
+				FAEF86B5146D8B890019AD26 /* ofxDisplayManager.h */,
+				FAEF86B6146D8B890019AD26 /* ofxDisplayManagerMac.mm */,
+				FAEF86B7146D8B890019AD26 /* ofxFenster.cpp */,
+				FAEF86B8146D8B890019AD26 /* ofxFenster.h */,
+				FAEF86B9146D8B890019AD26 /* ofxFensterManager.cpp */,
+				FAEF86BA146D8B890019AD26 /* ofxFensterManager.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -363,10 +368,11 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				48D0339813AE3F4600FFC1C5 /* ofxFenster.cpp in Sources */,
-				48D0339913AE3F4600FFC1C5 /* ofxFensterManager.cpp in Sources */,
-				FAB311C81434CCF60063589B /* ofxDisplayManager.cpp in Sources */,
-				FAB311CD1434CDA70063589B /* ofxDisplay.cpp in Sources */,
+				FAEF86BB146D8B890019AD26 /* ofxDisplay.cpp in Sources */,
+				FAEF86BC146D8B890019AD26 /* ofxDisplayManager.cpp in Sources */,
+				FAEF86BD146D8B890019AD26 /* ofxDisplayManagerMac.mm in Sources */,
+				FAEF86BE146D8B890019AD26 /* ofxFenster.cpp in Sources */,
+				FAEF86BF146D8B890019AD26 /* ofxFensterManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

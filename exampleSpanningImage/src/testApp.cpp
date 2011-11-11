@@ -5,7 +5,7 @@ void testApp::setup()
 {	
 	ofSetWindowShape(100, 100);
 	bgImage.loadImage("someLargeImage.jpg");
-	for(int i=0;i<60;i++){
+	for(int i=0;i<200;i++){
 		ofxFenster* win=ofxFensterManager::get()->createFenster(ofRandom(ofGetScreenWidth()), ofRandom(ofGetScreenHeight()), ofRandom(50, 250), ofRandom(50, 250), OF_WINDOW);
 		win->addListener(this); //this line works because testApp does not extend ofBaseApp, but ofxFensterListener
 		win->setWindowTitle(ofToString(i));

@@ -116,7 +116,7 @@ public:
 	 * @param x The new X position of the window.
 	 * @param y The new Y position of the window.
 	 */
-	virtual	GHOST_TSuccess setWindowPosition(GHOST_TUns32 x, GHOST_TUns32 y) = 0;
+	virtual	GHOST_TSuccess setWindowPosition(GHOST_TInt32 x, GHOST_TInt32 y) = 0;
 
 	/**
 	 * sets window border.
@@ -128,7 +128,7 @@ public:
 	 * sets window to top
 	 * @param alwaysOnTop true to have the window always on top
 	 */
-	virtual	GHOST_TSuccess setWindowOnTop(bool alwaysOnTop) {};
+	virtual	GHOST_TSuccess setWindowOnTop(bool alwaysOnTop) {return GHOST_kSuccess;};
 
 	/**
 	 * Returns the client rectangle dimensions.

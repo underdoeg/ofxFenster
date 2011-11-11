@@ -7,6 +7,9 @@
  *
  */
 
+#include "ofMain.h"
+
+
 #include "ofxDisplayManager.h"
 
 bool ofxDisplayManager::hasSingleton = false;
@@ -27,16 +30,15 @@ ofxDisplayList ofxDisplayManager::getDisplays()
 	ofxDisplay* d = new ofxDisplay();
 	d->width = ofGetWidth();
 	d->height = ofGetHeight();
+	d->x = 0;
+	d->y = 0;
 	list.push_back(d);
 	return list;
 }
 
+#ifndef TARGET_OSX //This function is defined in ofxDisplayManagerMac for Mac
 ofxDisplayManager* ofxDisplayManager::get(){
 	if(!hasSingleton){
-#ifdef TARGET_OSX
-		singleton = new ofxDisplayManagerMac();
-#endif
-
 #ifdef TARGET_LINUX
 		singleton = new ofxDisplayManagerLinux();
 #endif
@@ -48,6 +50,7 @@ ofxDisplayManager* ofxDisplayManager::get(){
 	}
 	return singleton;
 }
+#endif //END DON'T COMPILE ON MAC
 
 #ifdef TARGET_LINUX
 ofxDisplayList ofxDisplayManagerLinux::getDisplays()
@@ -68,6 +71,8 @@ ofxDisplayList ofxDisplayManagerLinux::getDisplays()
 			display->display = disp;
 			display->width = XDisplayWidth(disp, curDesktop);
 			display->height = XDisplayHeight(disp, curDesktop);
+			display->x = 0;
+			display->y = 0;
 			display->id = displayID;
 			displays.push_back(display);
 			curDesktop++;
@@ -79,9 +84,7 @@ ofxDisplayList ofxDisplayManagerLinux::getDisplays()
 };
 #endif
 
-#ifdef TARGET_OSX
 
-#endif
 
 #ifdef TARGET_WIN32
 //TODO

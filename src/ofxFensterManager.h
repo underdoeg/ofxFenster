@@ -190,7 +190,8 @@ private:
 
 	int antialiasing;
 	
-	ofxDisplayPtr activeDisplay;
+	ofxDisplay* activeDisplay;
+	bool hasActiveDisplay;
 };
 
 #endif // OFXFENSTERMANAGER_H

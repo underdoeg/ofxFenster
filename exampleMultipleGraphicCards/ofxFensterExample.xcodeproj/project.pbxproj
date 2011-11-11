@@ -23,6 +23,7 @@
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		FA2780BF13D8526600AD75E1 /* libGhost32.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2780BE13D8526600AD75E1 /* libGhost32.a */; };
 		FA37630913D862BC00E7EBDE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA37630813D862BC00E7EBDE /* OpenGL.framework */; };
+		FA6584D9146D60BC00D8A9AE /* ofxDisplayManagerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA6584D8146D60BC00D8A9AE /* ofxDisplayManagerMac.mm */; };
 		FAB311C81434CCF60063589B /* ofxDisplayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */; };
 		FAB311CD1434CDA70063589B /* ofxDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB311CC1434CDA70063589B /* ofxDisplay.cpp */; };
 /* End PBXBuildFile section */
@@ -57,16 +58,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		48D032E213AE3F4600FFC1C5 /* GHOST_C-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHOST_C-api.h"; sourceTree = "<group>"; };
-		48D032E313AE3F4600FFC1C5 /* GHOST_IEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_IEvent.h; sourceTree = "<group>"; };
-		48D032E413AE3F4600FFC1C5 /* GHOST_IEventConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_IEventConsumer.h; sourceTree = "<group>"; };
-		48D032E513AE3F4600FFC1C5 /* GHOST_ISystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_ISystem.h; sourceTree = "<group>"; };
-		48D032E613AE3F4600FFC1C5 /* GHOST_ISystemPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_ISystemPaths.h; sourceTree = "<group>"; };
-		48D032E713AE3F4600FFC1C5 /* GHOST_ITimerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_ITimerTask.h; sourceTree = "<group>"; };
-		48D032E813AE3F4600FFC1C5 /* GHOST_IWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_IWindow.h; sourceTree = "<group>"; };
-		48D032E913AE3F4600FFC1C5 /* GHOST_Path-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHOST_Path-api.h"; sourceTree = "<group>"; };
-		48D032EA13AE3F4600FFC1C5 /* GHOST_Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_Rect.h; sourceTree = "<group>"; };
-		48D032EB13AE3F4600FFC1C5 /* GHOST_Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_Types.h; sourceTree = "<group>"; };
 		48D0332B13AE3F4600FFC1C5 /* ofxFenster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFenster.cpp; sourceTree = "<group>"; };
 		48D0332C13AE3F4600FFC1C5 /* ofxFenster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFenster.h; sourceTree = "<group>"; };
 		48D0332D13AE3F4600FFC1C5 /* ofxFensterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFensterManager.cpp; sourceTree = "<group>"; };
@@ -91,10 +82,51 @@
 		FA2780BD13D8524F00AD75E1 /* STR_String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STR_String.h; sourceTree = "<group>"; };
 		FA2780BE13D8526600AD75E1 /* libGhost32.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGhost32.a; path = ../../../addons/ofxFenster/libs/ghost/lib/osx32/libGhost32.a; sourceTree = SOURCE_ROOT; };
 		FA37630813D862BC00E7EBDE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		FA6584D8146D60BC00D8A9AE /* ofxDisplayManagerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxDisplayManagerMac.mm; sourceTree = "<group>"; };
+		FA658510146D641800D8A9AE /* ofxDisplayMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDisplayMac.h; sourceTree = "<group>"; };
 		FAB311C61434CCF60063589B /* ofxDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDisplayManager.h; sourceTree = "<group>"; };
 		FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDisplayManager.cpp; sourceTree = "<group>"; };
 		FAB311CB1434CDA70063589B /* ofxDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDisplay.h; sourceTree = "<group>"; };
 		FAB311CC1434CDA70063589B /* ofxDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDisplay.cpp; sourceTree = "<group>"; };
+		FAEF85F6146D7DDC0019AD26 /* GHOST_DisplayManagerCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_DisplayManagerCocoa.h; sourceTree = "<group>"; };
+		FAEF85F7146D7DDC0019AD26 /* GHOST_SystemCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_SystemCocoa.h; sourceTree = "<group>"; };
+		FAEF85F8146D7DDC0019AD26 /* GHOST_SystemPathsCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_SystemPathsCocoa.h; sourceTree = "<group>"; };
+		FAEF85F9146D7DDC0019AD26 /* GHOST_WindowCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOST_WindowCocoa.h; sourceTree = "<group>"; };
+		FAEF85FC146D7DFC0019AD26 /* GHOST_IWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_IWindow.h; path = ../libs/ghost/include/GHOST_IWindow.h; sourceTree = SOURCE_ROOT; };
+		FAEF85FD146D7DFC0019AD26 /* GHOST_Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Window.h; path = ../libs/ghost/include/GHOST_Window.h; sourceTree = SOURCE_ROOT; };
+		FAEF85FE146D7DFC0019AD26 /* GHOST_WindowNULL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_WindowNULL.h; path = ../libs/ghost/include/GHOST_WindowNULL.h; sourceTree = SOURCE_ROOT; };
+		FAEF85FF146D7DFC0019AD26 /* GHOST_WindowManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_WindowManager.h; path = ../libs/ghost/include/GHOST_WindowManager.h; sourceTree = SOURCE_ROOT; };
+		FAEF8600146D7DFC0019AD26 /* GHOST_Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Types.h; path = ../libs/ghost/include/GHOST_Types.h; sourceTree = SOURCE_ROOT; };
+		FAEF8601146D7DFC0019AD26 /* GHOST_TimerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_TimerTask.h; path = ../libs/ghost/include/GHOST_TimerTask.h; sourceTree = SOURCE_ROOT; };
+		FAEF8602146D7DFC0019AD26 /* GHOST_TimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_TimerManager.h; path = ../libs/ghost/include/GHOST_TimerManager.h; sourceTree = SOURCE_ROOT; };
+		FAEF8603146D7DFC0019AD26 /* GHOST_SystemPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_SystemPaths.h; path = ../libs/ghost/include/GHOST_SystemPaths.h; sourceTree = SOURCE_ROOT; };
+		FAEF8604146D7DFC0019AD26 /* GHOST_SystemNULL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_SystemNULL.h; path = ../libs/ghost/include/GHOST_SystemNULL.h; sourceTree = SOURCE_ROOT; };
+		FAEF8605146D7DFC0019AD26 /* GHOST_System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_System.h; path = ../libs/ghost/include/GHOST_System.h; sourceTree = SOURCE_ROOT; };
+		FAEF8606146D7DFC0019AD26 /* GHOST_Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Rect.h; path = ../libs/ghost/include/GHOST_Rect.h; sourceTree = SOURCE_ROOT; };
+		FAEF8607146D7DFC0019AD26 /* GHOST_Path-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GHOST_Path-api.h"; path = "../libs/ghost/include/GHOST_Path-api.h"; sourceTree = SOURCE_ROOT; };
+		FAEF8608146D7DFC0019AD26 /* GHOST_ModifierKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_ModifierKeys.h; path = ../libs/ghost/include/GHOST_ModifierKeys.h; sourceTree = SOURCE_ROOT; };
+		FAEF8609146D7DFC0019AD26 /* GHOST_ITimerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_ITimerTask.h; path = ../libs/ghost/include/GHOST_ITimerTask.h; sourceTree = SOURCE_ROOT; };
+		FAEF860A146D7DFC0019AD26 /* GHOST_ISystemPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_ISystemPaths.h; path = ../libs/ghost/include/GHOST_ISystemPaths.h; sourceTree = SOURCE_ROOT; };
+		FAEF860B146D7DFC0019AD26 /* GHOST_ISystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_ISystem.h; path = ../libs/ghost/include/GHOST_ISystem.h; sourceTree = SOURCE_ROOT; };
+		FAEF860C146D7DFC0019AD26 /* GHOST_IEventConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_IEventConsumer.h; path = ../libs/ghost/include/GHOST_IEventConsumer.h; sourceTree = SOURCE_ROOT; };
+		FAEF860D146D7DFC0019AD26 /* GHOST_IEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_IEvent.h; path = ../libs/ghost/include/GHOST_IEvent.h; sourceTree = SOURCE_ROOT; };
+		FAEF860E146D7DFC0019AD26 /* GHOST_EventWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventWheel.h; path = ../libs/ghost/include/GHOST_EventWheel.h; sourceTree = SOURCE_ROOT; };
+		FAEF860F146D7DFC0019AD26 /* GHOST_EventTrackpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventTrackpad.h; path = ../libs/ghost/include/GHOST_EventTrackpad.h; sourceTree = SOURCE_ROOT; };
+		FAEF8610146D7DFC0019AD26 /* GHOST_EventString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventString.h; path = ../libs/ghost/include/GHOST_EventString.h; sourceTree = SOURCE_ROOT; };
+		FAEF8611146D7DFC0019AD26 /* GHOST_EventPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventPrinter.h; path = ../libs/ghost/include/GHOST_EventPrinter.h; sourceTree = SOURCE_ROOT; };
+		FAEF8612146D7DFC0019AD26 /* GHOST_EventNDOF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventNDOF.h; path = ../libs/ghost/include/GHOST_EventNDOF.h; sourceTree = SOURCE_ROOT; };
+		FAEF8613146D7DFC0019AD26 /* GHOST_EventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventManager.h; path = ../libs/ghost/include/GHOST_EventManager.h; sourceTree = SOURCE_ROOT; };
+		FAEF8614146D7DFC0019AD26 /* GHOST_EventKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventKey.h; path = ../libs/ghost/include/GHOST_EventKey.h; sourceTree = SOURCE_ROOT; };
+		FAEF8615146D7DFC0019AD26 /* GHOST_EventDragnDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventDragnDrop.h; path = ../libs/ghost/include/GHOST_EventDragnDrop.h; sourceTree = SOURCE_ROOT; };
+		FAEF8616146D7DFC0019AD26 /* GHOST_EventCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventCursor.h; path = ../libs/ghost/include/GHOST_EventCursor.h; sourceTree = SOURCE_ROOT; };
+		FAEF8617146D7DFC0019AD26 /* GHOST_EventButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_EventButton.h; path = ../libs/ghost/include/GHOST_EventButton.h; sourceTree = SOURCE_ROOT; };
+		FAEF8618146D7DFC0019AD26 /* GHOST_Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Event.h; path = ../libs/ghost/include/GHOST_Event.h; sourceTree = SOURCE_ROOT; };
+		FAEF8619146D7DFC0019AD26 /* GHOST_DisplayManagerNULL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_DisplayManagerNULL.h; path = ../libs/ghost/include/GHOST_DisplayManagerNULL.h; sourceTree = SOURCE_ROOT; };
+		FAEF861A146D7DFC0019AD26 /* GHOST_DisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_DisplayManager.h; path = ../libs/ghost/include/GHOST_DisplayManager.h; sourceTree = SOURCE_ROOT; };
+		FAEF861B146D7DFC0019AD26 /* GHOST_Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Debug.h; path = ../libs/ghost/include/GHOST_Debug.h; sourceTree = SOURCE_ROOT; };
+		FAEF861C146D7DFC0019AD26 /* GHOST_CallbackEventConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_CallbackEventConsumer.h; path = ../libs/ghost/include/GHOST_CallbackEventConsumer.h; sourceTree = SOURCE_ROOT; };
+		FAEF861D146D7DFC0019AD26 /* GHOST_C-api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GHOST_C-api.h"; path = "../libs/ghost/include/GHOST_C-api.h"; sourceTree = SOURCE_ROOT; };
+		FAEF861E146D7DFC0019AD26 /* GHOST_Buttons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHOST_Buttons.h; path = ../libs/ghost/include/GHOST_Buttons.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,16 +183,42 @@
 		48D032E113AE3F4600FFC1C5 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				48D032E213AE3F4600FFC1C5 /* GHOST_C-api.h */,
-				48D032E313AE3F4600FFC1C5 /* GHOST_IEvent.h */,
-				48D032E413AE3F4600FFC1C5 /* GHOST_IEventConsumer.h */,
-				48D032E513AE3F4600FFC1C5 /* GHOST_ISystem.h */,
-				48D032E613AE3F4600FFC1C5 /* GHOST_ISystemPaths.h */,
-				48D032E713AE3F4600FFC1C5 /* GHOST_ITimerTask.h */,
-				48D032E813AE3F4600FFC1C5 /* GHOST_IWindow.h */,
-				48D032E913AE3F4600FFC1C5 /* GHOST_Path-api.h */,
-				48D032EA13AE3F4600FFC1C5 /* GHOST_Rect.h */,
-				48D032EB13AE3F4600FFC1C5 /* GHOST_Types.h */,
+				FAEF85FC146D7DFC0019AD26 /* GHOST_IWindow.h */,
+				FAEF85FD146D7DFC0019AD26 /* GHOST_Window.h */,
+				FAEF85FE146D7DFC0019AD26 /* GHOST_WindowNULL.h */,
+				FAEF85FF146D7DFC0019AD26 /* GHOST_WindowManager.h */,
+				FAEF8600146D7DFC0019AD26 /* GHOST_Types.h */,
+				FAEF8601146D7DFC0019AD26 /* GHOST_TimerTask.h */,
+				FAEF8602146D7DFC0019AD26 /* GHOST_TimerManager.h */,
+				FAEF8603146D7DFC0019AD26 /* GHOST_SystemPaths.h */,
+				FAEF8604146D7DFC0019AD26 /* GHOST_SystemNULL.h */,
+				FAEF8605146D7DFC0019AD26 /* GHOST_System.h */,
+				FAEF8606146D7DFC0019AD26 /* GHOST_Rect.h */,
+				FAEF8607146D7DFC0019AD26 /* GHOST_Path-api.h */,
+				FAEF8608146D7DFC0019AD26 /* GHOST_ModifierKeys.h */,
+				FAEF8609146D7DFC0019AD26 /* GHOST_ITimerTask.h */,
+				FAEF860A146D7DFC0019AD26 /* GHOST_ISystemPaths.h */,
+				FAEF860B146D7DFC0019AD26 /* GHOST_ISystem.h */,
+				FAEF860C146D7DFC0019AD26 /* GHOST_IEventConsumer.h */,
+				FAEF860D146D7DFC0019AD26 /* GHOST_IEvent.h */,
+				FAEF860E146D7DFC0019AD26 /* GHOST_EventWheel.h */,
+				FAEF860F146D7DFC0019AD26 /* GHOST_EventTrackpad.h */,
+				FAEF8610146D7DFC0019AD26 /* GHOST_EventString.h */,
+				FAEF8611146D7DFC0019AD26 /* GHOST_EventPrinter.h */,
+				FAEF8612146D7DFC0019AD26 /* GHOST_EventNDOF.h */,
+				FAEF8613146D7DFC0019AD26 /* GHOST_EventManager.h */,
+				FAEF8614146D7DFC0019AD26 /* GHOST_EventKey.h */,
+				FAEF8615146D7DFC0019AD26 /* GHOST_EventDragnDrop.h */,
+				FAEF8616146D7DFC0019AD26 /* GHOST_EventCursor.h */,
+				FAEF8617146D7DFC0019AD26 /* GHOST_EventButton.h */,
+				FAEF8618146D7DFC0019AD26 /* GHOST_Event.h */,
+				FAEF8619146D7DFC0019AD26 /* GHOST_DisplayManagerNULL.h */,
+				FAEF861A146D7DFC0019AD26 /* GHOST_DisplayManager.h */,
+				FAEF861B146D7DFC0019AD26 /* GHOST_Debug.h */,
+				FAEF861C146D7DFC0019AD26 /* GHOST_CallbackEventConsumer.h */,
+				FAEF861D146D7DFC0019AD26 /* GHOST_C-api.h */,
+				FAEF861E146D7DFC0019AD26 /* GHOST_Buttons.h */,
+				FAEF85F5146D7DDC0019AD26 /* Cocoa */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -176,6 +234,8 @@
 				FAB311C71434CCF60063589B /* ofxDisplayManager.cpp */,
 				FAB311CB1434CDA70063589B /* ofxDisplay.h */,
 				FAB311CC1434CDA70063589B /* ofxDisplay.cpp */,
+				FA6584D8146D60BC00D8A9AE /* ofxDisplayManagerMac.mm */,
+				FA658510146D641800D8A9AE /* ofxDisplayMac.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -278,6 +338,18 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		FAEF85F5146D7DDC0019AD26 /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				FAEF85F6146D7DDC0019AD26 /* GHOST_DisplayManagerCocoa.h */,
+				FAEF85F7146D7DDC0019AD26 /* GHOST_SystemCocoa.h */,
+				FAEF85F8146D7DDC0019AD26 /* GHOST_SystemPathsCocoa.h */,
+				FAEF85F9146D7DDC0019AD26 /* GHOST_WindowCocoa.h */,
+			);
+			name = Cocoa;
+			path = ../libs/ghost/include/Cocoa;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -367,6 +439,7 @@
 				48D0339913AE3F4600FFC1C5 /* ofxFensterManager.cpp in Sources */,
 				FAB311C81434CCF60063589B /* ofxDisplayManager.cpp in Sources */,
 				FAB311CD1434CDA70063589B /* ofxDisplay.cpp in Sources */,
+				FA6584D9146D60BC00D8A9AE /* ofxDisplayManagerMac.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

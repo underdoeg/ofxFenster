@@ -105,7 +105,7 @@ public:
 	) const;
 
 		GHOST_TSuccess
-	setWindowPosition(GHOST_TUns32 x, GHOST_TUns32 y);
+	setWindowPosition(GHOST_TInt32 x, GHOST_TInt32 y);
 
 		GHOST_TSuccess
 	setWindowBorder(bool hasBorder);

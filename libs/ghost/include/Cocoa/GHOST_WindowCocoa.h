@@ -129,7 +129,7 @@ public:
 	 * @param x The new X position of the window.
 	 * @param y The new Y position of the window.
 	 */
-	virtual	GHOST_TSuccess setWindowPosition(GHOST_TUns32 x, GHOST_TUns32 y);
+	virtual	GHOST_TSuccess setWindowPosition(GHOST_TInt32 x, GHOST_TInt32 y);
 
 	/**
 	 * sets window border.

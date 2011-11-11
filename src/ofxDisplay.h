@@ -19,6 +19,8 @@ public:
 	int id;
 	int width;
 	int height;
+	int x;
+	int y;
 protected:
 private:
 };
@@ -36,10 +38,9 @@ public:
 
 /***MAC***/
 
+
 #ifdef TARGET_OSX
-class ofxDisplayMac: public ofxDisplay{
-public:
-};
+//class ofxDisplayMac;
 #endif
 
 /***WINDOWS***/

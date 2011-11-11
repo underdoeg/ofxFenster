@@ -13,7 +13,7 @@ public:
 		img.loadImage("someImage.JPG");
 	}
 	void draw(){
-		cout << ofGetWidth() << endl;
+		//cout << ofGetWidth() << endl;
 		img.draw(0,0);
 	}
 	

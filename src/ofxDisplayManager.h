@@ -45,7 +45,7 @@ public:
 #ifdef TARGET_OSX
 class ofxDisplayManagerMac: public ofxDisplayManager{
 public:
-	//ofxDisplayList getDisplays();
+	ofxDisplayList getDisplays();
 };
 #endif
 

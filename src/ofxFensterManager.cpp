@@ -29,7 +29,7 @@ ofxFensterManagerPtr ofxFensterManager::singleton;
 static ofEventArgs voidEventArgs;
 
 ofxFensterManager::ofxFensterManager():
-exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0)
+exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0),hasActiveDisplay(false)
 {
 	timeNow				= 0;
 	timeThen			= 0;
@@ -122,8 +122,14 @@ void ofxFensterManager::initializeWindow()
 ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode)
 {
 	ofxFensterPtr f=ofxFensterPtr(new ofxFenster());
-	if(f->setupOpenGL(t, l, w, h, screenMode))
+	if(f->setupOpenGL(t, l, w, h, screenMode)){
 		fensters.push_back(f);
+#ifdef TARGET_OSX
+		if(hasActiveDisplay){
+			f->setWindowPosition(l + activeDisplay->x, t + activeDisplay->y);
+		}
+#endif
+	}
 	return f.get();
 }
 
@@ -528,11 +534,9 @@ void ofxFensterManager::setClipboard(char* data){
 }
 
 void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
-	activeDisplay = ofxDisplayPtr(display);
-#ifdef TARGET_LINUX //a lot of casting, but this should only get called on startup and has to be safe
+	activeDisplay = display;
+	hasActiveDisplay = true;
+#ifdef TARGET_LINUX //a lot of casting, but this should be type safe
 	((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(((ofxDisplayLinux*)display)->display);
-	//((GHOST_SystemX11*)GHOST_ISystem::getSystem())->setDisplay(XOpenDisplay(":0.2"));
 #endif
 }
-
-

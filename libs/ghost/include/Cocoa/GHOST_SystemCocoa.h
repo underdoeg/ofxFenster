@@ -49,7 +49,6 @@ class GHOST_EventKey;
 class GHOST_EventWindow;
 class GHOST_WindowCocoa;
 
-
 class GHOST_SystemCocoa : public GHOST_System {
 public:
     /**
@@ -219,6 +218,11 @@ public:
      * @return Indication whether the event was handled. 
      */
     GHOST_TSuccess handleApplicationBecomeActiveEvent();
+	
+	/**
+	 * Give the possibility to change the default NSScreen 
+	 **/
+	GHOST_TSuccess setScreen(GHOST_TInt32 id);
 
 	/**
 	 * External objects should call this when they send an event outside processEvents.
@@ -297,6 +301,9 @@ protected:
 	
 	/** Multitouch gesture in progress, useful to distinguish trackpad from mouse scroll events */
 	bool m_isGestureInProgress;
+	
+	/** id of current screen to use **/
+	GHOST_TUns32 m_screen_id;
 };
 
 #endif // _GHOST_SYSTEM_COCOA_H_

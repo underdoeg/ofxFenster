@@ -141,6 +141,10 @@ public:
 	 */
 	virtual	void getWindowBounds(GHOST_Rect& bounds) const;
 	
+	virtual GHOST_TSuccess setWindowPosition(GHOST_TInt32 x, GHOST_TInt32 y);
+	virtual	GHOST_TSuccess setWindowBorder(bool hasBorder);
+	
+	
 	/**
 	 * Returns the client rectangle dimensions.
 	 * The left and top members of the rectangle are always zero.

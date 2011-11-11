@@ -2,8 +2,6 @@
 
 //--------------------------------------------------------------
 void testApp::setup() {
-	//the pirmary listener can't yet be set by default, so even if you only have one window, you need to call this line
-	ofxFensterManager::get()->getPrimaryWindow()->addListener(this);
 
 	ofSetFrameRate(60);
 	ofBackground(0,0,0);
@@ -22,7 +20,7 @@ void testApp::setup() {
 	ofxFenster* win=ofxFensterManager::get()->createFenster(0, 0, display->width, display->height, OF_WINDOW);
 	win->addListener(this);
 	win->setBackgroundColor(ofRandom(255), ofRandom(255), ofRandom(255));
-	mousePos[win->id]=ofVec2f(0,0);
+	mousePos[win->id]=ofVec2f(0,0); 
 
 	if(displays.size()>2)
 		display = displays[2];
@@ -49,7 +47,6 @@ void testApp::update() {
 		//this only works partially in ubuntu 11.04
 		ofxFensterManager::get()->setIcon(icon.getPixelsRef());
 	}
-
 }
 
 //--------------------------------------------------------------
