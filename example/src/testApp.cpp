@@ -127,13 +127,13 @@ void testApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button)
 {
-
+	cout << "PRESSED" << endl;
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button)
 {
-
+	cout << "RELEASED" << endl;
 }
 
 //--------------------------------------------------------------
