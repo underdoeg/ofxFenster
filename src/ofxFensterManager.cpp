@@ -287,7 +287,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 		{
 			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
 			if(dragnDropData->dataType == GHOST_kDragnDropTypeFilenames){//TODO: STRING AND BITMAP IS ALSO SUPPORTED IN GHOST
-				static ofDragInfo info;
+				ofDragInfo info;
 				GHOST_TStringArray *strArray = (GHOST_TStringArray*)dragnDropData->data;
 				for (int i=0;i<strArray->count;i++){
 					const char* filename = (char*)strArray->strings[i];
