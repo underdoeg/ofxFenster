@@ -16,11 +16,11 @@ bool ofxDisplayManager::hasSingleton = false;
 ofxDisplayManager* ofxDisplayManager::singleton;
 
 ofxDisplayManager::ofxDisplayManager(){
-	
+
 };
 
 ofxDisplayManager::~ofxDisplayManager(){
-	
+
 };
 
 ofxDisplayList ofxDisplayManager::getDisplays()
@@ -44,7 +44,7 @@ ofxDisplayManager* ofxDisplayManager::get(){
 #endif
 
 #ifdef TARGET_WIN32
-		singleton = new ofxDisplayManager();
+		singleton = new ofxDisplayManagerWin();
 #endif
 		hasSingleton = true;
 	}
@@ -87,5 +87,66 @@ ofxDisplayList ofxDisplayManagerLinux::getDisplays()
 
 
 #ifdef TARGET_WIN32
-//TODO
+ofxDisplayList ofxDisplayManagerWin::getDisplays()
+{
+	//see: http://www.news2news.com/vfp/?example=374&ver=vcpp & http://stackoverflow.com/questions/181064/enumdisplaydevices-vs-wmi-win32-desktopmonitor-how-to-detect-active-monitors
+	// thias probably needs some finessing, but it's a start...
+
+	ofxDisplayList displays;
+    int numDisplayDevices = 0;
+
+    DISPLAY_DEVICE dd;
+    dd.cb = sizeof(DISPLAY_DEVICE);
+
+     while (EnumDisplayDevices(0, numDisplayDevices, &dd, 0)){
+        DISPLAY_DEVICE ddMon;
+        ZeroMemory(&ddMon, sizeof(ddMon));
+        ddMon.cb = sizeof(ddMon);
+        int numMonitors = 0;
+
+        while (EnumDisplayDevices(dd.DeviceName, numMonitors, &ddMon, 0)){
+            if (//ddMon.StateFlags & DISPLAY_DEVICE_ACTIVE && // this might be necessary on Win XP but is not for Vista/Win 7
+                !(ddMon.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER)){
+
+                    DEVMODE dm;
+                    dm.dmSize = sizeof(DEVMODE);
+
+                    if (!EnumDisplaySettings(dd.DeviceName, ENUM_CURRENT_SETTINGS, &dm)){
+                        ofLog(OF_LOG_VERBOSE, "EnumDisplaySettings failed:%d\n", GetLastError());
+                    } else {
+                        ofLog(OF_LOG_VERBOSE, "Device name: %s\n", dd.DeviceName);
+                        ofLog(OF_LOG_VERBOSE, "Monitor name: %s\n", ddMon.DeviceID);
+                        ofLog(OF_LOG_VERBOSE, "Refresh rate, in hertz: %d\n", dm.dmDisplayFrequency);
+                        ofLog(OF_LOG_VERBOSE, "Color depth: %d\n", dm.dmBitsPerPel);
+                        ofLog(OF_LOG_VERBOSE, "Screen position: %d x %d\n", dm.dmPosition.x, dm.dmPosition.y);
+                        ofLog(OF_LOG_VERBOSE, "Screen resolution, in pixels: %d x %d\n", dm.dmPelsWidth, dm.dmPelsHeight);
+
+                        ofxDisplayWindows* display = new ofxDisplayWindows();
+                        display->display = &dd;
+                        display->width =  dm.dmPelsWidth;
+                        display->height = dm.dmPelsHeight;
+                        display->x = dm.dmPosition.x;
+                        display->y = dm.dmPosition.y;
+                        display->id = numMonitors;//ofToInt(ddMon.DeviceID); // this is actually a unique ID but using int instead for now
+                        displays.push_back(display);
+                    }
+                ZeroMemory(&dm, sizeof(dm));
+
+            }
+            numMonitors++;
+
+            ZeroMemory(&ddMon, sizeof(ddMon));
+            ddMon.cb = sizeof(ddMon);
+        }
+
+        ZeroMemory(&dd, sizeof(dd));
+        dd.cb = sizeof(dd);
+        numDisplayDevices++;
+    }
+
+    return displays;
+
+};
+
+
 #endif
