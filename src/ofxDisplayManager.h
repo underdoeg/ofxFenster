@@ -19,12 +19,12 @@ class ofxDisplayManager{
 public:
 	ofxDisplayManager();
 	~ofxDisplayManager();
-	
+
 	static ofxDisplayManager* get();
 	virtual ofxDisplayList getDisplays();
 protected:
 private:
-	
+
 	static bool hasSingleton;
 	static ofxDisplayManager* singleton;
 };
@@ -52,10 +52,10 @@ public:
 /***WINDOWS***/
 
 #ifdef TARGET_WIN32
-//TODO
+#include <windows.h>
 class ofxDisplayManagerWin: public ofxDisplayManager{
 public:
-	//ofxDisplayList getDisplays();
+	ofxDisplayList getDisplays();
 };
 #endif
 
