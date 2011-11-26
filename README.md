@@ -26,6 +26,10 @@ SCREENS
 ======================
 ![Screen shot](/underdoeg/ofxFenster/raw/master/docs/screenshot.png)
 
+ACKNOWLEDGEMENTS
+======================
+Thanks to Pivotal Labs (http://pivotallabs.com).
+
 LICENCE
 ======================
 ofxFenster has an MIT Licence http://en.wikipedia.org/wiki/MIT_License
