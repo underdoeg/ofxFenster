@@ -1,0 +1,8 @@
+*~
+bin/*
+!bin/data/
+bin/libs/
+include/
+obj/
+*.layout
+build
