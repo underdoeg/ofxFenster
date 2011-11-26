@@ -3,13 +3,17 @@
 
 //--------------------------------------------------------------
 void testApp::setup() {
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    
     // setup a canvas comprised of three columns in two rows, with the
     // resolutions automatically detected from the displays.
     //canvas.setup(this, 3, 2);
-    // ... which is equivalent to:
-    //canvas.setup(this, 3, 2, 0, 0);
     // or, if you want to force the resolutions of the screens:
-    canvas.setup(this, 2, 1, 640, 480, false);
+    //canvas.setup(this, 2, 1, 640, 480);
+    // and, if you want to force the resolutions of the screens, and put them
+    // all on one display (eg. for testing):
+    ofxDisplay * display = ofxDisplayManager::get()->getDisplays().front();
+    canvas.setup(this, 2, 1, 640, 480, display);
     
     // set the backgrounds of all the screens
     list<Screen *>::iterator sit;

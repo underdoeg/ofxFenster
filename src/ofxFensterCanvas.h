@@ -22,8 +22,9 @@ public:
     int getHeight();
     ofPoint getCanvasPosition();
     
-    void setup(ofxFensterListener * listener, int _columns, int _rows, bool autoSetup=true);
-    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, bool autoSetup=true);
+    void setup(ofxFensterListener * listener, int _columns, int _rows);
+    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height);
+    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display);
     
     Screen * getActiveScreen();
     void setupPerspectiveForActiveScreen();
