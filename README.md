@@ -28,7 +28,10 @@ SCREENS
 
 ACKNOWLEDGEMENTS
 ======================
-Thanks to Pivotal Labs (http://pivotallabs.com).
+Thanks to 
+Videosynthesis (http://videosynthesis.net).
+Pivotal Labs (http://pivotallabs.com).
+
 
 LICENCE
 ======================
