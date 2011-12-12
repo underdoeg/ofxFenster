@@ -7,7 +7,7 @@ ofxFensterCanvas::ofxFensterCanvas(){
     rect.height = 0;
 }
 
-void ofxFensterCanvas::setScreenIndices(Screen * screen, int index){
+void ofxFensterCanvas::setScreenIndices(ofxScreen * screen, int index){
     screen->index.x = index % columns;
     screen->index.y = floor(index / columns);
 }
@@ -42,18 +42,18 @@ void ofxFensterCanvas::autoSetupScreensOnDisplays(ofxFensterListener * listener,
     
     ofxDisplayList::iterator dit;
     for(dit = displays.begin(); dit < displays.end(); dit++){
-        Screen * screen = setupScreenOnDisplay(listener, *dit, width, height);
+        ofxScreen * screen = setupScreenOnDisplay(listener, *dit, width, height);
     }
 }
 
 void ofxFensterCanvas::setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height){
     for(int i = 0; i < columns * rows; i++){
-        Screen * screen = setupScreenOnDisplay(listener, display, width, height);
+        ofxScreen * screen = setupScreenOnDisplay(listener, display, width, height);
     }
 }
 
-Screen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height){
-    Screen * screen = new Screen();
+ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height){
+    ofxScreen * screen = new ofxScreen();
     
     screen->display = display;
     ofxFensterManager::get()->setActiveDisplay(screen->display);
@@ -69,7 +69,7 @@ Screen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener, o
     screen->window->addListener(listener);
 
     // Insert the new screen into screens in the correct position
-    list<Screen *>::iterator sit;
+    list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
         if((*sit)->display->x > screen->display->x) {
             setScreenIndices(*sit, std::distance(screens.begin(), sit) + 1);
@@ -91,7 +91,7 @@ void ofxFensterCanvas::verifyAndLogScreenSetup(){
         ofExit();
     }
     
-    list<Screen *>::iterator sit;
+    list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
         // it's tacky to iterate again just for logging, but this is the only
         // way to ensure the log is accurate due to the sorting in the first
@@ -100,11 +100,11 @@ void ofxFensterCanvas::verifyAndLogScreenSetup(){
     }
 }
 
-Screen * ofxFensterCanvas::getActiveScreen(){
+ofxScreen * ofxFensterCanvas::getActiveScreen(){
     ofxFenster * win = ofxFensterManager::get()->getActiveWindow();
-    Screen * screen;
+    ofxScreen * screen;
     
-    list<Screen *>::iterator sit;
+    list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
         if((*sit)->window == win){
             screen = *sit;
@@ -116,7 +116,7 @@ Screen * ofxFensterCanvas::getActiveScreen(){
 }
 
 void ofxFensterCanvas::setupPerspectiveForActiveScreen(){
-    Screen * screen = getActiveScreen();
+    ofxScreen * screen = getActiveScreen();
     ofPoint size = screen->window->getWindowSize();
     
     float halfFovTan = tanf(PI * 60 / 360.0);

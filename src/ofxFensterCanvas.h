@@ -6,13 +6,13 @@
 typedef struct {
     int x;
     int y;
-} ScreenIndex;
+} ofxScreenIndex;
 
 typedef struct {
     ofxDisplay * display;
     ofxFenster * window;
-    ScreenIndex index;
-} Screen;
+    ofxScreenIndex index;
+} ofxScreen;
 
 class ofxFensterCanvas {
 public:
@@ -26,17 +26,17 @@ public:
     void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height);
     void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display);
     
-    Screen * getActiveScreen();
+    ofxScreen * getActiveScreen();
     void setupPerspectiveForActiveScreen();
     
-    list<Screen *> screens;
+    list<ofxScreen *> screens;
     
     int rows, columns;
 private:    
-    void setScreenIndices(Screen * screen, int index);
+    void setScreenIndices(ofxScreen * screen, int index);
     void autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height);
     void setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height);
-    Screen * setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height);
+    ofxScreen * setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height);
     void verifyAndLogScreenSetup();
     void setWidth(int w);
     void setHeight(int h);
