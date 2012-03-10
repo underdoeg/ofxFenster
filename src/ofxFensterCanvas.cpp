@@ -72,11 +72,9 @@ ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener
     list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
         if((*sit)->display->x > screen->display->x) {
-            setScreenIndices(*sit, std::distance(screens.begin(), sit) + 1);
             break;
         }
     }
-    setScreenIndices(screen, std::distance(screens.begin(), sit));
     
     setWidth(getWidth() + (screen->window->getWidth() / rows));
     setHeight(getHeight() + (screen->window->getHeight() / columns));
@@ -93,9 +91,8 @@ void ofxFensterCanvas::verifyAndLogScreenSetup(){
     
     list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
-        // it's tacky to iterate again just for logging, but this is the only
-        // way to ensure the log is accurate due to the sorting in the first
-        // iteration (above).
+        setScreenIndices(*sit, std::distance(screens.begin(), sit));
+        
         ofLogNotice() << "Set up display" << (*sit)->display->id << ": at" << (*sit)->index.x << "," << (*sit)->index.y << ", display" << (*sit)->display->width << "x" << (*sit)->display->height << ", window" << (*sit)->window->getWidth() << "x" << (*sit)->window->getHeight();
     }
 }
