@@ -12,23 +12,23 @@ void ofxFensterCanvas::setScreenIndices(ofxScreen * screen, int index){
     screen->index.y = floor(index / columns);
 }
 
-void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows){
-    setup(listener, _columns, _rows, 0, 0);
+void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows, ofWindowMode screenMode){
+    setup(listener, _columns, _rows, 0, 0, screenMode);
 }
 
-void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height){
-    setup(listener, _columns, _rows, width, height, NULL);
+void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofWindowMode screenMode){
+    setup(listener, _columns, _rows, width, height, NULL, screenMode);
 }
 
-void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display){
+void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display, ofWindowMode screenMode){
     columns = _columns, rows = _rows;
     
     ofxFenster * bootstrapWin = ofxFensterManager::get()->getActiveWindow();
     
     if(display){
-        setupScreensOnDisplay(listener, display, width, height);
+        setupScreensOnDisplay(listener, display, width, height, screenMode);
     } else {
-        autoSetupScreensOnDisplays(listener, width, height);
+        autoSetupScreensOnDisplays(listener, width, height, screenMode);
     }
         
     ofxFensterManager::get()->deleteFenster(bootstrapWin);
@@ -36,23 +36,23 @@ void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _r
     verifyAndLogScreenSetup();
 }
 
-void ofxFensterCanvas::autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height){
+void ofxFensterCanvas::autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height, ofWindowMode screenMode){
     ofxDisplayList displays = ofxDisplayManager::get()->getDisplays();
     ofLogNotice() << "Found" << displays.size() << "displays";
     
     ofxDisplayList::iterator dit;
     for(dit = displays.begin(); dit < displays.end(); dit++){
-        ofxScreen * screen = setupScreenOnDisplay(listener, *dit, width, height);
+        ofxScreen * screen = setupScreenOnDisplay(listener, *dit, width, height, screenMode);
     }
 }
 
-void ofxFensterCanvas::setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height){
+void ofxFensterCanvas::setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode){
     for(int i = 0; i < columns * rows; i++){
-        ofxScreen * screen = setupScreenOnDisplay(listener, display, width, height);
+        ofxScreen * screen = setupScreenOnDisplay(listener, display, width, height, screenMode);
     }
 }
 
-ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height){
+ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode){
     ofxScreen * screen = new ofxScreen();
     
     screen->display = display;
@@ -65,7 +65,7 @@ ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener
         w = screen->display->width, h = screen->display->height;
     }
     
-    screen->window = ofxFensterManager::get()->createFenster(0, 0, w, h, OF_WINDOW);
+    screen->window = ofxFensterManager::get()->createFenster(0, 0, w, h, screenMode);
     screen->window->addListener(listener);
 
     // Insert the new screen into screens in the correct position
