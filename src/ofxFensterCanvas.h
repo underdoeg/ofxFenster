@@ -37,7 +37,7 @@ private:
     void autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height, ofWindowMode screenMode);
     void setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode);
     ofxScreen * setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode);
-    void verifyAndLogScreenSetup();
+    void finalizeSetup();
     void setWidth(int w);
     void setHeight(int h);
 
