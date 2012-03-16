@@ -33,7 +33,7 @@ void ofxFensterCanvas::setup(ofxFensterListener * listener, int _columns, int _r
         
     ofxFensterManager::get()->deleteFenster(bootstrapWin);
     
-    verifyAndLogScreenSetup();
+    finalizeSetup();
 }
 
 void ofxFensterCanvas::autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height, ofWindowMode screenMode){
@@ -68,32 +68,36 @@ ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener
     screen->window = ofxFensterManager::get()->createFenster(0, 0, w, h, screenMode);
     screen->window->addListener(listener);
 
-    // Insert the new screen into screens in the correct position
-    list<ofxScreen *>::iterator sit;
-    for(sit = screens.begin(); sit != screens.end(); sit++){
-        if((*sit)->display->x > screen->display->x) {
-            break;
-        }
-    }
-    
+    screens.push_back(screen); // sorted later in finalizeSetup()
+
     setWidth(getWidth() + (screen->window->getWidth() / rows));
     setHeight(getHeight() + (screen->window->getHeight() / columns));
     
-    screens.insert(sit, screen);
     return screen;
 }
 
-void ofxFensterCanvas::verifyAndLogScreenSetup(){
+bool compareScreens(ofxScreen * screen1, ofxScreen * screen2){
+    int x1 = screen1->display->x;
+    int x2 = screen2->display->x;
+    int y1 = screen1->display->y;
+    int y2 = screen2->display->y;
+
+    return (y1 < y2) || (y1 == y2 && x1 < x2);
+}
+
+void ofxFensterCanvas::finalizeSetup(){
     if(columns * rows != screens.size()){
         ofLogError() << "Expected" << columns * rows << "screens, but found" << screens.size();
         ofExit();
     }
     
+    screens.sort(compareScreens);
+    
     list<ofxScreen *>::iterator sit;
     for(sit = screens.begin(); sit != screens.end(); sit++){
         setScreenIndices(*sit, std::distance(screens.begin(), sit));
         
-        ofLogNotice() << "Set up display" << (*sit)->display->id << ": at" << (*sit)->index.x << "," << (*sit)->index.y << ", display" << (*sit)->display->width << "x" << (*sit)->display->height << ", window" << (*sit)->window->getWidth() << "x" << (*sit)->window->getHeight();
+        ofLogNotice() << "Set up display" << (*sit)->display->id << ": at" << (*sit)->index.x << "," << (*sit)->index.y << "(" << (*sit)->display->x << "," << (*sit)->display->y << ")" << ", display" << (*sit)->display->width << "x" << (*sit)->display->height << ", window" << (*sit)->window->getWidth() << "x" << (*sit)->window->getHeight();
     }
 }
 
