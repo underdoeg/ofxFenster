@@ -21,11 +21,11 @@ ofxDisplayList ofxDisplayManagerMac::getDisplays(){
 		disp->width = frame.size.width;
 		disp->height = frame.size.height;
 		disp->x = frame.origin.x;
-		disp->y = frame.origin.y;
+		disp->y = -frame.origin.y;
 		disp->id = i;
 		displays.push_back(disp);
 		i++;
-		//cout << "FOUND A DISPPLAY " << disp->x << " " << disp->y << " " << disp->width << "x" << disp->height << endl;
+		//cout r()<< "FOUND A DISPPLAY " << disp->x << " " << disp->y << " " << disp->width << "x" << disp->height << endl;
 	}
 	
 	return displays;

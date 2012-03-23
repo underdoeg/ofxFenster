@@ -126,7 +126,7 @@ ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int scr
 		fensters.push_back(f);
 #ifdef TARGET_OSX
 		if(hasActiveDisplay){
-			f->setWindowPosition(l + activeDisplay->x, t + activeDisplay->y);
+			f->setWindowPosition(t + activeDisplay->x, l + activeDisplay->y);
 		}
 #endif
 	}
