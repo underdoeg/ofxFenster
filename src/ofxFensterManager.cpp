@@ -37,7 +37,7 @@ exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0),hasActi
 	frameRate			= 500.0;
 	bFrameRateSet		= 0;
 
-	ofAddListener(ofEvents.exit, this, &ofxFensterManager::onClose);
+	ofAddListener(ofEvents().exit, this, &ofxFensterManager::onClose);
 	GHOST_ISystem::createSystem();
 	ghostSystem=GHOST_ISystem::getSystem();
 	if(!ghostSystem)
@@ -108,8 +108,8 @@ void ofxFensterManager::update()
 	lastFrameTime	= diff;
 	timeThen		= timeNow;
 
-	ofNotifyEvent(ofEvents.update, voidEventArgs);
-	ofNotifyEvent(ofEvents.draw, voidEventArgs);
+	ofNotifyEvent(ofEvents().update, voidEventArgs);
+	ofNotifyEvent(ofEvents().draw, voidEventArgs);
 
 	nFrameCount++;
 }
