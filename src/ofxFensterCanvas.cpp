@@ -42,7 +42,16 @@ void ofxFensterCanvas::autoSetupScreensOnDisplays(ofxFensterListener * listener,
     
     ofxDisplayList::iterator dit;
     for(dit = displays.begin(); dit < displays.end(); dit++){
-        ofxScreen * screen = setupScreenOnDisplay(listener, *dit, width, height, screenMode);
+        setupScreenOnDisplay(listener, *dit, width, height, screenMode);
+    }
+}
+
+void ofxFensterCanvas::autoAdjust(ofxFensterListener * listener, int _columns, int _rows, ofWindowMode screenMode){
+    setWidth(0);
+    setHeight(0);
+    list<ofxScreen *>::iterator sit;
+    for(sit = screens.begin(); sit != screens.end(); sit++){
+        setScreenSizeAndPosition(listener, *sit, 0, 0, screenMode);
     }
 }
 
@@ -56,6 +65,16 @@ ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener
     ofxScreen * screen = new ofxScreen();
     
     screen->display = display;
+    screen->window = NULL;
+
+    screens.push_back(screen); // sorted later in finalizeSetup()
+
+    setScreenSizeAndPosition(listener, screen, width, height, screenMode);
+    
+    return screen;
+}
+
+ofxScreen * ofxFensterCanvas::setScreenSizeAndPosition(ofxFensterListener * listener, ofxScreen * screen, int width, int height, ofWindowMode screenMode){    
     ofxFensterManager::get()->setActiveDisplay(screen->display);
     
     int w, h;
@@ -65,16 +84,19 @@ ofxScreen * ofxFensterCanvas::setupScreenOnDisplay(ofxFensterListener * listener
         w = screen->display->width, h = screen->display->height;
     }
     
-    screen->window = ofxFensterManager::get()->createFenster(0, 0, w, h, screenMode);
-    screen->window->addListener(listener);
-
-    screens.push_back(screen); // sorted later in finalizeSetup()
-
+    if(screen->window){
+        screen->window->setWindowPosition(0 + screen->display->x, 0 + screen->display->y);
+        screen->window->setWindowShape(w, h);
+    } else {
+        screen->window = ofxFensterManager::get()->createFenster(0, 0, w, h, screenMode);
+        screen->window->addListener(listener);
+    }
     setWidth(getWidth() + (screen->window->getWidth() / rows));
     setHeight(getHeight() + (screen->window->getHeight() / columns));
     
     return screen;
 }
+
 
 bool compareScreens(ofxScreen * screen1, ofxScreen * screen2){
     int x1 = screen1->display->x;
