@@ -208,7 +208,7 @@ private:
 	ofPtr<ofBaseRenderer> renderer;
 	ofPoint mousePos;
 	ofPoint mouseLastPos;
-	static set<int> pressedMouseButtons;
+	set<int> pressedMouseButtons;
 
 	int width;
 	int height;
