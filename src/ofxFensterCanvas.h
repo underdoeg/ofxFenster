@@ -22,9 +22,10 @@ public:
     int getHeight();
     ofPoint getCanvasPosition();
     
-    void setup(ofxFensterListener * listener, int _columns, int _rows);
-    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height);
-    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display);
+    void setup(ofxFensterListener * listener, int _columns, int _rows, ofWindowMode screenMode=OF_WINDOW);
+    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofWindowMode screenMode=OF_WINDOW);
+    void setup(ofxFensterListener * listener, int _columns, int _rows, int width, int height, ofxDisplay * display, ofWindowMode screenMode=OF_WINDOW);
+    void autoAdjust(ofxFensterListener * listener, int _columns, int _rows, ofWindowMode screenMode=OF_WINDOW);
     
     ofxScreen * getActiveScreen();
     void setupPerspectiveForActiveScreen();
@@ -34,10 +35,11 @@ public:
     int rows, columns;
 private:    
     void setScreenIndices(ofxScreen * screen, int index);
-    void autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height);
-    void setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height);
-    ofxScreen * setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height);
-    void verifyAndLogScreenSetup();
+    void autoSetupScreensOnDisplays(ofxFensterListener * listener, int width, int height, ofWindowMode screenMode);
+    void setupScreensOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode);
+    ofxScreen * setupScreenOnDisplay(ofxFensterListener * listener, ofxDisplay * display, int width, int height, ofWindowMode screenMode);
+    ofxScreen * setScreenSizeAndPosition(ofxFensterListener * listener, ofxScreen * screen, int width, int height, ofWindowMode screenMode);
+    void finalizeSetup();
     void setWidth(int w);
     void setHeight(int h);
 
