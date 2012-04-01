@@ -9,6 +9,7 @@
 #include "ofAppBaseWindow.h"
 #include "ofBaseApp.h"
 #include "ofGLRenderer.h"
+#include <set>
 
 class GHOST_IWindow;
 
@@ -132,6 +133,10 @@ public:
 	void mouseReleased(int btn);
 	void fileDropped(ofDragInfo info);
 
+	bool getMousePressed(int button = -1);
+	int getMouseX();
+	int getMouseY();
+
 	void disableSetupScreen();
 	void enableSetupScreen();
 	int getFrameNum();
@@ -203,6 +208,8 @@ private:
 	ofPtr<ofBaseRenderer> renderer;
 	ofPoint mousePos;
 	ofPoint mouseLastPos;
+	static set<int> pressedMouseButtons;
+
 	int width;
 	int height;
 	ofPoint pos;

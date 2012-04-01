@@ -220,6 +220,9 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
+
+	pressedMouseButtons.insert(button);
+
 	ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
 	//ofNotifyMousePressed(x,y,button);
 	ofNotifyEvent(events.mousePressed, mouseEventArgs);
@@ -229,6 +232,7 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 		(*it)->mousePressed(x, y, button, this);
 		++it;
 	}
+
 }
 
 void ofxFenster::mouseReleased() {
@@ -240,6 +244,9 @@ void ofxFenster::mouseReleased(int x, int y, int button) {
 	mouseEventArgs.x = x;
 	mouseEventArgs.y = y;
 	mouseEventArgs.button = button;
+
+	pressedMouseButtons.erase(button);
+
 	ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
 	//ofNotifyMouseReleased(x,y,button);
 	ofNotifyEvent(events.mouseReleased, mouseEventArgs);
@@ -504,5 +511,21 @@ void ofxFenster::setDraggable(bool d) {
 
 void ofxFenster::setDragAndDrop(bool on) {
 	win->setAcceptDragOperation(on);
+}
+
+bool ofxFenster::getMousePressed(int button)
+{
+	if(button==-1) return pressedMouseButtons.size();
+	return pressedMouseButtons.find(button)!=pressedMouseButtons.end();
+}
+
+int ofxFenster::getMouseX()
+{
+	return mousePos.x;
+}
+
+int ofxFenster::getMouseY()
+{
+	return mousePos.y;
 }
 
