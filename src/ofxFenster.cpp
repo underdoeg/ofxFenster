@@ -28,8 +28,8 @@ ofxFenster::~ofxFenster() {
 void ofxFenster::destroy() {
 	if(isDestroyed)
 		return;
-	ofRemoveListener(ofEvents.update, this, &ofxFenster::update);
-	ofRemoveListener(ofEvents.draw, this, &ofxFenster::draw);
+	ofRemoveListener(ofEvents().update, this, &ofxFenster::update);
+	ofRemoveListener(ofEvents().draw, this, &ofxFenster::draw);
 	isDestroyed=true;
 	GHOST_ISystem::getSystem()->disposeWindow(win);
 }
@@ -80,11 +80,11 @@ int curX=0;
 void ofxFenster::setup() {
 	setActive();
 
-	ofAddListener(ofEvents.update, this, &ofxFenster::update);
-	ofAddListener(ofEvents.draw, this, &ofxFenster::draw);
+	ofAddListener(ofEvents().update, this, &ofxFenster::update);
+	ofAddListener(ofEvents().draw, this, &ofxFenster::draw);
 
 	ofxFensterListenerList::iterator it=listeners.begin();
-	ofNotifyEvent(ofEvents.setup, voidEventArgs);
+	ofNotifyEvent(ofEvents().setup, voidEventArgs);
 	ofNotifyEvent(events.setup, voidEventArgs);
 
 	while(it!=listeners.end()) {
@@ -152,7 +152,7 @@ void ofxFenster::keyPressed(int key) {
 	static ofKeyEventArgs keyEventArgs;
 	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
-	ofNotifyEvent(ofEvents.keyPressed, keyEventArgs);
+	ofNotifyEvent(ofEvents().keyPressed, keyEventArgs);
 	ofNotifyEvent(events.keyPressed, keyEventArgs);
 
 	while(it!=listeners.end()) {
@@ -165,7 +165,7 @@ void ofxFenster::keyReleased(int key) {
 	static ofKeyEventArgs keyEventArgs;
 	keyEventArgs.key = key;
 	ofxFensterListenerList::iterator it=listeners.begin();
-	ofNotifyEvent(ofEvents.keyReleased, keyEventArgs);
+	ofNotifyEvent(ofEvents().keyReleased, keyEventArgs);
 	ofNotifyEvent(events.keyReleased, keyEventArgs);
 
 	while(it!=listeners.end()) {
@@ -181,7 +181,7 @@ void ofxFenster::mouseMoved(int x, int y) {
 
 	mousePos.set(x, y);
 	updateListenersMousePos();
-	ofNotifyEvent(ofEvents.mouseMoved, mouseEventArgs);
+	ofNotifyEvent(ofEvents().mouseMoved, mouseEventArgs);
 	//ofNotifyMouseMoved(x,y);
 	ofNotifyEvent(events.mouseMoved, mouseEventArgs);
 
@@ -204,7 +204,7 @@ void ofxFenster::mouseDragged(int x, int y, int button) {
 	mousePos.set(x, y);
 
 	updateListenersMousePos();
-	ofNotifyEvent(ofEvents.mouseDragged, mouseEventArgs);
+	ofNotifyEvent(ofEvents().mouseDragged, mouseEventArgs);
 	//ofNotifyMouseDragged(x,y,button);
 	ofNotifyEvent(events.mouseDragged, mouseEventArgs);
 
@@ -223,7 +223,7 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 
 	pressedMouseButtons.insert(button);
 
-	ofNotifyEvent(ofEvents.mousePressed, mouseEventArgs);
+	ofNotifyEvent(ofEvents().mousePressed, mouseEventArgs);
 	//ofNotifyMousePressed(x,y,button);
 	ofNotifyEvent(events.mousePressed, mouseEventArgs);
 
@@ -232,7 +232,6 @@ void ofxFenster::mousePressed(int x, int y, int button) {
 		(*it)->mousePressed(x, y, button, this);
 		++it;
 	}
-
 }
 
 void ofxFenster::mouseReleased() {
@@ -247,7 +246,7 @@ void ofxFenster::mouseReleased(int x, int y, int button) {
 
 	pressedMouseButtons.erase(button);
 
-	ofNotifyEvent(ofEvents.mouseReleased, mouseEventArgs);
+	ofNotifyEvent(ofEvents().mouseReleased, mouseEventArgs);
 	//ofNotifyMouseReleased(x,y,button);
 	ofNotifyEvent(events.mouseReleased, mouseEventArgs);
 
