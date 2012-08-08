@@ -99,12 +99,21 @@ ofxScreen * ofxFensterCanvas::setScreenSizeAndPosition(ofxFensterListener * list
 
 
 bool compareScreens(ofxScreen * screen1, ofxScreen * screen2){
-    int x1 = screen1->display->x;
-    int x2 = screen2->display->x;
-    int y1 = screen1->display->y;
-    int y2 = screen2->display->y;
+    double x1 = screen1->display->x;
+    double x2 = screen2->display->x;
+    double y1 = screen1->display->y;
+    double y2 = screen2->display->y;
+    double h1 = screen1->display->height;
+    double h2 = screen2->display->height;
+    double w1 = screen1->display->width;
+    double w2 = screen2->display->width;
 
-    return (y1 < y2) || (y1 == y2 && x1 < x2);
+    int row1 = round(y1 / h1);
+    int row2 = round(y2 / h2);
+    int col1 = round(x1 / w1);
+    int col2 = round(x2 / w2);
+    
+    return row1 < row2 || (row1 == row2 && col1 < col2);
 }
 
 void ofxFensterCanvas::finalizeSetup(){
