@@ -36,14 +36,14 @@ exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0),hasActi
 	fps					= 60.0; //give a realistic starting value - win32 issues
 	frameRate			= 500.0;
 	bFrameRateSet		= 0;
-	
-	ofAddListener(ofEvents.exit, this, &ofxFensterManager::onClose);
+
+	ofAddListener(ofEvents().exit, this, &ofxFensterManager::onClose);
 	GHOST_ISystem::createSystem();
 	ghostSystem=GHOST_ISystem::getSystem();
 	if(!ghostSystem)
 		ofLog(OF_LOG_ERROR, "COULD NOT CREATE GHOST SYSTEM! \n\nhelp... o_O");
 	ghostSystem->addEventConsumer(this);
-	
+
 #ifdef TARGET_LINUX
 	setActiveDisplay(ofxDisplayManager::get()->getDisplays()[0]);
 #endif
@@ -80,7 +80,7 @@ void ofxFensterManager::update()
 {
 	ghostSystem->processEvents(false);
 	ghostSystem->dispatchEvents();
-	
+
 	if (nFrameCount != 0 && bFrameRateSet == true) {
 		diffMillis = ofGetElapsedTimeMillis() - prevMillis;
 		if (diffMillis > millisForFrame) {
@@ -94,10 +94,10 @@ void ofxFensterManager::update()
 #endif
 		}
 	}
-	
-	
+
+
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
-	
+
 	timeNow = ofGetElapsedTimef();
 	double diff = timeNow-timeThen;
 	if( diff  > 0.00001 ) {
@@ -107,16 +107,16 @@ void ofxFensterManager::update()
 	}
 	lastFrameTime	= diff;
 	timeThen		= timeNow;
-	
-	ofNotifyEvent(ofEvents.update, voidEventArgs);
-	ofNotifyEvent(ofEvents.draw, voidEventArgs);
-	
+
+	ofNotifyEvent(ofEvents().update, voidEventArgs);
+	ofNotifyEvent(ofEvents().draw, voidEventArgs);
+
 	nFrameCount++;
 }
 
 void ofxFensterManager::initializeWindow()
 {
-	
+
 }
 
 ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode)
@@ -126,7 +126,7 @@ ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int scr
 		fensters.push_back(f);
 #ifdef TARGET_OSX
 		if(hasActiveDisplay){
-			f->setWindowPosition(l + activeDisplay->x, t + activeDisplay->y);
+			f->setWindowPosition(t + activeDisplay->x, l + activeDisplay->y);
 		}
 #endif
 	}
@@ -165,12 +165,12 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 {
 	if(event->getType()==GHOST_kEventUnknown)
 		return false;
-	
+
 	GHOST_IWindow* window = event->getWindow();
 	bool handled = true;
-	
+
 	ofxFenster* win=getFensterByHandler(window);
-	
+
 	switch (event->getType())
 	{
 			//////////////////// MOUSE
@@ -179,10 +179,10 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
             GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
 			GHOST_TInt32 x,y;
 			window->screenToClient(bd->x, bd->y, x, y);
-			
+
 			ofPoint p(x, y);
 			p.y -= 1;
-			
+
             if(win->isButtonDown) {
                 win->mouseDragged(p.x, p.y, win->buttonDown);
             } else {
@@ -242,7 +242,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 			//GHOST_TInt32 x,y;
 			//window->screenToClient(rect.m_l, rect.m_t, x, y);
             win->windowMoved(rect.m_l, rect.m_t);
-			
+
             break;
         }
         case GHOST_kEventWindowUpdate:
@@ -287,7 +287,7 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 		{
 			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
 			if(dragnDropData->dataType == GHOST_kDragnDropTypeFilenames){//TODO: STRING AND BITMAP IS ALSO SUPPORTED IN GHOST
-				static ofDragInfo info;
+				ofDragInfo info;
 				GHOST_TStringArray *strArray = (GHOST_TStringArray*)dragnDropData->data;
 				for (int i=0;i<strArray->count;i++){
 					const char* filename = (char*)strArray->strings[i];
@@ -414,11 +414,11 @@ void ofxFensterManager::setFrameRate(float targetRate)
 		bFrameRateSet = false;
 		return;
 	}
-	
+
 	bFrameRateSet 			= true;
 	float durationOfFrame 	= 1.0f / (float)targetRate;
 	millisForFrame 			= (int)(1000.0f * durationOfFrame);
-	
+
 	frameRate				= targetRate;
 }
 
@@ -434,7 +434,7 @@ void ofxFensterManager::setOrientation(ofOrientation orientation)
 
 void ofxFensterManager::setWindowPosition(int x, int y)
 {
-	
+	activeWindow->setWindowPosition(x, y);
 }
 
 void ofxFensterManager::setWindowShape(int w, int h)
@@ -449,7 +449,7 @@ void ofxFensterManager::setWindowTitle(string title)
 
 void ofxFensterManager::showCursor()
 {
-	
+
 }
 
 void ofxFensterManager::toggleFullscreen()

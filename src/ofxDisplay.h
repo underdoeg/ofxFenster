@@ -46,7 +46,11 @@ public:
 /***WINDOWS***/
 
 #ifdef TARGET_WIN32
-//TODO
+
+class ofxDisplayWindows: public ofxDisplay{
+public:
+	DISPLAY_DEVICE* display;
+};
 #endif
 
 #endif
