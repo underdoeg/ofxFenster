@@ -1,3 +1,5 @@
+[UPDATE] I am currently working on an openframeworks branch that includes the functionality of ofxFenster in the OF core. It is not as advanced as ofxFenster yet but is already usable on mac & linux. Check it out here: https://github.com/underdoeg/openFrameworks/tree/multiwindow
+
 ABOUT
 ======================
 ofxFenster simplifies the cross platform handling of multiple windows within a single openframeworks app. 
@@ -25,6 +27,13 @@ FEATURES
 SCREENS
 ======================
 ![Screen shot](/underdoeg/ofxFenster/raw/master/docs/screenshot.png)
+
+ACKNOWLEDGEMENTS
+======================
+Thanks to 
+Videosynthesis (http://videosynthesis.net).
+Pivotal Labs (http://pivotallabs.com).
+
 
 LICENCE
 ======================
