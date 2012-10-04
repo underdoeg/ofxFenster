@@ -16,7 +16,7 @@ void testApp::setup() {
     canvas.setup(this, 2, 1, 640, 480, display);
     
     // set the backgrounds of all the screens
-    list<Screen *>::iterator sit;
+    list<ofxScreen *>::iterator sit;
     for(sit = canvas.screens.begin(); sit != canvas.screens.end(); sit++){
         (*sit)->window->setBackgroundColor(0, 255, 0);
     }
@@ -43,7 +43,7 @@ void testApp::draw() {
         ofCircle(0, canvas.getHeight(), radius);
         ofCircle(canvas.getWidth() / 2.0, canvas.getHeight() / 2.0, radius);
         
-        Screen * screen = canvas.getActiveScreen();
+        ofxScreen * screen = canvas.getActiveScreen();
         string index = ofToString(screen->index.x) + ", " + ofToString(screen->index.y);
         float x = (canvas.getWidth() / (canvas.columns * 2)) * (screen->index.x * 2 + 1);
         float y = (canvas.getHeight() / (canvas.rows * 2)) * (screen->index.y * 2 + 1);
