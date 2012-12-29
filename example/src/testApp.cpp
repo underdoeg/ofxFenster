@@ -90,7 +90,6 @@ void testApp::draw()
 //--------------------------------------------------------------
 void testApp::keyPressed(int key)
 {
-	
 }
 
 //--------------------------------------------------------------
@@ -102,7 +101,6 @@ void testApp::keyReleased(int key)
 		ofxFensterManager::get()->createFenster(0, 0, 400, 300, OF_WINDOW)->addListener(&imgWin);
 	if(key == 'c')
 		cout << "CLIPBOARD DATA: " << ofxFensterManager::get()->getClipboard() << endl;
-	cout << key << OF_KEY_RIGHT <<endl;
 }
 
 //this only works if testApp is extending ofxFensterListener and not ofBaseApp
