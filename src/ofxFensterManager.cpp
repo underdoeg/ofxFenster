@@ -11,12 +11,14 @@
 #include "GHOST_SystemX11.h"
 #endif
 
-void ofRunFensterApp(ofxFensterListener* app){
+void ofRunFensterApp(ofxFensterListener* app)
+{
 	ofxFensterManager::get()->getPrimaryWindow()->addListener(app);
 	ofRunApp(app);
 }
 
-void ofRunFensterApp(ofBaseApp* app){
+void ofRunFensterApp(ofBaseApp* app)
+{
 	ofxFensterToOfBaseApp* appWrapper = new ofxFensterToOfBaseApp(app);
 	ofRunFensterApp(appWrapper);
 }
@@ -29,13 +31,15 @@ ofxFensterManagerPtr ofxFensterManager::singleton;
 static ofEventArgs voidEventArgs;
 
 ofxFensterManager::ofxFensterManager():
-exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0),hasActiveDisplay(false)
+	exitOnEscape(true),endOnNextUpdate(false),running(false),antialiasing(0),hasActiveDisplay(false)
 {
 	timeNow				= 0;
 	timeThen			= 0;
 	fps					= 60.0; //give a realistic starting value - win32 issues
 	frameRate			= 500.0;
 	bFrameRateSet		= 0;
+
+	running = false;
 
 	ofAddListener(ofEvents().exit, this, &ofxFensterManager::onClose);
 	GHOST_ISystem::createSystem();
@@ -68,6 +72,8 @@ void ofxFensterManager::runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr)
 
 void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr)
 {
+	if(running)
+		return;
 	running=true;
 	baseApp=appPtr;
 	baseApp->setup();
@@ -95,7 +101,6 @@ void ofxFensterManager::update()
 		}
 	}
 
-
 	prevMillis = ofGetElapsedTimeMillis(); // you have to measure here
 
 	timeNow = ofGetElapsedTimef();
@@ -122,10 +127,10 @@ void ofxFensterManager::initializeWindow()
 ofxFenster* ofxFensterManager::createFenster(int t, int l, int w, int h, int screenMode)
 {
 	ofxFensterPtr f=ofxFensterPtr(new ofxFenster());
-	if(f->setupOpenGL(t, l, w, h, screenMode)){
+	if(f->setupOpenGL(t, l, w, h, screenMode)) {
 		fensters.push_back(f);
 #ifdef TARGET_OSX
-		if(hasActiveDisplay){
+		if(hasActiveDisplay) {
 			f->setWindowPosition(t + activeDisplay->x, l + activeDisplay->y);
 		}
 #endif
@@ -155,10 +160,26 @@ void ofxFensterManager::deleteFenster(ofxFenster* fenster)
 
 int handleKeyData(GHOST_TEventKeyData* data)
 {
+	int key = 0;
 	if(data->ascii!=0)
-		return data->ascii;
+		key = data->ascii;
 	else
-		return data->key;
+		key = data->key;
+	switch(key) {
+	case 267:
+		key = OF_KEY_LEFT;
+		break;
+	case 268:
+		key = OF_KEY_RIGHT;
+		break;
+	case 269:
+		key = OF_KEY_UP;
+		break;
+	case 270:
+		key = OF_KEY_DOWN;
+		break;
+	}
+	return key;
 }
 
 bool ofxFensterManager::processEvent(GHOST_IEvent* event)
@@ -171,133 +192,116 @@ bool ofxFensterManager::processEvent(GHOST_IEvent* event)
 
 	ofxFenster* win=getFensterByHandler(window);
 
-	switch (event->getType())
-	{
-			//////////////////// MOUSE
-        case GHOST_kEventCursorMove:
-        {
-            GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
-			GHOST_TInt32 x,y;
-			window->screenToClient(bd->x, bd->y, x, y);
+	switch (event->getType()) {
+		//////////////////// MOUSE
+	case GHOST_kEventCursorMove: {
+		GHOST_TEventCursorData* bd=(GHOST_TEventCursorData*)event->getData();
+		GHOST_TInt32 x,y;
+		window->screenToClient(bd->x, bd->y, x, y);
 
-			ofPoint p(x, y);
-			p.y -= 1;
+		ofPoint p(x, y);
+		p.y -= 1;
 
-            if(win->isButtonDown) {
-                win->mouseDragged(p.x, p.y, win->buttonDown);
-            } else {
-                win->mouseMoved(p.x, p.y);
-            }
-            break;
-        }
-        case GHOST_kEventWheel:
-        {
-            break;
-        }
-        case GHOST_kEventButtonDown:
-        {
-            GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-            win->isButtonDown=true;
-            win->buttonDown=bd->button;
-            win->mousePressed(bd->button);
-            break;
-        }
-        case GHOST_kEventButtonUp:
-        {
-            GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
-            win->isButtonDown=false;
-            win->mouseReleased(bd->button);
-            break;
-        }
-			////////////////// KEYBOARD
-        case GHOST_kEventKeyUp:
-        {
-            int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-            if(key==OF_KEY_ESC)
-                break;
-            win->keyReleased(key);
-            break;
-        }
-        case GHOST_kEventKeyDown:
-        {
-            int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
-            if(key==OF_KEY_ESC)
-                ofExit(0);
-            win->keyPressed(key);
-            break;
-        }
-			////////////////// WINDOW
-        case GHOST_kEventWindowSize:
-        {
-            GHOST_Rect rect;
-            window->getClientBounds(rect);
-            win->windowResized(rect.getWidth(), rect.getHeight());
-            break;
-        }
-        case GHOST_kEventWindowMove:
-        {
-            GHOST_Rect rect;
-            window->getWindowBounds(rect);
-			//cout << rect.m_t << endl;
-			//GHOST_TInt32 x,y;
-			//window->screenToClient(rect.m_l, rect.m_t, x, y);
-            win->windowMoved(rect.m_l, rect.m_t);
+		if(win->isButtonDown) {
+			win->mouseDragged(p.x, p.y, win->buttonDown);
+		} else {
+			win->mouseMoved(p.x, p.y);
+		}
+		break;
+	}
+	case GHOST_kEventWheel: {
+		break;
+	}
+	case GHOST_kEventButtonDown: {
+		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+		win->isButtonDown=true;
+		win->buttonDown=bd->button;
+		win->mousePressed(bd->button);
+		break;
+	}
+	case GHOST_kEventButtonUp: {
+		GHOST_TEventButtonData* bd=(GHOST_TEventButtonData*)event->getData();
+		win->isButtonDown=false;
+		win->mouseReleased(bd->button);
+		break;
+	}
+	////////////////// KEYBOARD
+	case GHOST_kEventKeyUp: {
+		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+		if(key==OF_KEY_ESC)
+			break;
+		win->keyReleased(key);
+		break;
+	}
+	case GHOST_kEventKeyDown: {
+		int key=handleKeyData((GHOST_TEventKeyData*) event->getData());
+		if(key==OF_KEY_ESC)
+			ofExit(0);
+		win->keyPressed(key);
+		break;
+	}
+	////////////////// WINDOW
+	case GHOST_kEventWindowSize: {
+		GHOST_Rect rect;
+		window->getClientBounds(rect);
+		win->windowResized(rect.getWidth(), rect.getHeight());
+		break;
+	}
+	case GHOST_kEventWindowMove: {
+		GHOST_Rect rect;
+		window->getWindowBounds(rect);
+		//cout << rect.m_t << endl;
+		//GHOST_TInt32 x,y;
+		//window->screenToClient(rect.m_l, rect.m_t, x, y);
+		win->windowMoved(rect.m_l, rect.m_t);
 
-            break;
-        }
-        case GHOST_kEventWindowUpdate:
-        {
-            win->draw();
-			window->swapBuffers();
-            break;
-        }
-        case GHOST_kEventWindowActivate:
-        {
-            break;
-        }
-        case GHOST_kEventWindowDeactivate:
-        {
-            break;
-        }
-        case GHOST_kEventWindowClose:
-        {
-            deleteFenster(win);
-            break;
-        }
-		//drag and drop
-		case GHOST_kEventDraggingEntered:
-		{
-			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
-			//needs to be handled, but of doesn't really provide anything out of the box
-			break;
-		}
-		case GHOST_kEventDraggingUpdated:
-		{
-			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
-			//needs to be handled, but of doesn't really provide anything out of the box
-			break;
-		}
-		case GHOST_kEventDraggingExited:
-		{
-			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
-			//needs to be handled, but of doesn't really provide anything out of the box
-			break;
-		}
-		case GHOST_kEventDraggingDropDone:
-		{
-			GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
-			if(dragnDropData->dataType == GHOST_kDragnDropTypeFilenames){//TODO: STRING AND BITMAP IS ALSO SUPPORTED IN GHOST
-				ofDragInfo info;
-				GHOST_TStringArray *strArray = (GHOST_TStringArray*)dragnDropData->data;
-				for (int i=0;i<strArray->count;i++){
-					const char* filename = (char*)strArray->strings[i];
-					info.files.push_back(filename);
-				}
-				info.position.set(dragnDropData->x, dragnDropData->y); //TODO check if drag'n'drop position is actually correct
-				win->fileDropped(info);
+		break;
+	}
+	case GHOST_kEventWindowUpdate: {
+		win->draw();
+		window->swapBuffers();
+		break;
+	}
+	case GHOST_kEventWindowActivate: {
+		break;
+	}
+	case GHOST_kEventWindowDeactivate: {
+		break;
+	}
+	case GHOST_kEventWindowClose: {
+		deleteFenster(win);
+		break;
+	}
+	//drag and drop
+	case GHOST_kEventDraggingEntered: {
+		GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+		//needs to be handled, but of doesn't really provide anything out of the box
+		break;
+	}
+	case GHOST_kEventDraggingUpdated: {
+		GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+		//needs to be handled, but of doesn't really provide anything out of the box
+		break;
+	}
+	case GHOST_kEventDraggingExited: {
+		GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+		//needs to be handled, but of doesn't really provide anything out of the box
+		break;
+	}
+	case GHOST_kEventDraggingDropDone: {
+		GHOST_TEventDragnDropData* dragnDropData = (GHOST_TEventDragnDropData*)((GHOST_IEvent*)event)->getData();
+		if(dragnDropData->dataType == GHOST_kDragnDropTypeFilenames) { //TODO: STRING AND BITMAP IS ALSO SUPPORTED IN GHOST
+			ofDragInfo info;
+			GHOST_TStringArray *strArray = (GHOST_TStringArray*)dragnDropData->data;
+			for (int i=0; i<strArray->count; i++) {
+				const char* filename = (char*)strArray->strings[i];
+				info.files.push_back(filename);
 			}
-			break;
+			info.position.set(dragnDropData->x, dragnDropData->y); //TODO check if drag'n'drop position is actually correct
+			win->fileDropped(info);
 		}
+		break;
+	}
 	}
 	return handled;
 }
@@ -493,7 +497,7 @@ ofxFenster* ofxFensterManager::getWindowById(int _id)
 
 ofxFenster* ofxFensterManager::getLastCreatedWindow()
 {
-    return fensters[fensters.size()-1].get();
+	return fensters[fensters.size()-1].get();
 }
 
 void ofxFensterManager::onClose(ofEventArgs &e)
@@ -520,15 +524,18 @@ void ofxFensterManager::setIcon(ofPixelsRef pixels)
 	}
 }
 
-unsigned char* ofxFensterManager::getClipboard(){
+unsigned char* ofxFensterManager::getClipboard()
+{
 	return ghostSystem->getClipboard(false);
 }
 
-void ofxFensterManager::setClipboard(char* data){
+void ofxFensterManager::setClipboard(char* data)
+{
 	ghostSystem->putClipboard(data, false);
 }
 
-void ofxFensterManager::setActiveDisplay(ofxDisplay* display){
+void ofxFensterManager::setActiveDisplay(ofxDisplay* display)
+{
 	if(hasActiveDisplay && activeDisplay->id == display->id)
 		return;
 	activeDisplay = display;

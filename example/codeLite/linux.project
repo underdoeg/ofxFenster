@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CodeLite_Project Name="linux" InternalType="">
+  <VirtualDirectory Name="include">
+    <VirtualDirectory Name="Cocoa">
+      <File Name="../../libs/ghost/include/Cocoa/GHOST_SystemPathsCocoa.h"/>
+      <File Name="../../libs/ghost/include/Cocoa/GHOST_DisplayManagerCocoa.h"/>
+      <File Name="../../libs/ghost/include/Cocoa/GHOST_SystemCocoa.h"/>
+      <File Name="../../libs/ghost/include/Cocoa/GHOST_WindowCocoa.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="X11">
+      <File Name="../../libs/ghost/include/X11/GHOST_SystemX11.h"/>
+      <File Name="../../libs/ghost/include/X11/GHOST_SystemPathsX11.h"/>
+      <File Name="../../libs/ghost/include/X11/GHOST_DisplayManagerX11.h"/>
+      <File Name="../../libs/ghost/include/X11/GHOST_WindowX11.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="WIN32">
+      <File Name="../../libs/ghost/include/WIN32/GHOST_DropTargetWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/pktdef.h"/>
+      <File Name="../../libs/ghost/include/WIN32/GHOST_DisplayManagerWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/GHOST_SystemWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/GHOST_TaskbarWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/GHOST_WindowWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/GHOST_SystemPathsWin32.h"/>
+      <File Name="../../libs/ghost/include/WIN32/wintab.h"/>
+    </VirtualDirectory>
+    <File Name="../../libs/ghost/include/GHOST_Debug.h"/>
+    <File Name="../../libs/ghost/include/GHOST_IWindow.h"/>
+    <File Name="../../libs/ghost/include/GHOST_System.h"/>
+    <File Name="../../libs/ghost/include/GHOST_DisplayManager.h"/>
+    <File Name="../../libs/ghost/include/GHOST_DisplayManagerNULL.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Types.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Rect.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventDragnDrop.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventTrackpad.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventButton.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Window.h"/>
+    <File Name="../../libs/ghost/include/GHOST_ISystemPaths.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventCursor.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventManager.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Buttons.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventNDOF.h"/>
+    <File Name="../../libs/ghost/include/GHOST_IEvent.h"/>
+    <File Name="../../libs/ghost/include/GHOST_TimerManager.h"/>
+    <File Name="../../libs/ghost/include/GHOST_SystemPaths.h"/>
+    <File Name="../../libs/ghost/include/GHOST_WindowNULL.h"/>
+    <File Name="../../libs/ghost/include/GHOST_CallbackEventConsumer.h"/>
+    <File Name="../../libs/ghost/include/GHOST_ISystem.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventWheel.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventPrinter.h"/>
+    <File Name="../../libs/ghost/include/GHOST_ITimerTask.h"/>
+    <File Name="../../libs/ghost/include/GHOST_TimerTask.h"/>
+    <File Name="../../libs/ghost/include/GHOST_WindowManager.h"/>
+    <File Name="../../libs/ghost/include/GHOST_SystemNULL.h"/>
+    <File Name="../../libs/ghost/include/GHOST_C-api.h"/>
+    <File Name="../../libs/ghost/include/GHOST_ModifierKeys.h"/>
+    <File Name="../../libs/ghost/include/GHOST_IEventConsumer.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Path-api.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventString.h"/>
+    <File Name="../../libs/ghost/include/GHOST_Event.h"/>
+    <File Name="../../libs/ghost/include/GHOST_EventKey.h"/>
+  </VirtualDirectory>
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00010001N0005Debug000000000000]]>
@@ -50,6 +109,7 @@
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[
       
+      
       ]]>
       </Environment>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
@@ -82,6 +142,7 @@
       <General OutputFile="" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[
+      
       
       ]]>
       </Environment>

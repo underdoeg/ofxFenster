@@ -1,72 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Session Name="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/example/codeLite/ofxFensterExample.workspace">
-  <int Value="10" Name="m_selectedTab"/>
-  <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/example/codeLite/ofxFensterExample.workspace" Name="m_workspaceName"/>
+<Session Name="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/example/codeLite/ofxFensterExample.workspace">
+  <int Value="1" Name="m_selectedTab"/>
+  <wxString Value="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/example/codeLite/ofxFensterExample.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxFenster.h" Name="FileName"/>
-      <int Value="178" Name="FirstVisibleLine"/>
-      <int Value="179" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/src/ofxFensterManager.cpp" Name="FileName"/>
+      <int Value="148" Name="FirstVisibleLine"/>
+      <int Value="175" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxFenster.cpp" Name="FileName"/>
-      <int Value="392" Name="FirstVisibleLine"/>
-      <int Value="393" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/example/src/testApp.cpp" Name="FileName"/>
+      <int Value="69" Name="FirstVisibleLine"/>
+      <int Value="104" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/example/src/testApp.cpp" Name="FileName"/>
-      <int Value="14" Name="FirstVisibleLine"/>
-      <int Value="15" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/example/src/main.cpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="12" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/example/src/testApp.h" Name="FileName"/>
-      <int Value="43" Name="FirstVisibleLine"/>
-      <int Value="41" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/addons/ofxFenster/src/ofxFensterManager.h" Name="FileName"/>
+      <int Value="148" Name="FirstVisibleLine"/>
+      <int Value="167" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxFensterManager.h" Name="FileName"/>
-      <int Value="72" Name="FirstVisibleLine"/>
-      <int Value="73" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxFensterManager.cpp" Name="FileName"/>
-      <int Value="18" Name="FirstVisibleLine"/>
-      <int Value="19" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxDisplayManager.h" Name="FileName"/>
-      <int Value="22" Name="FirstVisibleLine"/>
-      <int Value="23" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxDisplayManager.cpp" Name="FileName"/>
-      <int Value="64" Name="FirstVisibleLine"/>
-      <int Value="65" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxDisplay.h" Name="FileName"/>
-      <int Value="19" Name="FirstVisibleLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/libs/openFrameworks/app/ofAppRunner.h" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
       <int Value="20" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/addons/ofxFenster/src/ofxDisplay.cpp" Name="FileName"/>
-      <int Value="12" Name="FirstVisibleLine"/>
-      <int Value="13" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/libs/openFrameworks/app/ofAppRunner.cpp" Name="FileName"/>
+      <int Value="96" Name="FirstVisibleLine"/>
+      <int Value="120" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="/home/phwhitfield/programming/openFrameworks/libs/openFrameworks/events/ofEvents.cpp" Name="FileName"/>
-      <int Value="186" Name="FirstVisibleLine"/>
-      <int Value="187" Name="CurrentLine"/>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/libs/openFrameworks/events/ofEvents.h" Name="FileName"/>
+      <int Value="285" Name="FirstVisibleLine"/>
+      <int Value="320" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/home/phwhitfield/programming/openFrameworks-git/libs/openFrameworks/events/ofEvents.cpp" Name="FileName"/>
+      <int Value="63" Name="FirstVisibleLine"/>
+      <int Value="67" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
     </TabInfo>
   </TabInfoArray>
