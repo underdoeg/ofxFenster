@@ -153,11 +153,11 @@ void ofxFensterCanvas::setupPerspectiveForActiveScreen(){
     
     float halfFovTan = tanf(PI * 60 / 360.0);
     float baseDist = (getHeight() / 2) / halfFovTan;
-    float near = baseDist / 10.f;
-    float far = baseDist * 10.f;
+    float _near = baseDist / 10.f;
+    float _far = baseDist * 10.f;
     float aspect = (float) getWidth() / getHeight();
     
-    float wholeMaxY = near * halfFovTan;
+    float wholeMaxY = (float)_near * halfFovTan;
     float wholeMaxX = aspect * wholeMaxY;
     
     float width = (wholeMaxX / columns) * 2;
@@ -172,7 +172,7 @@ void ofxFensterCanvas::setupPerspectiveForActiveScreen(){
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(minX, maxX, minY, maxY, near / rows, far / rows);
+    glFrustum(minX, maxX, minY, maxY, _near / rows, _far / rows);
     
     glMatrixMode(GL_MODELVIEW);
     // FIXME: this doesn't work when the screens are different sizes
