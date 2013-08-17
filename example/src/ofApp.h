@@ -6,7 +6,8 @@
 class CustomWindow : public ofxFenster{
 public:
 	void draw(){
-		ofRect(0, 0, 100, 100);
+		ofSetColor(255, 0, 0);
+		ofRect(0, 0, 200, 200);
 	}
 };
 

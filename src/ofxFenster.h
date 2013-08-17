@@ -103,6 +103,8 @@ public:
 	
 	void			display(bool notifyDraw=false);
 	
+	virtual void draw(){};
+	
 private:
 	// callbacks
 	

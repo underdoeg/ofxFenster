@@ -170,18 +170,23 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode){
 		glfwWindowHint(GLFW_CLIENT_API,GLFW_OPENGL_ES_API);
 		#endif
 	}
-
+	
+	GLFWwindow* shared = NULL;
+	if(ofxFensterManager::get()->getMainWindow().get() != NULL){
+		shared = ofxFensterManager::get()->getMainWindow()->windowP;
+	}
+		
 	if(requestedMode==OF_GAME_MODE){
 		int count;
 		GLFWmonitor** monitors = glfwGetMonitors(&count);
 		if(count>0){
-			windowP = glfwCreateWindow(w, h, "", monitors[0], NULL);
+			windowP = glfwCreateWindow(w, h, "", monitors[0], shared);
 		}else{
 			ofLogError("ofxFenster") << "couldn't find any monitors";
 			return;
 		}
 	}else{
-		windowP = glfwCreateWindow(w, h, "", NULL, NULL);
+		windowP = glfwCreateWindow(w, h, "", NULL, shared);
 		if(!windowP){
 			ofLogError("ofxFenster") << "couldn't create GLFW window";
 		}
@@ -288,17 +293,15 @@ void ofxFenster::runAppViaInfiniteLoop(ofBaseApp * appPtr){
 //------------------------------------------------------------
 void ofxFenster::display(bool notifyDraw){
 	
-	//cout << windowP << endl;
+	glfwMakeContextCurrent(windowP);
 	
 	ofPtr<ofGLProgrammableRenderer> renderer = ofGetGLProgrammableRenderer();
 	if(renderer){
 		renderer->startRender();
 	}
-	
-	glfwMakeContextCurrent(windowP);
 
 	// set viewport, clear the screen
-	ofViewport();		// used to be glViewport( 0, 0, width, height );
+	ofViewport(0, 0, getWidth(), getHeight());		// used to be glViewport( 0, 0, width, height );
 	float * bgPtr = ofBgColorPtr();
 	bool bClearAuto = ofbClearBg();
 
@@ -319,6 +322,8 @@ void ofxFenster::display(bool notifyDraw){
 
 	if(notifyDraw)
 		ofNotifyDraw();
+		
+	draw();
 
 	#ifdef TARGET_WIN32
 	if (bClearAuto == false){
