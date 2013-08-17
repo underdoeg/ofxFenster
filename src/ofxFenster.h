@@ -1,222 +1,167 @@
-#ifndef OFXFENSTER_H
-#define OFXFENSTER_H
+#pragma once
 
-#define GHOST_COCOA
-#define FREE_WINDOWS
+#include "ofConstants.h"
 
-#include <GHOST_ITimerTask.h>
-#include <ofTypes.h>
+#define GLFW_INCLUDE_NONE
+
+#if (_MSC_VER)
+#include <GLFW/glfw3.h>
+#else
+#include "GLFW/glfw3.h"
+#endif
+
 #include "ofAppBaseWindow.h"
-#include "ofBaseApp.h"
-#include "ofGLRenderer.h"
-#include <set>
+#include "ofEvents.h"
+#include "ofPixels.h"
 
-class GHOST_IWindow;
+//class ofVec3f;
+class ofBaseApp;
 
-class ofxFenster;
+class ofxFenster : public ofAppBaseWindow {
 
-class eventGroup
-{
-public:
-	ofEvent<ofEventArgs> 		setup;
-	ofEvent<ofEventArgs> 		update;
-	ofEvent<ofEventArgs> 		draw;
-	ofEvent<ofEventArgs> 		exit;
-	ofEvent<ofResizeEventArgs> 	windowResized;
-
-	ofEvent<ofKeyEventArgs> 	keyPressed;
-	ofEvent<ofKeyEventArgs> 	keyReleased;
-
-	ofEvent<ofMouseEventArgs> 	mouseMoved;
-	ofEvent<ofMouseEventArgs> 	mouseDragged;
-	ofEvent<ofMouseEventArgs> 	mousePressed;
-	ofEvent<ofMouseEventArgs> 	mouseReleased;
-
-	ofEvent<ofTouchEventArgs>	touchDown;
-	ofEvent<ofTouchEventArgs>	touchUp;
-	ofEvent<ofTouchEventArgs>	touchMoved;
-	ofEvent<ofTouchEventArgs>	touchDoubleTap;
-	ofEvent<ofTouchEventArgs>	touchCancelled;
-
-	ofEvent<ofMessage>			messageEvent;
-	ofEvent<ofDragInfo>			fileDragEvent;
-};
-
-class ofxFensterListener: public ofBaseApp
-{
-public:
-	virtual void setup(ofxFenster* f) {
-		setup();
-	}
-	virtual void setup() {};
-	virtual void update(ofxFenster* f) {
-		update();
-	}
-	virtual void update() {};
-	virtual void draw(ofxFenster* f) {
-		draw();
-	}
-	virtual void draw() {};
-	virtual void keyPressed(int key, ofxFenster* f) {
-		keyPressed(key);
-	}
-
-	//KEY
-	virtual void keyPressed(int key) {};
-	virtual void keyReleased(int key, ofxFenster* f) {
-		keyReleased(key);
-	}
-	virtual void keyReleased(int key) {};
-
-	//WINDOW
-	virtual void windowMoved(int x, int y, ofxFenster* f) {
-		windowMoved(x, y);
-	}
-	virtual void windowMoved(int x, int y) {};
-
-	//MOUSE
-	virtual void mouseMoved(int x, int y, ofxFenster* f) {
-		mouseMoved(x, y);
-	}
-	virtual void mouseMoved(int x, int y) {};
-	virtual void mouseDragged(int x, int y, int button,  ofxFenster* f) {
-		mouseDragged(x, y, button);
-	}
-	virtual void mouseDragged(int x, int y, int button) {};
-	virtual void mousePressed(int x, int y, int btn, ofxFenster* f) {
-		mousePressed(x, y, btn);
-	}
-	virtual void mousePressed(int x, int y, int btn) {};
-	virtual void mouseReleased(int x, int y, int btn, ofxFenster* f) {
-		mouseReleased(x, y, btn);
-		mouseReleased();
-	}
-	virtual void mouseReleased(int x, int y, int btn) {}
-	virtual void mouseReleased() {};
-
-	virtual void dragEvent(ofDragInfo info){}
-	virtual void dragEvent(ofDragInfo info, ofxFenster* f){dragEvent(info);}
-
-	bool isUpdated;
-};
-
-typedef ofxFensterListener* ofxFensterListenerPtr;
-typedef std::vector< ofxFensterListenerPtr > ofxFensterListenerList;
-
-//class ofxFenster: public ofAppBaseWindow, public ofBaseApp {
-class ofxFenster
-{
+	GLFWwindow* windowP;
 
 public:
 
 	ofxFenster();
-	~ofxFenster();
+	~ofxFenster(){}
 
-	void dragEvent(ofDragInfo dragInfo);
 
-	void setup();
-	void update(ofEventArgs& e);
-	void update();
-	void draw(ofEventArgs& e);
-	void draw();
-	void windowResized(int w, int h);
-	void windowMoved(int x, int y);
+	// window settings, this functions can be called from main before calling ofSetupOpenGL
+	void 		setNumSamples(int samples);
+	void 		setDoubleBuffering(bool doubleBuff);
+	void 		setColorBits(int r, int g, int b);
+	void		setAlphaBits(int a);
+	void		setDepthBits(int depth);
+	void		setStencilBits(int stencil);
+	void		listVideoModes();
+	bool		isWindowIconified();
+	bool		isWindowActive();
+	bool		isWindowResizeable();
+	void		iconify(bool bIconify);
+    void        setMultiDisplayFullscreen(bool bMultiFullscreen); //note this just enables the mode, you have to toggle fullscreen to activate it.
 
-	void keyPressed(int key);
-	void keyReleased(int key);
-	void mouseDragged(int x, int y, int button);
-	void mouseMoved(int x, int y);
-	void mousePressed(int x, int y, int button);
-	void mousePressed(int button);
-	void mouseReleased();
-	void mouseReleased(int x, int y, int button);
-	void mouseReleased(int btn);
-	void fileDropped(ofDragInfo info);
 
-	bool getMousePressed(int button = -1);
-	int getMouseX();
-	int getMouseY();
-
-	void disableSetupScreen();
-	void enableSetupScreen();
-	int getFrameNum();
-	float getFrameRate();
-	int getHeight();
-	double getLastFrameTime();
-	ofOrientation getOrientation();
-	ofPoint getScreenSize();
-	int getWidth();
-	int getWindowMode();
-	ofPoint getWindowPosition();
-	ofPoint getWindowSize();
-	void hideCursor();
+    // this functions are only meant to be called from inside OF don't call them from your code
+	void setOpenGLVersion(int major, int minor);
+	void setupOpenGL(int w, int h, int screenMode);
 	void initializeWindow();
-	void runAppViaInfiniteLoop(ofPtr<ofBaseApp> appPtr);
-	void setFrameRate(float targetRate);
-	void setFullscreen(bool fullscreen);
-	void setOrientation(ofOrientation orientation);
+	void runAppViaInfiniteLoop(ofBaseApp * appPtr);
+
+
+	void hideCursor();
+	void showCursor();
+
+	int getHeight();
+	int getWidth();
+
+	ofVec3f		getWindowSize();
+	ofVec3f		getScreenSize();
+	ofVec3f 	getWindowPosition();
+
+	void setWindowTitle(string title);
 	void setWindowPosition(int x, int y);
 	void setWindowShape(int w, int h);
-	void setWindowTitle(string title);
-	void move(int x, int y);
-	string getWindowTitle();
-	bool setupOpenGL(int l, int t, int w, int h, int screenMode);
-	void showCursor();
-	void toggleFullscreen();
-	void activateDrawingContext();
-	void destroy();
 
-	void setBackgroundColor(int gray, int alpha=255);
-	void setBackgroundColor(int r, int g, int b, int a=255);
-	void setBackgroundColor(ofColor color);
-	void setBackgroundClearAuto(bool bgAuto);
+	void			setOrientation(ofOrientation orientation);
+	ofOrientation	getOrientation();
 
-	void setBorder(bool border);
-	void setDraggable(bool draggable);
+	int			getWindowMode();
 
-	void setIcon(ofPixelsRef pixels);
-	void setCursor(ofPixelsRef pixels, int hotX = 0, int hotY = 0);
+	void		setFullscreen(bool fullscreen);
+	void		toggleFullscreen();
 
-	void setActive();
+	void		enableSetupScreen();
+	void		disableSetupScreen();
 
-	GHOST_IWindow* getWindow();
+	void		setVerticalSync(bool bSync);
 
-	void addListener(ofxFensterListener* listener);
-	void addListener(ofBaseApp* app);
-	void onTimer(GHOST_ITimerTask* task, GHOST_TUns64 time);
+#if defined(TARGET_LINUX) && !defined(TARGET_RASPBERRY_PI)
+	Display* 	getX11Display();
+	Window  	getX11Window();
+#endif
 
-	void setDragAndDrop(bool on);
+#if defined(TARGET_LINUX) && !defined(TARGET_OPENGLES)
+	GLXContext 	getGLXContext();
+#endif
 
-	bool isButtonDown;
-	int buttonDown;
-	int id;
+#if defined(TARGET_LINUX) && defined(TARGET_OPENGLES)
+	EGLDisplay 	getEGLDisplay();
+	EGLContext 	getEGLContext();
+	EGLSurface 	getEGLSurface();
+#endif
 
-	/* available events, not all mapped yet */
-	eventGroup events;
+#if defined(TARGET_OSX)
+	void *		getNSGLContext();
+	void *		getCocoaWindow();
+#endif
 
-private:
-	void updateListenersMousePos();
+#if defined(TARGET_WIN32)
+	HGLRC 		getWGLContext();
+	HWND 		getWin32Window();
+#endif
 	
-	string windowTitle;
-	bool isDestroyed;
-	int framesElapsed;
-	ofxFensterListenerList listeners;
-	bool isFullscreen;
-	int frameNum;
-	GHOST_IWindow* win;
-	GHOST_ITimerTask* timer;
-	ofPtr<ofBaseRenderer> renderer;
-	ofPoint mousePos;
-	ofPoint mouseLastPos;
-	set<int> pressedMouseButtons;
+	void			display(bool notifyDraw=false);
+	
+private:
+	// callbacks
+	
 
-	int width;
-	int height;
-	ofPoint pos;
-	ofColor bgColor;
-	bool bClearAuto;
-	bool hasBorder;
-	bool isDraggable;
+	static void 	mouse_cb(GLFWwindow* windowP_, int button, int state, int mods);
+	static void 	motion_cb(GLFWwindow* windowP_, double x, double y);
+	static void 	keyboard_cb(GLFWwindow* windowP_, int key, int scancode, int action, int mods);
+	static void 	resize_cb(GLFWwindow* windowP_, int w, int h);
+	static void 	exit_cb(GLFWwindow* windowP_);
+	static void		scroll_cb(GLFWwindow* windowP_, double x, double y);
+	static void 	drop_cb(GLFWwindow* windowP_, const char* dropString);
+	static void 	exitApp();
+
+#ifdef TARGET_LINUX
+	void setWindowIcon(const string & path);
+	void setWindowIcon(const ofPixels & iconPixels);
+#endif
+
+	//utils
+	int				samples;
+	int				rBits,gBits,bBits,aBits,depthBits,stencilBits;
+
+	int				windowMode;
+
+	bool			bEnableSetupScreen;
+
+	int				requestedWidth;
+	int				requestedHeight;
+
+	int 			nonFullScreenW;
+	int 			nonFullScreenH;
+	int 			nonFullScreenX;
+	int 			nonFullScreenY;
+
+	int				buttonInUse;
+	bool			buttonPressed;
+
+	int				windowW;
+	int				windowH;
+
+	int 			nFramesSinceWindowResized;
+	bool			bDoubleBuffered;
+    bool            bMultiWindowFullscreen; 
+    
+	int				getCurrentMonitor();
+	
+	//static ofAppGLFWWindow	* instance;
+	//static ofBaseApp *	ofAppPtr;
+
+	ofOrientation orientation;
+
+	int glVersionMinor, glVersionMajor;
+
+	bool iconSet;
+
+    #ifdef TARGET_WIN32
+    LONG lExStyle, lStyle;
+    #endif // TARGET_WIN32
 };
 
-#endif // OFXFENSTER_H
+
+//#endif

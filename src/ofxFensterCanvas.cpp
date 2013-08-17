@@ -1,5 +1,7 @@
 #include "ofxFensterCanvas.h"
 
+/*
+
 ofxFensterCanvas::ofxFensterCanvas(){
     rect.x = 0;
     rect.y = 0;
@@ -196,3 +198,5 @@ void ofxFensterCanvas::setHeight(int h){
 ofPoint ofxFensterCanvas::getCanvasPosition(){
     return ofPoint(rect.x, rect.y);
 }
+
+*/

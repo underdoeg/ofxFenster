@@ -1,5 +1,7 @@
 #pragma once
 
+/*
+
 #include "ofMain.h"
 #include "ofxFensterManager.h"
 
@@ -45,3 +47,5 @@ private:
 
     ofRectangle rect;
 };
+
+*/
