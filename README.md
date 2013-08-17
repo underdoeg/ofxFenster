@@ -1,4 +1,6 @@
-[UPDATE] I am currently working on an openframeworks branch that includes the functionality of ofxFenster in the OF core. It is not as advanced as ofxFenster yet but is already usable on mac & linux. Check it out here: https://github.com/underdoeg/openFrameworks/tree/multiwindow
+REDESIGN
+======================
+I am currently in the process of redesigning ofxFenster so it will use the now integrated GLFW libs. This is not complete yet. If you are looking for the old ghost version, check the ghost branch.
 
 ABOUT
 ======================
