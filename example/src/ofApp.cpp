@@ -2,9 +2,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetFrameRate(60);
+	ofSetWindowPosition(0, 0);
 	ofSetWindowTitle("MAIN WINDOW");
-	ofxFensterManager::get()->setupWindow(&window, 800, 600);
-	window.setWindowTitle("WINDOW 2");
+	ofxFensterManager::get()->setupWindow(&window);
 }
 
 //--------------------------------------------------------------
@@ -14,7 +15,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofRect(10, 10, 200, 200);
+	ofBackground(30, 0, 0);
+	ofSetColor(255);
+	ofDrawBitmapString("I am the regular OF window\n\nOver there is another one -->", 10, 30);
 }
 
 //--------------------------------------------------------------

@@ -13,12 +13,12 @@
 #include "ofAppBaseWindow.h"
 #include "ofEvents.h"
 #include "ofPixels.h"
+#include "ofBaseApp.h"
 
 //class ofVec3f;
-class ofBaseApp;
 class ofxFensterManager;
 
-class ofxFenster : public ofAppBaseWindow {
+class ofxFenster : public ofAppBaseWindow, public ofBaseApp {
 	
 	GLFWwindow* windowP;
 
@@ -76,7 +76,9 @@ public:
 	void		disableSetupScreen();
 
 	void		setVerticalSync(bool bSync);
-
+	
+	void 		addListener(ofBaseApp* baseApp);
+	
 #if defined(TARGET_LINUX) && !defined(TARGET_RASPBERRY_PI)
 	Display* 	getX11Display();
 	Window  	getX11Window();
@@ -106,7 +108,26 @@ public:
 	
 	GLFWwindow* getGlfwPtr();
 	
-	virtual void draw(){};
+	
+	//events
+	ofEvent<ofEventArgs> onSetup;
+	ofEvent<ofEventArgs> onUpdate;
+	ofEvent<ofEventArgs> onDraw;
+	ofEvent<ofEventArgs> onExit;
+	
+	ofEvent<ofResizeEventArgs> onWindowResize;
+	
+	ofEvent<ofKeyEventArgs> onKeyPressed;
+	ofEvent<ofKeyEventArgs> onKeyReleased;
+	
+	ofEvent<ofMouseEventArgs> onMouseMoved;
+	ofEvent<ofMouseEventArgs> onMouseDragged;
+	ofEvent<ofMouseEventArgs> onMousePressed;
+	ofEvent<ofMouseEventArgs> onMouseReleased;
+	
+	ofEvent<ofEntryEventArgs> onWindowEntry;
+	
+	ofEvent<ofDragInfo> onDrag;
 	
 private:
 	// callbacks
@@ -144,6 +165,9 @@ private:
 
 	int				buttonInUse;
 	bool			buttonPressed;
+	
+	int 			curMouseX;
+	int 			curMouseY;
 
 	int				windowW;
 	int				windowH;

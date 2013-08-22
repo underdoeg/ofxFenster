@@ -5,10 +5,38 @@
 
 class CustomWindow : public ofxFenster{
 public:
-	void draw(){
-		ofSetColor(255, 0, 0);
-		ofRect(0, 0, 200, 200);
+	void setup(){
+		setWindowShape(1280, 720);
+		setWindowPosition(310, 0);
+		setWindowTitle("SECOND WINDOW");
 	}
+
+	void update(){
+		radius = sin(ofGetFrameNum()*.06)*100;
+	}
+
+	void draw(){
+		ofBackground(0);
+		
+		ofNoFill();
+		
+		ofSetColor(100);
+		ofLine(mouseX, 0, mouseX, getHeight());
+		ofLine(0, mouseY, getWidth(), mouseY);
+		
+		ofSetColor(255);
+		ofCircle(getWidth()*.5, getHeight()*.5, radius);
+	}
+	
+	void keyPressed(int key){
+		cout << "KEY PRESSED " << (char)key << endl;
+	}
+	
+	void keyReleased(int key){
+		cout << "KEY RELEASED " << (char)key << endl;
+	}
+	
+	float radius;
 };
 
 class ofApp : public ofBaseApp{

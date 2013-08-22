@@ -78,9 +78,31 @@ ofxFenster::ofxFenster():ofAppBaseWindow(){
     //default to 4 times antialiasing. 
     setNumSamples(4);
 	iconSet = false;
-
+	
+	addListener(this);
 }
 
+void ofxFenster::addListener(ofBaseApp* baseApp)
+{
+	ofAddListener(onSetup, baseApp, &ofBaseApp::setup);
+	ofAddListener(onUpdate, baseApp, &ofBaseApp::update);
+	ofAddListener(onDraw, baseApp, &ofBaseApp::draw);
+	ofAddListener(onExit, baseApp, &ofBaseApp::exit);
+	
+	ofAddListener(onWindowResize, baseApp, &ofBaseApp::windowResized);
+	
+	ofAddListener(onKeyPressed, baseApp, &ofBaseApp::keyPressed);
+	ofAddListener(onKeyReleased, baseApp, &ofBaseApp::keyReleased);
+	
+	ofAddListener(onMouseMoved, baseApp, &ofBaseApp::mouseMoved);
+	ofAddListener(onMouseDragged, baseApp, &ofBaseApp::mouseDragged);
+	ofAddListener(onMouseReleased, baseApp, &ofBaseApp::mouseReleased);
+	ofAddListener(onMousePressed, baseApp, &ofBaseApp::mousePressed);
+	
+	ofAddListener(onWindowEntry, baseApp, &ofBaseApp::windowEntry);
+
+	ofAddListener(onDrag, baseApp, &ofBaseApp::dragged);
+}
 
 //------------------------------------------------------------
 void ofxFenster::setNumSamples(int _samples){
@@ -295,6 +317,9 @@ void ofxFenster::display(bool notifyDraw){
 	
 	glfwMakeContextCurrent(windowP);
 
+	ofEventArgs args;
+	ofNotifyEvent(onUpdate, args);
+
 	ofPtr<ofGLProgrammableRenderer> renderer = ofGetGLProgrammableRenderer();
 	if(renderer){
 		renderer->startRender();
@@ -302,7 +327,8 @@ void ofxFenster::display(bool notifyDraw){
 	
 	//ofPushView();
 	
-	glViewport(0, 0, getWidth(), getHeight());
+	//TODO: use ofViewport
+	glViewport(0, 0, getWidth() , getHeight());
 	//cout << getHeight() << endl;
 	
 	float * bgPtr = ofBgColorPtr();
@@ -326,8 +352,9 @@ void ofxFenster::display(bool notifyDraw){
 
 	if(notifyDraw)
 		ofNotifyDraw();
-		
-	draw();
+	
+	
+	ofNotifyEvent(onDraw, args);
 
 	#ifdef TARGET_WIN32
 	if (bClearAuto == false){
