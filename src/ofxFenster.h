@@ -16,9 +16,10 @@
 
 //class ofVec3f;
 class ofBaseApp;
+class ofxFensterManager;
 
 class ofxFenster : public ofAppBaseWindow {
-
+	
 	GLFWwindow* windowP;
 
 public:
@@ -103,6 +104,8 @@ public:
 	
 	void			display(bool notifyDraw=false);
 	
+	GLFWwindow* getGlfwPtr();
+	
 	virtual void draw(){};
 	
 private:
@@ -163,6 +166,8 @@ private:
     #ifdef TARGET_WIN32
     LONG lExStyle, lStyle;
     #endif // TARGET_WIN32
+	
+	friend class ofxFensterManager;
 };
 
 

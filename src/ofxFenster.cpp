@@ -245,13 +245,13 @@ void ofxFenster::initializeWindow(){
 	 //----------------------
 	 // setup the callbacks
 	
-	glfwSetMouseButtonCallback(windowP, mouse_cb);
-	glfwSetCursorPosCallback(windowP, motion_cb);
-	glfwSetKeyCallback(windowP, keyboard_cb);
-	glfwSetWindowSizeCallback(windowP, resize_cb);
-	glfwSetWindowCloseCallback(windowP, exit_cb);
-	glfwSetScrollCallback(windowP, scroll_cb);
-	glfwSetDropCallback(windowP, drop_cb);
+	glfwSetMouseButtonCallback(windowP, ofxFensterManager::mouse_cb);
+	glfwSetCursorPosCallback(windowP, ofxFensterManager::motion_cb);
+	glfwSetKeyCallback(windowP, ofxFensterManager::keyboard_cb);
+	glfwSetWindowSizeCallback(windowP, ofxFensterManager::resize_cb);
+	glfwSetWindowCloseCallback(windowP, ofxFensterManager::exit_cb);
+	glfwSetScrollCallback(windowP, ofxFensterManager::scroll_cb);
+	glfwSetDropCallback(windowP, ofxFensterManager::drop_cb);
 
 }
 
@@ -299,9 +299,12 @@ void ofxFenster::display(bool notifyDraw){
 	if(renderer){
 		renderer->startRender();
 	}
-
-	// set viewport, clear the screen
-	ofViewport(0, 0, getWidth(), getHeight());		// used to be glViewport( 0, 0, width, height );
+	
+	ofPushView();
+	
+	ofViewport(0, 0, getWidth(), getHeight());
+	cout << getWidth() << endl;
+	
 	float * bgPtr = ofBgColorPtr();
 	bool bClearAuto = ofbClearBg();
 
@@ -318,7 +321,8 @@ void ofxFenster::display(bool notifyDraw){
 		ofClear(bgPtr[0]*255,bgPtr[1]*255,bgPtr[2]*255, bgPtr[3]*255);
 	}
 
-	if( bEnableSetupScreen )ofSetupScreen();
+	if( bEnableSetupScreen )
+		ofSetupScreen();
 
 	if(notifyDraw)
 		ofNotifyDraw();
@@ -362,6 +366,7 @@ void ofxFenster::display(bool notifyDraw){
 	
 	nFramesSinceWindowResized++;
 	
+	ofPopView();
 }
 
 //------------------------------------------------------------
@@ -807,241 +812,6 @@ void ofxFenster::exitApp(){
 	OF_EXIT_APP(0);
 }
 
-//------------------------------------------------------------
-static void rotateMouseXY(ofOrientation orientation, double &x, double &y) {
-	int savedY;
-	switch(orientation) {
-		case OF_ORIENTATION_180:
-			x = ofGetWidth() - x;
-			y = ofGetHeight() - y;
-			break;
-
-		case OF_ORIENTATION_90_RIGHT:
-			savedY = y;
-			y = x;
-			x = ofGetWidth()-savedY;
-			break;
-
-		case OF_ORIENTATION_90_LEFT:
-			savedY = y;
-			y = ofGetHeight() - x;
-			x = savedY;
-			break;
-
-		case OF_ORIENTATION_DEFAULT:
-		default:
-			break;
-	}
-}
-
-//------------------------------------------------------------
-void ofxFenster::mouse_cb(GLFWwindow* windowP_, int button, int state, int mods) {
-	ofLogVerbose("ofxFenster") << "mouse button: " << button;
-
-#ifdef TARGET_OSX
-    //we do this as unlike glut, glfw doesn't report right click for ctrl click or middle click for alt click 
-    if( ofGetKeyPressed(OF_KEY_CONTROL) && button == GLFW_MOUSE_BUTTON_LEFT){
-        button = GLFW_MOUSE_BUTTON_RIGHT; 
-    }
-    if( ofGetKeyPressed(OF_KEY_ALT) && button == GLFW_MOUSE_BUTTON_LEFT){
-        button = GLFW_MOUSE_BUTTON_MIDDLE; 
-    }
-#endif
-
-	switch(button){
-	case GLFW_MOUSE_BUTTON_LEFT:
-		button = OF_MOUSE_BUTTON_LEFT;
-		break;
-	case GLFW_MOUSE_BUTTON_RIGHT:
-		button = OF_MOUSE_BUTTON_RIGHT;
-		break;
-	case GLFW_MOUSE_BUTTON_MIDDLE:
-		button = OF_MOUSE_BUTTON_MIDDLE;
-		break;
-	}
-	/*
-	if (state == GLFW_PRESS) {
-		ofNotifyMousePressed(ofGetMouseX(), ofGetMouseY(), button);
-		instance->buttonPressed=true;
-	} else if (state == GLFW_RELEASE) {
-		ofNotifyMouseReleased(ofGetMouseX(), ofGetMouseY(), button);
-		instance->buttonPressed=false;
-	}
-	instance->buttonInUse = button;
-	*/
-
-}
-
-//------------------------------------------------------------
-void ofxFenster::motion_cb(GLFWwindow* windowP_, double x, double y) {
-	rotateMouseXY(ofGetOrientation(), x, y);
-	/*
-	if(!instance->buttonPressed){
-		ofNotifyMouseMoved(x, y);
-	}else{
-		ofNotifyMouseDragged(x, y, instance->buttonInUse);
-	}
-	*/
-}
-
-//------------------------------------------------------------
-void ofxFenster::scroll_cb(GLFWwindow* windowP_, double x, double y) {
-	// ofSendMessage("scroll|"+ofToString(x,5) + "|" + ofToString(y,5));
-}
-
-//------------------------------------------------------------
-void ofxFenster::drop_cb(GLFWwindow* windowP_, const char* dropString) {
-	string drop = dropString;
-	ofDragInfo drag;
-	drag.position.set(ofGetMouseX(),ofGetMouseY());
-	drag.files = ofSplitString(drop,"\n",true);
-#ifdef TARGET_LINUX
-	for(int i=0; i<(int)drag.files.size(); i++){
-		drag.files[i] = Poco::URI(drag.files[i]).getPath();
-	}
-#endif
-	ofNotifyDragEvent(drag);
-}
-
-//------------------------------------------------------------
-void ofxFenster::keyboard_cb(GLFWwindow* windowP_, int key, int scancode, int action, int mods) {
-
-	ofLogVerbose("ofxFenster") << "key: " << key << " state: " << action;
-
-	switch (key) {
-		case GLFW_KEY_ESCAPE:
-			key = OF_KEY_ESC;
-			break;
-		case GLFW_KEY_F1:
-			key = OF_KEY_F1;
-			break;
-		case GLFW_KEY_F2:
-			key = OF_KEY_F2;
-			break;
-		case GLFW_KEY_F3:
-			key = OF_KEY_F3;
-			break;
-		case GLFW_KEY_F4:
-			key = OF_KEY_F4;
-			break;
-		case GLFW_KEY_F5:
-			key = OF_KEY_F5;
-			break;
-		case GLFW_KEY_F6:
-			key = OF_KEY_F6;
-			break;
-		case GLFW_KEY_F7:
-			key = OF_KEY_F7;
-			break;
-		case GLFW_KEY_F8:
-			key = OF_KEY_F8;
-			break;
-		case GLFW_KEY_F9:
-			key = OF_KEY_F9;
-			break;
-		case GLFW_KEY_F10:
-			key = OF_KEY_F10;
-			break;
-		case GLFW_KEY_F11:
-			key = OF_KEY_F11;
-			break;
-		case GLFW_KEY_F12:
-			key = OF_KEY_F12;
-			break;
-		case GLFW_KEY_LEFT:
-			key = OF_KEY_LEFT;
-			break;
-		case GLFW_KEY_RIGHT:
-			key = OF_KEY_RIGHT;
-			break;
-		case GLFW_KEY_UP:
-			key = OF_KEY_UP;
-			break;
-		case GLFW_KEY_DOWN:
-			key = OF_KEY_DOWN;
-			break;
-		case GLFW_KEY_PAGE_UP:
-			key = OF_KEY_PAGE_UP;
-			break;
-		case GLFW_KEY_PAGE_DOWN:
-			key = OF_KEY_PAGE_DOWN;
-			break;
-		case GLFW_KEY_HOME:
-			key = OF_KEY_HOME;
-			break;
-		case GLFW_KEY_END:
-			key = OF_KEY_END;
-			break;
-		case GLFW_KEY_INSERT:
-			key = OF_KEY_INSERT;
-			break;
-		case GLFW_KEY_LEFT_SHIFT:
-			key = OF_KEY_LEFT_SHIFT;
-			break;
-		case GLFW_KEY_LEFT_CONTROL:
-			key = OF_KEY_LEFT_CONTROL;
-			break;
-		case GLFW_KEY_LEFT_ALT:
-			key = OF_KEY_LEFT_ALT;
-			break;
-		case GLFW_KEY_LEFT_SUPER:
-			key = OF_KEY_LEFT_SUPER;
-			break;
-		case GLFW_KEY_RIGHT_SHIFT:
-			key = OF_KEY_RIGHT_SHIFT;
-			break;
-		case GLFW_KEY_RIGHT_CONTROL:
-			key = OF_KEY_RIGHT_CONTROL;
-			break;
-		case GLFW_KEY_RIGHT_ALT:
-			key = OF_KEY_RIGHT_ALT;
-			break;
-		case GLFW_KEY_RIGHT_SUPER:
-			key = OF_KEY_RIGHT_SUPER;
-            break;
-		case GLFW_KEY_BACKSPACE:
-			key = OF_KEY_BACKSPACE;
-			break;
-		case GLFW_KEY_DELETE:
-			key = OF_KEY_DEL;
-			break;
-		case GLFW_KEY_ENTER:
-			key = OF_KEY_RETURN;
-			break;
-		case GLFW_KEY_KP_ENTER:
-			key = OF_KEY_RETURN;
-			break;   
-		case GLFW_KEY_TAB:
-			key = OF_KEY_TAB;
-			break;   
-		default:
-			break;
-	}
-
-	//GLFW defaults to uppercase - OF users are used to lowercase
-    //we look and see if shift is being held to toggle upper/lowecase 
-	if( key >= 65 && key <= 90 && !ofGetKeyPressed(OF_KEY_SHIFT) ){
-		key += 32;
-	}
-
-	if(action == GLFW_PRESS || action == GLFW_REPEAT){
-		ofNotifyKeyPressed(key);
-		if (key == OF_KEY_ESC){				// "escape"
-			exitApp();
-		}
-	}else if (action == GLFW_RELEASE){
-		ofNotifyKeyReleased(key);
-	}
-}
-
-//------------------------------------------------------------
-void ofxFenster::resize_cb(GLFWwindow* windowP_,int w, int h) {
-	//instance->windowW = w;
-	//instance->windowH = h;
-	ofNotifyWindowResized(w, h);
-
-	//instance->nFramesSinceWindowResized = 0;
-}
 
 //------------------------------------------------------------
 void ofxFenster::setVerticalSync(bool bVerticalSync){
@@ -1086,6 +856,10 @@ void ofxFenster::iconify(bool bIconify){
 		glfwRestoreWindow(windowP);
 }
 
+GLFWwindow* ofxFenster::getGlfwPtr()
+{
+	return windowP;
+}
 
 #if defined(TARGET_LINUX) && !defined(TARGET_RASPBERRY_PI)
 Display* ofxFenster::getX11Display(){
