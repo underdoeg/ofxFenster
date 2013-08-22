@@ -294,16 +294,16 @@ void ofxFenster::runAppViaInfiniteLoop(ofBaseApp * appPtr){
 void ofxFenster::display(bool notifyDraw){
 	
 	glfwMakeContextCurrent(windowP);
-	
+
 	ofPtr<ofGLProgrammableRenderer> renderer = ofGetGLProgrammableRenderer();
 	if(renderer){
 		renderer->startRender();
 	}
 	
-	ofPushView();
+	//ofPushView();
 	
-	ofViewport(0, 0, getWidth(), getHeight());
-	cout << getWidth() << endl;
+	glViewport(0, 0, getWidth(), getHeight());
+	//cout << getHeight() << endl;
 	
 	float * bgPtr = ofBgColorPtr();
 	bool bClearAuto = ofbClearBg();
@@ -366,7 +366,7 @@ void ofxFenster::display(bool notifyDraw){
 	
 	nFramesSinceWindowResized++;
 	
-	ofPopView();
+	//ofPopView();
 }
 
 //------------------------------------------------------------

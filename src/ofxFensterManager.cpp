@@ -88,6 +88,7 @@ void ofxFensterManager::setupWindow(ofxFenster* window, int x, int y, int w, int
 {
 	window->setupOpenGL(w, h, screenMode);
 	window->setWindowPosition(x, y);
+	window->initializeWindow();
 	addWindow(window);
 }
 
@@ -343,6 +344,7 @@ void ofxFensterManager::resize_cb(GLFWwindow* windowP_,int w, int h) {
 	ofxFensterPtr fenster = get()->getFensterByGlfwHandle(windowP_);
 	fenster->windowW = w;
 	fenster->windowH = h;
+	cout << h << endl;
 	if(fenster == get()->mainWindow)
 		ofNotifyWindowResized(w, h);
 	fenster->nFramesSinceWindowResized = 0;
