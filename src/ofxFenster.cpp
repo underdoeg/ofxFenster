@@ -208,7 +208,8 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode){
 			return;
 		}
 	}else{
-		windowP = glfwCreateWindow(w, h, "", NULL, shared);
+		GLFWwindow* sharedContext = glfwGetCurrentContext(); // bm: shared crash fix
+		windowP = glfwCreateWindow(w, h, "", NULL, sharedContext);
 		if(!windowP){
 			ofLogError("ofxFenster") << "couldn't create GLFW window";
 		}
@@ -234,6 +235,9 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode){
         ofLogError("ofxFenster") << "couldn't create window";
         return;
     }
+	if (!shared) // bm: shared crash fix
+		glfwMakeContextCurrent(windowP);
+
 
 	windowMode = requestedMode;
 
