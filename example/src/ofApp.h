@@ -36,6 +36,10 @@ public:
 		cout << "KEY RELEASED " << (char)key << endl;
 	}
 	
+	void windowResized(int x, int y){
+		cout << "WINDOW RESIZED " << x << "," << y << endl;
+	}
+	
 	float radius;
 };
 

@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>17C53DAF-1943-4BFA-ADAA-DA8AA94F17D3</string>
+	<string>09E6BC23-FC66-4F04-B152-FB4D89B23CAD</string>
 	<key>IDESourceControlProjectName</key>
 	<string>example</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>807FFC78-475C-4952-B8AE-2FC593035766</key>
-		<string>https://github.com/underdoeg/ofxFenster.git</string>
+		<key>91963F07-904C-49D0-8206-720560613878</key>
+		<string>https://github.com/sheridanis/ofxFenster.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>example/example.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>807FFC78-475C-4952-B8AE-2FC593035766</key>
+		<key>91963F07-904C-49D0-8206-720560613878</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/underdoeg/ofxFenster.git</string>
+	<string>https://github.com/sheridanis/ofxFenster.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>807FFC78-475C-4952-B8AE-2FC593035766</string>
+	<string>91963F07-904C-49D0-8206-720560613878</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>807FFC78-475C-4952-B8AE-2FC593035766</string>
+			<string>91963F07-904C-49D0-8206-720560613878</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxFenster</string>
 		</dict>
