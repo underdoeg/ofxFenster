@@ -281,8 +281,9 @@ void ofxFensterManager::scroll_cb(GLFWwindow* windowP_, double x, double y)
     args.x = fenster->curMouseX;
     args.y = fenster->curMouseY;
     args.type = ofMouseEventArgs::Pressed;
-    ofNotifyEvent(fenster->onMousePressed, args);
+    args.button = button;
     fenster->buttonInUse = button;
+    ofNotifyEvent(fenster->onMousePressed, args);
 }
 
 //------------------------------------------------------------
