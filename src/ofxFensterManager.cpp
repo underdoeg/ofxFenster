@@ -258,7 +258,31 @@ void ofxFensterManager::motion_cb(GLFWwindow* windowP_, double x, double y)
 //------------------------------------------------------------
 void ofxFensterManager::scroll_cb(GLFWwindow* windowP_, double x, double y)
 {
-    // ofSendMessage("scroll|"+ofToString(x,5) + "|" + ofToString(y,5));
+    ofxFensterPtr fenster = get()->getFensterByGlfwHandle(windowP_);
+    int button;
+
+    if(y == 1)
+    {
+        button = OF_MOUSE_BUTTON_4;
+    }
+    else if(y == -1)
+    {
+        button = OF_MOUSE_BUTTON_5;
+    }
+
+    if(fenster == get()->mainWindow)
+    {
+        ofNotifyMousePressed(ofGetMouseX(), ofGetMouseY(), button);
+    }
+
+    fenster->buttonPressed = true;
+
+    ofMouseEventArgs args;
+    args.x = fenster->curMouseX;
+    args.y = fenster->curMouseY;
+    args.type = ofMouseEventArgs::Pressed;
+    ofNotifyEvent(fenster->onMousePressed, args);
+    fenster->buttonInUse = button;
 }
 
 //------------------------------------------------------------
