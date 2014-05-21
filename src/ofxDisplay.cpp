@@ -10,10 +10,12 @@
 #include "ofxDisplay.h"
 
 
-ofxDisplay::ofxDisplay(){
+ofxDisplay::ofxDisplay()
+{
 
 };
 
-ofxDisplay::~ofxDisplay(){
+ofxDisplay::~ofxDisplay()
+{
 
 };

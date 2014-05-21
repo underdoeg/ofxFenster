@@ -15,18 +15,19 @@
 typedef ofPtr<ofxDisplay> ofxDisplayPtr;
 typedef std::vector<ofxDisplay*> ofxDisplayList;
 
-class ofxDisplayManager{
+class ofxDisplayManager
+{
 public:
-	ofxDisplayManager();
-	~ofxDisplayManager();
+    ofxDisplayManager();
+    ~ofxDisplayManager();
 
-	static ofxDisplayManager* get();
-	virtual ofxDisplayList getDisplays();
+    static ofxDisplayManager* get();
+    virtual ofxDisplayList getDisplays();
 protected:
 private:
 
-	static bool hasSingleton;
-	static ofxDisplayManager* singleton;
+    static bool hasSingleton;
+    static ofxDisplayManager* singleton;
 };
 
 /***LINUX***/
@@ -34,18 +35,20 @@ private:
 #ifdef TARGET_LINUX
 #include <X11/extensions/Xrandr.h>
 
-class ofxDisplayManagerLinux: public ofxDisplayManager{
+class ofxDisplayManagerLinux: public ofxDisplayManager
+{
 public:
-	ofxDisplayList getDisplays();
+    ofxDisplayList getDisplays();
 };
 #endif
 
 /***MAC***/
 
 #ifdef TARGET_OSX
-class ofxDisplayManagerMac: public ofxDisplayManager{
+class ofxDisplayManagerMac: public ofxDisplayManager
+{
 public:
-	ofxDisplayList getDisplays();
+    ofxDisplayList getDisplays();
 };
 #endif
 
@@ -53,9 +56,10 @@ public:
 
 #ifdef TARGET_WIN32
 #include <windows.h>
-class ofxDisplayManagerWin: public ofxDisplayManager{
+class ofxDisplayManagerWin: public ofxDisplayManager
+{
 public:
-	ofxDisplayList getDisplays();
+    ofxDisplayList getDisplays();
 };
 #endif
 

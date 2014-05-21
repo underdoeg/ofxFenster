@@ -12,15 +12,16 @@
 
 #include "ofMain.h"
 
-class ofxDisplay{
+class ofxDisplay
+{
 public:
-      ofxDisplay();
-      ~ofxDisplay();
-	int id;
-	int width;
-	int height;
-	int x;
-	int y;
+    ofxDisplay();
+    ~ofxDisplay();
+    int id;
+    int width;
+    int height;
+    int x;
+    int y;
 protected:
 private:
 };
@@ -30,9 +31,10 @@ private:
 #ifdef TARGET_LINUX
 #include <X11/extensions/Xrandr.h>
 
-class ofxDisplayLinux: public ofxDisplay{
+class ofxDisplayLinux: public ofxDisplay
+{
 public:
-	Display* display;
+    Display* display;
 };
 #endif
 
@@ -47,9 +49,10 @@ public:
 
 #ifdef TARGET_WIN32
 
-class ofxDisplayWindows: public ofxDisplay{
+class ofxDisplayWindows: public ofxDisplay
+{
 public:
-	DISPLAY_DEVICE* display;
+    DISPLAY_DEVICE* display;
 };
 #endif
 
