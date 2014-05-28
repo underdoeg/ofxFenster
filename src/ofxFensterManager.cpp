@@ -510,6 +510,11 @@ void ofxFensterManager::resize_cb(GLFWwindow* windowP_, int w, int h)
     }
 
     fenster->nFramesSinceWindowResized = 0;
+
+    ofResizeEventArgs args;
+    args.width = w;
+    args.height = h;
+    ofNotifyEvent(fenster->onWindowResize, args);
 }
 
 void ofxFensterManager::exit_cb(GLFWwindow* windowP_)
