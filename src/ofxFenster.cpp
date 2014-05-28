@@ -232,7 +232,8 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode)
     }
     else
     {
-        windowP = glfwCreateWindow(w, h, "", NULL, shared);
+        GLFWwindow* sharedContext = glfwGetCurrentContext(); // bm: shared crash fix
+        windowP = glfwCreateWindow(w, h, "", NULL, sharedContext);
 
         if(!windowP)
         {
@@ -269,6 +270,12 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode)
         return;
     }
 
+    if(!shared)  // bm: shared crash fix
+    {
+        glfwMakeContextCurrent(windowP);
+    }
+
+
     windowMode = requestedMode;
 
     setVerticalSync(false);
@@ -292,7 +299,7 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode)
 }
 
 //--------------------------------------------
-void ofxFenster::exit_cb(GLFWwindow* windowP_)
+void ofxFenster::exit_cb(GLFWwindow * windowP_)
 {
     OF_EXIT_APP(0);
 }
