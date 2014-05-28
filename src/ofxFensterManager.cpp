@@ -135,6 +135,7 @@ void ofxFensterManager::mouse_cb(GLFWwindow* windowP_, int button, int state, in
 		ofMouseEventArgs args;
 		args.x = fenster->curMouseX;
 		args.y = fenster->curMouseY;
+		args.button = button;  // button setup fix
 		args.type = ofMouseEventArgs::Pressed;
 		ofNotifyEvent(fenster->onMousePressed, args);
 	} else if (state == GLFW_RELEASE) {
@@ -146,6 +147,7 @@ void ofxFensterManager::mouse_cb(GLFWwindow* windowP_, int button, int state, in
 		ofMouseEventArgs args;
 		args.x = fenster->curMouseX;
 		args.y = fenster->curMouseY;
+		args.button = button; // button setup fix
 		args.type = ofMouseEventArgs::Released;
 		ofNotifyEvent(fenster->onMouseReleased, args);
 	}
