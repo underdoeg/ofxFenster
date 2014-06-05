@@ -9,8 +9,9 @@
 
 #ifdef TARGET_OSX
 #include <Cocoa/Cocoa.h>
-class ofxDisplayMac: public ofxDisplay{
+class ofxDisplayMac: public ofxDisplay
+{
 public:
-	NSScreen* screen;
+    NSScreen* screen;
 };
 #endif
