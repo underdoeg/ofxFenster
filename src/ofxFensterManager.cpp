@@ -217,8 +217,8 @@ void ofxFensterManager::scroll_cb(GLFWwindow* windowP_, double x, double y) {
 }
 
 //------------------------------------------------------------
-void ofxFensterManager::drop_cb(GLFWwindow* windowP_, const char* dropString) {
-	string drop = dropString;
+void ofxFensterManager::drop_cb(GLFWwindow* windowP_, int numFiles, const char** dropString) {
+	string drop = *dropString;
 	ofDragInfo drag;
 	drag.position.set(ofGetMouseX(),ofGetMouseY());
 	drag.files = ofSplitString(drop,"\n",true);
@@ -231,7 +231,7 @@ void ofxFensterManager::drop_cb(GLFWwindow* windowP_, const char* dropString) {
 }
 
 //------------------------------------------------------------
-void ofxFensterManager::keyboard_cb(GLFWwindow* windowP_, int key, int scancode, int action, int mods) {
+void ofxFensterManager::keyboard_cb(GLFWwindow* windowP_, int key, int scancode, unsigned int codepoint, int action, int mods) {
 
 	ofLogVerbose("ofxFenster") << "key: " << key << " state: " << action;
 
@@ -363,7 +363,7 @@ void ofxFensterManager::keyboard_cb(GLFWwindow* windowP_, int key, int scancode,
 		ofNotifyEvent(fenster->onKeyPressed, args);
 			
 		if (key == OF_KEY_ESC) {				// "escape"
-			exitApp();
+			ofExit();
 		}
 	} else if (action == GLFW_RELEASE) {
 		if(fenster == get()->mainWindow)

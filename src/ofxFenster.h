@@ -18,7 +18,7 @@
 //class ofVec3f;
 class ofxFensterManager;
 
-class ofxFenster : public ofAppBaseWindow, public ofBaseApp {
+class ofxFenster : public ofAppBaseGLWindow, public ofBaseApp {
 	
 	GLFWwindow* windowP;
 

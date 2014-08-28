@@ -7,7 +7,7 @@
 
 typedef ofPtr<ofxFenster> ofxFensterPtr;
 
-class ofxFensterManager: public ofAppBaseWindow{
+class ofxFensterManager: public ofAppBaseGLWindow{
 public:
 	ofxFensterPtr createWindow(int x, int y, int w, int h, int screenMode=OF_WINDOW);
 	ofxFensterPtr createWindow(int w=1280, int h=720, int screenMode=OF_WINDOW);
@@ -26,11 +26,11 @@ private:
 
 	static void mouse_cb(GLFWwindow* windowP_, int button, int state, int mods);
 	static void motion_cb(GLFWwindow* windowP_, double x, double y);
-	static void keyboard_cb(GLFWwindow* windowP_, int key, int scancode, int action, int mods);
+	static void keyboard_cb(GLFWwindow* windowP_, int key, int scancode, unsigned int codepoint, int action, int mods);
 	static void resize_cb(GLFWwindow* windowP_, int w, int h);
 	static void exit_cb(GLFWwindow* windowP_);
 	static void scroll_cb(GLFWwindow* windowP_, double x, double y);
-	static void drop_cb(GLFWwindow* windowP_, const char* dropString);
+	static void drop_cb(GLFWwindow* windowP_, int numFiles, const char** dropString);
 
 	ofxFensterManager();
 	~ofxFensterManager();

@@ -42,7 +42,7 @@
 void ofGLReadyCallback();
 
 //-------------------------------------------------------
-ofxFenster::ofxFenster():ofAppBaseWindow(){
+ofxFenster::ofxFenster():ofAppBaseGLWindow(){
 	ofLogVerbose("ofxFenster") << "creating GLFW window";
 	bEnableSetupScreen	= true;
 	buttonInUse			= 0;
