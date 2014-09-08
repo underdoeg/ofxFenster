@@ -45,7 +45,7 @@ public:
 
     // this functions are only meant to be called from inside OF don't call them from your code
 	void setOpenGLVersion(int major, int minor);
-	void setupOpenGL(int w, int h, int screenMode);
+	void setupOpenGL(int w, int h, ofWindowMode screenMode);
 	void initializeWindow();
 	void runAppViaInfiniteLoop(ofBaseApp * appPtr);
 
@@ -67,7 +67,7 @@ public:
 	void			setOrientation(ofOrientation orientation);
 	ofOrientation	getOrientation();
 
-	int			getWindowMode();
+	ofWindowMode    getWindowMode();
 
 	void		setFullscreen(bool fullscreen);
 	void		toggleFullscreen();
@@ -151,7 +151,7 @@ private:
 	int				samples;
 	int				rBits,gBits,bBits,aBits,depthBits,stencilBits;
 
-	int				windowMode;
+	ofWindowMode	windowMode;
 
 	bool			bEnableSetupScreen;
 

@@ -150,7 +150,7 @@ void ofxFenster::setOpenGLVersion(int major, int minor){
 }
 
 //------------------------------------------------------------
-void ofxFenster::setupOpenGL(int w, int h, int screenMode){
+void ofxFenster::setupOpenGL(int w, int h, ofWindowMode screenMode){
 
 	requestedWidth = w;
 	requestedHeight = h;
@@ -163,7 +163,7 @@ void ofxFenster::setupOpenGL(int w, int h, int screenMode){
 
 //	ofLogNotice("ofxFenster") << "WINDOW MODE IS " << screenMode;
 
-	int requestedMode = screenMode;
+	ofWindowMode requestedMode = screenMode;
 
 	glfwWindowHint(GLFW_RED_BITS, rBits);
 	glfwWindowHint(GLFW_GREEN_BITS, gBits);
@@ -511,7 +511,7 @@ int ofxFenster::getHeight()
 }
 
 //------------------------------------------------------------
-int	ofxFenster::getWindowMode(){
+ofWindowMode ofxFenster::getWindowMode(){
 	return windowMode;
 }
 

@@ -9,16 +9,16 @@ typedef ofPtr<ofxFenster> ofxFensterPtr;
 
 class ofxFensterManager: public ofAppBaseGLWindow{
 public:
-	ofxFensterPtr createWindow(int x, int y, int w, int h, int screenMode=OF_WINDOW);
-	ofxFensterPtr createWindow(int w=1280, int h=720, int screenMode=OF_WINDOW);
-	void setupWindow(ofxFenster* window, int x, int y, int w, int h, int screenMode=OF_WINDOW);
-	void setupWindow(ofxFenster* window, int w=1280, int h=720, int screenMode=OF_WINDOW);
+	ofxFensterPtr createWindow(int x, int y, int w, int h, ofWindowMode screenMode=OF_WINDOW);
+	ofxFensterPtr createWindow(int w=1280, int h=720, ofWindowMode screenMode=OF_WINDOW);
+	void setupWindow(ofxFenster* window, int x, int y, int w, int h, ofWindowMode screenMode=OF_WINDOW);
+	void setupWindow(ofxFenster* window, int w=1280, int h=720, ofWindowMode screenMode=OF_WINDOW);
 	
 	ofxFensterPtr getMainWindow();
 	void runAppViaInfiniteLoop(ofBaseApp * appPtr);
 		
 	static ofxFensterManager* get();
-	static void setup(int w=1280, int h=720, int screenMode=OF_WINDOW);
+	static void setup(int w=1280, int h=720, ofWindowMode screenMode=OF_WINDOW);
 	
 private:
 	ofxFensterPtr getFensterByGlfwHandle(GLFWwindow* windowP);

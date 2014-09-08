@@ -32,7 +32,7 @@ ofxFensterManager* ofxFensterManager::instance = NULL;
 
 
 
-void ofxFensterManager::setup(int w, int h, int screenMode) {
+void ofxFensterManager::setup(int w, int h, ofWindowMode screenMode) {
 	ofxFensterManager* manager = get();
 	ofSetupOpenGL(manager->getMainWindow(), w, h,OF_WINDOW);			// <-------- setup the GL context
 	ofGLReadyCallback();
@@ -60,21 +60,21 @@ void ofxFensterManager::runAppViaInfiniteLoop(ofBaseApp* appPtr) {
 	}
 }
 
-ofxFensterPtr ofxFensterManager::createWindow(int w, int h, int screenMode) {
+ofxFensterPtr ofxFensterManager::createWindow(int w, int h, ofWindowMode screenMode) {
 	return createWindow(0, 0, w, h, screenMode);
 }
 
-ofxFensterPtr ofxFensterManager::createWindow(int x, int y, int w, int h, int screenMode) {
+ofxFensterPtr ofxFensterManager::createWindow(int x, int y, int w, int h, ofWindowMode screenMode) {
 	ofxFenster* fenster = new ofxFenster();
 	setupWindow(fenster, x, y, w, h, screenMode);
 	return ofxFensterPtr(fenster);
 }
 
-void ofxFensterManager::setupWindow(ofxFenster* window, int w, int h, int screenMode) {
+void ofxFensterManager::setupWindow(ofxFenster* window, int w, int h, ofWindowMode screenMode) {
 	setupWindow(window, 0, 0, w, h, screenMode);
 }
 
-void ofxFensterManager::setupWindow(ofxFenster* window, int x, int y, int w, int h, int screenMode) {
+void ofxFensterManager::setupWindow(ofxFenster* window, int x, int y, int w, int h, ofWindowMode screenMode) {
 	window->setupOpenGL(w, h, screenMode);
 	window->setWindowPosition(x, y);
 	window->initializeWindow();
