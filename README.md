@@ -1,3 +1,5 @@
+MULTIWINDOW IS NOW INTEGRATED INTO OPENFRAMEWORKS
+
 REDESIGN
 ======================
 I am currently in the process of redesigning ofxFenster so it will use the now integrated GLFW libs. This is not complete yet. If you are looking for the old ghost version, check the ghost branch.
